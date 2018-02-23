@@ -2,11 +2,11 @@
   "users": [
     {
       "id": "346758543489105941",
-      "prayers": 1000030,
+      "prayers": 1000089,
       "lastpraydate": 1518136113282,
       "lastcursedate": 1519092123495,
-      "laststealdate": 1517962209682,
-      "churchnum": 1,
+      "laststealdate": 1519345254409,
+      "churchnum": 2,
       "username": "Swag"
     },
     {
@@ -48,11 +48,11 @@
     {
       "id": "148606950274236416",
       "username": "Zerves",
-      "prayers": 2,
+      "prayers": 36,
       "lastcursedate": 0,
       "laststealdate": 1517529594889,
-      "lastpraydate": 1518198712201,
-      "churchnum": 0
+      "lastpraydate": 1519345244057,
+      "churchnum": 1
     },
     {
       "id": "328381820372647937",
@@ -67,7 +67,7 @@
       "id": "367512576973864970",
       "username": "mobs99",
       "prayers": 30,
-      "churchnum": 6,
+      "churchnum": 0,
       "lastcursedate": 0,
       "laststealdate": 1518993181347,
       "lastpraydate": 1518993028353
@@ -129,7 +129,7 @@
       "id": "247428498061262849",
       "username": "GoldMan",
       "churchnum": 1,
-      "prayers": 9,
+      "prayers": 43,
       "lastpraydate": 1517619695569,
       "lastcursedate": 1517081446833,
       "laststealdate": 1517081446833

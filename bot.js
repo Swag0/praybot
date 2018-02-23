@@ -62,6 +62,11 @@ client.on('ready', () => {
 });
 //86400000 = 24 hrs.
 
+client.on('error', err => {
+  console.log(err.message);
+  console.log("something maybe did sad")
+});
+
 
 client.on('message', msg => {
   if (!msg.author.bot) {
