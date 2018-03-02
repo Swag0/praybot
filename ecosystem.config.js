@@ -28,7 +28,7 @@ module.exports = {
       host : '45.77.155.185',
       ref  : 'origin/master',
       repo : 'git@github.com:Swag0/praybot.git',
-      path : '/var/www/production',
+      path : '~/PrayBot',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     },
     dev : {
