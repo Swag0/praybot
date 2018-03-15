@@ -58,7 +58,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
 
-  setInterval(AddChurchIncome, 10000);
+  setInterval(AddChurchIncome, 86400000);
 });
 //86400000 = 24 hrs.
 
