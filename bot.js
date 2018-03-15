@@ -1,3 +1,5 @@
+import { isNull } from "util";
+
 "use strict";
 
 const util = require("util");
@@ -58,7 +60,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
 
-  setInterval(AddChurchIncome, 86400000);
+  setInterval(AddChurchIncome, 10000);
 });
 //86400000 = 24 hrs.
 
@@ -153,6 +155,12 @@ function AddChurchIncome() {
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
   console.log("Church Income")
+  client.guilds.forEach((guild) => {
+   let channel = guild.channels.find("name", "church")
+    if (channel !== null && channel !== undefined){
+      channel.send("Church Income Recieved")
+    }
+  })
 }
 
 function CheckifUserExists(id) {
