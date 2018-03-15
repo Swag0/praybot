@@ -152,13 +152,13 @@ function AddChurchIncome() {
 
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
-  console.log("Church Income")
+  console.log("Church Income");
   client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church")
+   let channel = guild.channels.find("name", "church");
     if (channel !== null && channel !== undefined){
-      channel.send("Church Income Recieved")
+      channel.send("Church Income Recieved");
     }
-  })
+  });
 }
 
 function CheckifUserExists(id) {
