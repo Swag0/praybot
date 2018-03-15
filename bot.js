@@ -1,5 +1,3 @@
-import { isNull } from "util";
-
 "use strict";
 
 const util = require("util");
