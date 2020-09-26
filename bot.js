@@ -34,7 +34,7 @@ db.defaultsDeep({
   }]
 }).write();
 
-/*function GetRoleID(rolename, member) {
+function GetRoleID(rolename, member) {
   let roles = member.guild.roles
   
   let role = roles.find("name", rolename).id;
@@ -63,10 +63,10 @@ function AssignRole(member){
     member.addRole(GetRoleID("God", member));
   }
 }
-*/
+
 
 client.on('ready', () => {
-  console.log(`Watching 2 Servers`)
+  console.log(`Watching 3 Servers`)
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
 
@@ -198,7 +198,7 @@ function BuyChurch(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - ChurchPrice }).write();
     
 
-      msg.reply("You bought a church for only 10 prayers.")
+      msg.reply("You bought a church for only 10 prayers. NOW STOP TALKING TO ME! I HAVE TO MAKE IT!")
       msg.reply("You now have " + (currentChurchNum + 1) + " churches. But is that enough?")
       console.log(msg.author.username + " has bought a church.")
   } else {
@@ -280,7 +280,7 @@ function BuyCommunity(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - CommunityPrice }).write();
     
 
-      msg.reply("You bought a community for only 1,000 prayers.")
+      msg.reply("You bought a community for only 1,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
       msg.reply("You now have " + (currentCommunityNum + 1) + " communities. But is that enough?")
       console.log(msg.author.username + " has bought a community.")
   } else {
@@ -368,7 +368,7 @@ function CurseAtUser(msg) {
 
   msg.channel.send("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
 
-  //AssignRole(msg.member);
+  AssignRole(msg.member);
 } else {
   msg.channel.send("You have annoyed us far too much. Continue your petty arguement later.")
 }}
@@ -465,8 +465,8 @@ function StealPrayers(msg) {
   .write();
   if (prayersteal > 0) {
      msg.reply("You gained " + prayersteal + " prayers.")
-     //AssignRole(msg.member);
-     //AssignRole(msg.mentions.members.first());
+     AssignRole(msg.member);
+     AssignRole(msg.mentions.members.first());
   } else {
      msg.reply("You didn't honor the kindness of the gods. You lost " + positivesteal + " prayers")
   }
@@ -500,7 +500,7 @@ function BuyCity(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - CityPrice }).write();
     
 
-      msg.reply("You bought a city for only 10,000 prayers.")
+      msg.reply("You bought a city for only 10,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
       msg.reply("You now have " + (currentCityNum + 1) + " city. But is that enough?")
       console.log(msg.author.username + " has bought a city.")
   } else {
@@ -564,7 +564,7 @@ function BuyProvince(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - ProvincePrice }).write();
     
 
-      msg.reply("You bought a province for only 100,000 prayers. ")
+      msg.reply("You bought a province for only 100,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
       msg.reply("You now have " + (currentProvinceNum + 1) + " provinces. But is that enough?")
       console.log(msg.author.username + " has bought a province.")
   } else {
@@ -617,7 +617,7 @@ function IncrementUserPrayers(msg) {
 
   CheckifUserExists(msg.author.id);
   if (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate > 3600000) {
-    msg.reply("You have been acknowledged for praying to your gods. Do not pray again for an hour for fear of angering the gods.");
+    msg.reply("You have been acknowledged for praying to your gods. Without them, there would be no fweinds, and there would be no wee. Do not pray again for an hour for fear of angering the gods.");
 
     let currentprayers = userstore.find({
       id: msg.author.id
@@ -634,7 +634,7 @@ function IncrementUserPrayers(msg) {
 
   console.log(msg.author.username + " has " + userstore.find({ id: msg.author.id }).value().prayers + " prayers ");
     msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
-    //AssignRole(msg.member);
+    AssignRole(msg.member);
   } else {
     msg.channel.send("You are an insignificant being. Please pray later.");
   }
@@ -672,6 +672,8 @@ function Help(msg) {
   Type checkcities @target to check how many cities the target has
   Type checkprovinces @target to check how many provinces the target has
   Type checkall @target to check how many prayers, churches, communities, cities, and provinces the target is enslaving.
+  --------------------------------------Rewards--------------------------------
+  10 prayers for @Prayer role. 50 prayers for @Exstremist role. 100 prayers for @Priest role. 250 prayers for @Prophet role. 500 prayers for @God role.
   ---------------------------------------Gift----------------------------------
   Type "gift @target *num*" to give *num* prayers to @target
   --------------------------------------Others---------------------------------
