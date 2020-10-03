@@ -47,7 +47,7 @@ function AssignRole(member){
   console.log("Giving faithful supporters roles in their otherwise useless lives")
   let userstore = db.get('users')
   let usersprayers = userstore.find({ id: member.id}).value().prayers;
-  if (usersprayers > 9) {
+  /*if (usersprayers > 9) {
     member.addRole(GetRoleID("Prayer", member));
   }
   if (usersprayers > 49) {
@@ -61,7 +61,7 @@ function AssignRole(member){
   }
   if (usersprayers > 499) {
     member.addRole(GetRoleID("God", member));
-  }
+  }*/
 }
 
 
@@ -86,79 +86,78 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    if (msg.content === "how many prays do i have" || msg.content === "pray number" || msg.content === "!praynumber" || msg.content === "how many prays do I have?" || msg.content === "how many prays do I have" || msg.content === "praycount") {
+    if (msg.content === "†praycount" || msg.content === "†Praycount" || msg.content === "+praycount" || msg.content === "+Praycount") {
       let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
+      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");  
     }
-
-    if (msg.content === "!pray" || msg.content === "pray" || msg.content === "Pray" || msg.content === "!Pray" || msg.content === "PRAY") {
+    if (msg.content === "†pray" || msg.content === "+pray") {
       IncrementUserPrayers(msg);
     }
-    else if (msg.content.startsWith("!curse") || msg.content.startsWith("swear") || msg.content.startsWith("curse")) {
+    else if (msg.content.startsWith("†curse") || msg.content.startsWith("+curse")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CurseAtUser(msg);
       }
     }
-    else if (msg.content.startsWith("steal") || msg.content.startsWith("!take")) {
+    else if (msg.content.startsWith("†steal") || msg.content.startsWith("+steal")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         StealPrayers(msg);
       }
     }
-    else if (msg.content === "repose" || msg.content === "help") {
-      Help(msg);
-    }
-    else if (msg.content === "buildchurch" || msg.content === "church" || msg.content === "build me a church" ){
+    //else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
+    //  Help(msg);
+    //}
+    else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church"){
       BuyChurch(msg);
     }
-    else if (msg.content === "buildcommunity" || msg.content === "community" || msg.content === "build me a community" ){
+    else if (msg.content === "†buildcommunity" || msg.content === "†community" || msg.content === "+buildcommunity" || msg.content === "+community"){
       BuyCommunity(msg);
     }
-    else if (msg.content === "buildcity" || msg.content === "city" || msg.content === "build me a city" ){
+    else if (msg.content === "†buildcity" || msg.content === "†city" || msg.content === "+buildcity" || msg.content === "+city"){
       BuyCity(msg);
     }
-    else if (msg.content === "buildprovince" || msg.content === "province" || msg.content === "build me a province" ){
+    else if (msg.content === "†buildprovince" || msg.content === "†province" || msg.content === "+buildprovince" || msg.content === "+province" ){
       BuyProvince(msg);
     }
-    else if (msg.content === "churchnum" || msg.content === "churchcount" || msg.content === "how many churches do i have"){
+    else if (msg.content === "†churchnum" || msg.content === "†churchcount" || msg.content === "+churchcount" || msg.content === "+churchnum"){
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().churchnum + " churches");
     }
-    else if (msg.content === "communitynum" || msg.content === "communitycount" || msg.content === "how many communities do i have"){
+    else if (msg.content === "†communitynum" || msg.content === "†communitycount" || msg.content === "+communitycount" || msg.content === "+communitynum"){
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().communitynum + " communities");
     }
-    else if (msg.content === "citynum" || msg.content === "citycount" || msg.content === "how many cities do i have"){
+    else if (msg.content === "†citynum" || msg.content === "†citycount" || msg.content === "+citynum" || msg.content === "+citycount"){
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().citynum + " cities");
     }
-    else if (msg.content === "provincenum" || msg.content === "provincecount" || msg.content === "how many provinces do i have"){
+    else if (msg.content === "†provincenum" || msg.content === "†provincecat" || msg.content === "+provincenum" || msg.content === "+provincecount" ){
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().provincenum + " provinces");
     }
-    else if (msg.content === "invite" || msg.content === "invite bot") {
+    else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
     }
-    else if (msg.content.startsWith("checkchurch") || msg.content.startsWith("checkchurches")) {
+    else if (msg.content.startsWith("†checkchurch") || msg.content.startsWith("+checkchurch")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckChurches(msg);   
     }}
-    else if (msg.content.startsWith("checkprayers") || msg.content.startsWith("checkpray")) {
+    else if (msg.content.startsWith("†checkpray") || msg.content.startsWith("+checkpray")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckPrayers(msg);
     }}
-    else if (msg.content.startsWith("checkcommunities") || msg.content.startsWith("checkcommunity")) {
+    else if (msg.content.startsWith("+checkcommunity") || msg.content.startsWith("†checkcommunity")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckCommunity(msg);
     }}
-    else if (msg.content.startsWith("checkcities") || msg.content.startsWith("checkcity")) {
+    else if (msg.content.startsWith("†checkcity") || msg.content.startsWith("+checkcity")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckCity(msg);
     }}
-    else if (msg.content.startsWith("checkprovinces") || msg.content.startsWith("checkprovince")) {
+    else if (msg.content.startsWith("†checkprovince") || msg.content.startsWith("+checkprovince")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckProvince(msg);
     }}
-    else if (msg.content.startsWith("checkall")) {
+    else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckPrayers(msg);
         CheckChurches(msg);
@@ -166,13 +165,13 @@ client.on('message', msg => {
         CheckCity(msg);
         CheckProvince(msg);
     }}
-    else if (msg.content.startsWith("gift")) {
+    else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         GiftPrayers(msg);
       }
     }
     else if (msg.content === "levels") {
-     msg.reply("Different levels are prayers, church, community, city, province - Coming soon: country, continent, planet, solarsystem, galaxy, universe, dimension, multiverse, and then crying babies.")
+     msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     }
 });
@@ -198,12 +197,12 @@ function BuyChurch(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - ChurchPrice }).write();
     
 
-      msg.reply("You bought a church for only 10 prayers. NOW STOP TALKING TO ME! I HAVE TO MAKE IT!")
-      msg.reply("You now have " + (currentChurchNum + 1) + " churches. But is that enough?")
+      msg.reply("You bought a church for only 10 prayers.")
+      msg.reply("You now have " + (currentChurchNum + 1) + " churches.")
       console.log(msg.author.username + " has bought a church.")
   } else {
-      msg.reply("Ouch, get your head in the game. Get 10 prayers or be a dissapointment.")
-      msg.reply("You have " + (currentChurchNum) + " churches. Get more or lose in the game of praying.")
+      msg.reply("You need 10 prayers to build a church.")
+      msg.reply("You have " + (currentChurchNum) + " churches. ")
   }
 }
 
@@ -280,12 +279,12 @@ function BuyCommunity(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - CommunityPrice }).write();
     
 
-      msg.reply("You bought a community for only 1,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
-      msg.reply("You now have " + (currentCommunityNum + 1) + " communities. But is that enough?")
+      msg.reply("You bought a community for only 1,000 prayers.")
+      msg.reply("You now have " + (currentCommunityNum + 1) + " communities.")
       console.log(msg.author.username + " has bought a community.")
   } else {
-      msg.reply("Ouch, get your head in the game. Get 1,000 prayers or be a dissapointment.")
-      msg.reply("You have " + (currentCommunityNum) + " communities. Get more or lose in the game of praying.")
+      msg.reply("You need 1000 prayers to build a church.")
+      msg.reply("You have " + (currentCommunityNum) + " communities.")
   }
 }
 
@@ -500,12 +499,12 @@ function BuyCity(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - CityPrice }).write();
     
 
-      msg.reply("You bought a city for only 10,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
-      msg.reply("You now have " + (currentCityNum + 1) + " city. But is that enough?")
+      msg.reply("You bought a city for only 10,000 prayers.")
+      msg.reply("You now have " + (currentCityNum + 1) + " city.")
       console.log(msg.author.username + " has bought a city.")
   } else {
-      msg.reply("Ouch, get your head in the game. Get 10,000 prayers or be a dissapointment.")
-      msg.reply("You have " + (currenCityNum) + " city. Get more or lose in the game of praying.")
+      msg.reply("You need 10,000 prayers to build a city.")
+      msg.reply("You have " + (currenCityNum) + " city.")
   }
 }
 
@@ -564,12 +563,12 @@ function BuyProvince(msg) {
       userstore.find({id: msg.author.id }).assign({ prayers: usersprayers - ProvincePrice }).write();
     
 
-      msg.reply("You bought a province for only 100,000 prayers. NOW STOP TALKING TO ME! I HAVE TO LAUGH AT HOW MANY PRAYERS YOU WASTED!")
-      msg.reply("You now have " + (currentProvinceNum + 1) + " provinces. But is that enough?")
+      msg.reply("You bought a province for only 100,000 prayers.")
+      msg.reply("You now have " + (currentProvinceNum + 1) + " provinces.")
       console.log(msg.author.username + " has bought a province.")
   } else {
-      msg.reply("Ouch, get your head in the game. Get 100,000 prayers or be a dissapointment.")
-      msg.reply("You have " + (currentProvinceNum) + " provinces. Get more or lose in the game of praying.")
+      msg.reply("You need 100,000 prayers to build a province.")
+      msg.reply("You have " + (currentProvinceNum) + " provinces.")
   }
 }
 
@@ -616,8 +615,9 @@ function IncrementUserPrayers(msg) {
   //check first if user is a new user
 
   CheckifUserExists(msg.author.id);
-  if (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate > 3600000) {
-    msg.reply("You have been acknowledged for praying to your gods. Without them, there would be no fweinds, and there would be no wee. Do not pray again for an hour for fear of angering the gods.");
+  if (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate > 900000) {
+    msg.reply("You have been acknowledged for praying to your gods. Do not pray again for 15 minutes. ");
+
 
     let currentprayers = userstore.find({
       id: msg.author.id
@@ -636,8 +636,11 @@ function IncrementUserPrayers(msg) {
     msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
     AssignRole(msg.member);
   } else {
-    msg.channel.send("You are an insignificant being. Please pray later.");
+    let remainingTime = 900000 - (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate)
+    msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
   }
+
+  
 
 }
 
