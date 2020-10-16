@@ -4,6 +4,8 @@ const util = require("util");
 const Discord = require("discord.js");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
+const { IncrementPrays } = require("./functions/actions/create/pray");
+const { Config } = require ('./functions/config');
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 
@@ -22,15 +24,15 @@ db.defaultsDeep({
     communitynum: 0,
     citynum: 0,
     provincenum: 0,
-    countrynum: 0,
-    continentnum: 0,
-    planetnum: 0,
-    solarsystemnum: 0,
-    galaxynum: 0,
-    universenum: 0,
-    dimensionnum: 0,
-    multiversenum: 0,
-    cryingbabynum: 0
+    //countrynum: 0,
+    //continentnum: 0,
+    //planetnum: 0,
+    //solarsystemnum: 0,
+    //galaxynum: 0,
+    //universenum: 0,
+    //dimensionnum: 0,
+    //multiversenum: 0,
+    //cryingbabynum: 0
   }]
 }).write();
 
@@ -70,10 +72,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
 
-  setInterval(AddChurchIncome, 8640200);
-  setInterval(AddCommunityIncome, 86400100);
-  setInterval(AddCityIncome, 86400000);
-  setInterval(AddProvinceIncome, 86499900);
+  setInterval(AddChurchIncome, 3600000);
+  setInterval(AddCommunityIncome, 3600000);
+  setInterval(AddCityIncome, 3600000);
+  setInterval(AddProvinceIncome, 3600000);
   
 });
 //86400000 = 24 hrs.
@@ -91,7 +93,7 @@ client.on('message', msg => {
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");  
     }
     if (msg.content === "†pray" || msg.content === "+pray") {
-      IncrementUserPrayers(msg);
+      IncrementPrays(msg.author.id, msg);
     }
     else if (msg.content.startsWith("†curse") || msg.content.startsWith("+curse")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
@@ -606,44 +608,6 @@ function AddProvinceIncome() {
     }
   });
 }
-
-
-
-function IncrementUserPrayers(msg) {
-  console.log("Incrementing user prayers");
-  let userstore = db.get('users');
-  //check first if user is a new user
-
-  CheckifUserExists(msg.author.id);
-  if (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate > 900000) {
-    msg.reply("You have been acknowledged for praying to your gods. Do not pray again for 15 minutes. ");
-
-
-    let currentprayers = userstore.find({
-      id: msg.author.id
-    }).value().prayers;
-    userstore.find({
-      id: msg.author.id
-    })
-      .assign({
-        prayers: currentprayers + 1,
-        lastpraydate: Date.now(),
-        username: msg.author.username
-      })
-      .write();
-
-  console.log(msg.author.username + " has " + userstore.find({ id: msg.author.id }).value().prayers + " prayers ");
-    msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
-    AssignRole(msg.member);
-  } else {
-    let remainingTime = 900000 - (Date.now() - userstore.find({ id: msg.author.id }).value().lastpraydate)
-    msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
-  }
-
-  
-
-}
-
 
 
 function Help(msg) {
