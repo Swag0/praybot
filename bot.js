@@ -2,47 +2,13 @@
 
 const util = require("util");
 const Discord = require("discord.js");
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const { IncrementPrays } = require("./functions/actions/create/pray");
+const { IncrementPrays } = require ("./functions/actions/create/pray");
 const { Config } = require ('./functions/config');
 const conf = require('dotenv').config();
 const client = new Discord.Client();
+const DatabaseHandler = require ("./database");
 
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-
-db.defaultsDeep({
-  users: [{
-    id: 0,
-    username: "",
-    prayers: 0,
-    lastpraydate: 0,
-    lastcursedate: 0,
-    laststealdate: 0,
-    churchnum: 0,
-    communitynum: 0,
-    citynum: 0,
-    provincenum: 0,
-    //countrynum: 0,
-    //continentnum: 0,
-    //planetnum: 0,
-    //solarsystemnum: 0,
-    //galaxynum: 0,
-    //universenum: 0,
-    //dimensionnum: 0,
-    //multiversenum: 0,
-    //cryingbabynum: 0
-  }]
-}).write();
-
-function GetRoleID(rolename, member) {
-  let roles = member.guild.roles
-  
-  let role = roles.find("name", rolename).id;
-
-  return role;
-}
+const dbHandler = new DatabaseHandler();
 
 function AssignRole(member){
   
@@ -93,7 +59,7 @@ client.on('message', msg => {
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");  
     }
     if (msg.content === "†pray" || msg.content === "+pray") {
-      IncrementPrays(msg.author.id, msg);
+      IncrementPrays(msg.author.id, msg, dbHandler);
     }
     else if (msg.content.startsWith("†curse") || msg.content.startsWith("+curse")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
@@ -180,7 +146,7 @@ client.on('message', msg => {
 
 function BuyChurch(msg) {
   let userstore = db.get('users');
-  CheckifUserExists(msg.author.id);
+  dbHandler.CheckifUserExists(msg.author.id);
 
   let usersprayers = userstore.find({id: msg.author.id}).value().prayers;
   let currentChurchNum = userstore.find({ id: msg.author.id}).value().churchnum;
@@ -244,25 +210,9 @@ function AddCommunityIncome() {
   });
 }
 
-function CheckifUserExists(id) {
-  let userstore = db.get('users');
-  if (util.isNullOrUndefined(userstore.find({ id: id }).value())) {
-    userstore.push({
-      id: id,
-      prayers: 1,
-      lastpraydate: Date.now(),
-      lastcursedate: Date.now(),
-      laststealdate: Date.now()
-    }).write();
-    return;
-  } else {
-    return;
-  }
-}
-
 function BuyCommunity(msg) {
   let userstore = db.get('users');
-  CheckifUserExists(msg.author.id);
+  dbHandler.CheckifUserExists(msg.author.id);
 
   let usersprayers = userstore.find({id: msg.author.id}).value().prayers;
   let currentCommunityNum = userstore.find({ id: msg.author.id}).value().communitynum;
@@ -296,7 +246,7 @@ function CheckPrayers(msg) {
   let checkedmemberpray = msg.mentions.users.first().id;
 
   console.log("Someone is checking someone out");
-  CheckifUserExists(checkedmemberpray);
+  dbHandler.CheckifUserExists(checkedmemberpray);
   let userstore = db.get('users');
 
   msg.channel.send(msg.mentions.users.first().username + " has " + userstore.find({ id: checkedmemberpray }).value().prayers + " prayers.") 
@@ -308,7 +258,7 @@ function CheckChurches (msg) {
   let checkedmemberchurch = msg.mentions.users.first().id;
 
   console.log("Someone is checking if the churches are legal.");
-  CheckifUserExists(checkedmemberchurch);
+  dbHandler.CheckifUserExists(checkedmemberchurch);
   let userstore = db.get('users');
 
   msg.channel.send(msg.mentions.users.first().username + " has " + userstore.find({ id: checkedmemberchurch }).value().churchnum + " churches.") 
@@ -320,7 +270,7 @@ function CheckCommunity (msg) {
   let checkedmembercommunity = msg.mentions.users.first().id;
 
   console.log("Someone is checking if the communities are legal.");
-  CheckifUserExists(checkedmembercommunity);
+  dbHandler.Exists(checkedmembercommunity);
   let userstore = db.get('users');
 
   msg.channel.send(msg.mentions.users.first().username + " has " + userstore.find({ id: checkedmembercommunity }).value().communitynum + " communities.") 
@@ -334,8 +284,8 @@ function CurseAtUser(msg) {
 
   console.log(msg.author.username + " is sabotaging " + msg.mentions.users.first().username);
 
-  CheckifUserExists(target);
-  CheckifUserExists(curser);
+  dbHandler.CheckifUserExists(target);
+  dbHandler.CheckifUserExists(curser);
   let userstore = db.get('users');
   if (Date.now() - userstore.find({ id: msg.author.id }).value().lastcursedate > 7200000) {
   msg.reply("The gods do not intervene with your petty fights. You shall be punished, but you can complete your petty battle.");
@@ -383,8 +333,8 @@ function GiftPrayers(msg) {
   let target = msg.mentions.users.first().id;
   let gifter = msg.author.id;
 
-  CheckifUserExists(target);
-  CheckifUserExists(gifter);
+  dbHandler.CheckifUserExists(target);
+  dbHandler.CheckifUserExists(gifter);
 
 
   let num = 0;
@@ -426,8 +376,8 @@ function StealPrayers(msg) {
   let target = msg.mentions.users.first().id;
   let robber = msg.author.id;
 
-  CheckifUserExists(target);
-  CheckifUserExists(robber);
+  dbHandler.CheckifUserExists(target);
+  dbHandler.CheckifUserExists(robber);
   let userstore = db.get('users');
   if (Date.now() - userstore.find({ id: msg.author.id }).value().laststealdate > 21600000) {
   msg.reply("You have slipped under the gods watch for now. Be wary of stealing in the next few hours.");
@@ -482,7 +432,7 @@ function StealPrayers(msg) {
 
 function BuyCity(msg) {
   let userstore = db.get('users');
-  CheckifUserExists(msg.author.id);
+  dbHandler.CheckifUserExists(msg.author.id);
 
   let usersprayers = userstore.find({id: msg.author.id}).value().prayers;
   let currentCityNum = userstore.find({ id: msg.author.id}).value().citynum;
@@ -520,7 +470,7 @@ function CheckCity(msg) {
   }
 
   console.log("Someone is running for municipality thing");
-  CheckifUserExists(checkedmembercity);
+  dbHandler.CheckifUserExists(checkedmembercity);
   let userstore = db.get('users');
 
   msg.channel.send(msg.mentions.users.first().username + " has " + userstore.find({ id: checkedmembercity }).value().city + " cities.") 
@@ -546,7 +496,7 @@ function AddCityIncome() {
 
 function BuyProvince(msg) {
   let userstore = db.get('users');
-  CheckifUserExists(msg.author.id);
+  dbHandler.CheckifUserExists(msg.author.id);
 
   let usersprayers = userstore.find({id: msg.author.id}).value().prayers;
   let currentProvinceNum = userstore.find({ id: msg.author.id}).value().provincenum;
@@ -584,7 +534,7 @@ function CheckProvince(msg) {
   }
 
   console.log("Someone is trying to be premier of PRAYTOPIA");
-  CheckifUserExists(checkedmemberprovince);
+  dbHandler.CheckifUserExists(checkedmemberprovince);
   let userstore = db.get('users');
 
   msg.channel.send(msg.mentions.users.first().username + " has " + userstore.find({ id: checkedmemberprovince }).value().province + " prayers.") 
@@ -651,6 +601,5 @@ function Help(msg) {
   You don't get to know who created me.
   \`\`\``)
 }
-
 
 client.login(process.env.SECRETBOI);

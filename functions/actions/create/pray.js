@@ -1,11 +1,13 @@
-const Config = require("../../config");
+const { Config } = require("../../config");
+const { CheckifUserExists } = require("../../../bot");
 
-export function IncrementPrays(userId, msg) {
+
+function IncrementPrays(userId, msg, dbHandler) {
     console.log("Incrementing prayers for user id: " + userId);
-    let userstore = db.get('users');
+    let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
   
-    CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId);
 
     let user = userstore.find({
         id: userId
@@ -30,3 +32,4 @@ export function IncrementPrays(userId, msg) {
       msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
     }
   }
+  module.exports = { IncrementPrays };
