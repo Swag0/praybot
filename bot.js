@@ -3,6 +3,7 @@
 const util = require("util");
 const Discord = require("discord.js");
 const { IncrementPrays } = require ("./functions/actions/create/pray");
+const { Buy } = require ("./functions/actions/create/build");
 const { Config } = require ('./functions/config');
 const conf = require('dotenv').config();
 const client = new Discord.Client();
@@ -38,10 +39,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
 
-  setInterval(AddChurchIncome, 3600000);
-  setInterval(AddCommunityIncome, 3600000);
-  setInterval(AddCityIncome, 3600000);
-  setInterval(AddProvinceIncome, 3600000);
+  setInterval(AddChurchIncome, Config.incomeRate);
+  setInterval(AddCommunityIncome, Config.incomeRate);
+  setInterval(AddCityIncome, Config.incomeRate);
+  setInterval(AddProvinceIncome, Config.incomeRate);
   
 });
 //86400000 = 24 hrs.
@@ -75,16 +76,16 @@ client.on('message', msg => {
     //  Help(msg);
     //}
     else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church"){
-      BuyChurch(msg);
+      Buy(msg.author.id, msg, dbHandler, "church");
     }
     else if (msg.content === "†buildcommunity" || msg.content === "†community" || msg.content === "+buildcommunity" || msg.content === "+community"){
-      BuyCommunity(msg);
+      Buy(msg.author.id, msg, dbHandler, "community");
     }
     else if (msg.content === "†buildcity" || msg.content === "†city" || msg.content === "+buildcity" || msg.content === "+city"){
-      BuyCity(msg);
+      Buy(msg.author.id, msg, dbHandler, "city");
     }
     else if (msg.content === "†buildprovince" || msg.content === "†province" || msg.content === "+buildprovince" || msg.content === "+province" ){
-      BuyProvince(msg);
+      Buy(msg.author.id, msg, dbHandler, "province");
     }
     else if (msg.content === "†churchnum" || msg.content === "†churchcount" || msg.content === "+churchcount" || msg.content === "+churchnum"){
       let userstore = db.get('users');
@@ -172,42 +173,6 @@ function BuyChurch(msg) {
       msg.reply("You need 10 prayers to build a church.")
       msg.reply("You have " + (currentChurchNum) + " churches. ")
   }
-}
-
-function AddChurchIncome() {
-  db.get('users').value().forEach((user)  => {
-    let userChurches = user.churchnum;
-    let usersprayers = user.prayers;
-
-    user.prayers = usersprayers + userChurches;
-
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
-  });
-  console.log("Church Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Church Income Recieved");
-    }
-  });
-}
-
-function AddCommunityIncome() {
-  db.get('users').value().forEach((user)  => {
-    let userCommunities = user.communitynum;
-    let userChurches = user.churches;
-
-    user.prayers = usersprayers + userCommunities;
-
-    db.get('users').find({id: user.id }).assign({ churchnum: user.churches }).write();
-  });
-  console.log("Community Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Community Income Recieved");
-    }
-  });
 }
 
 function BuyCommunity(msg) {
@@ -477,23 +442,6 @@ function CheckCity(msg) {
 
 }
 
-function AddCityIncome() {
-  db.get('users').value().forEach((user)  => {
-    let userCity = user.citynum;
-    let userCommunities = user.communities;
-
-    user.prayers = usersprayers + userCity;
-
-    db.get('users').find({id: user.id }).assign({ communitynum: user.communities }).write();
-  });
-  console.log("City Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-
-  });
-}
-
-
 function BuyProvince(msg) {
   let userstore = db.get('users');
   dbHandler.CheckifUserExists(msg.author.id);
@@ -541,14 +489,59 @@ function CheckProvince(msg) {
 
 }
 
+
+function AddChurchIncome() {
+  db.get('users').value().forEach((user)  => {
+
+    user.prayers += user.churchnum * Config.churchPrice/10;
+
+    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+  console.log("Church Income");
+  client.guilds.forEach((guild) => {
+   let channel = guild.channels.find("name", "church");
+    if (channel !== null && channel !== undefined){
+      channel.send("Church Income Recieved");
+    }
+  });
+}
+
+function AddCommunityIncome() {
+  db.get('users').value().forEach((user)  => {
+
+    user.prayers += user.communitynum * Config.communityPrice/10;
+
+    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+  console.log("Community Income");
+  client.guilds.forEach((guild) => {
+   let channel = guild.channels.find("name", "church");
+    if (channel !== null && channel !== undefined){
+      channel.send("Community Income Recieved");
+    }
+  });
+}
+
+function AddCityIncome() {
+  db.get('users').value().forEach((user)  => {
+
+    user.prayers += user.citynum * Config.cityPrice/10;
+
+    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+  console.log("City Income");
+  client.guilds.forEach((guild) => {
+   let channel = guild.channels.find("name", "church");
+
+  });
+}
+
 function AddProvinceIncome() {
   db.get('users').value().forEach((user)  => {
-    let userProvince = user.provincenum;
-    let userCities = user.cities;
 
-    user.prayers = usersprayers + userProvince;
+    user.prayers += user.provincenum * Config.provincePrice/10;
 
-    db.get('users').find({id: user.id }).assign({ citynum: user.cities }).write();
+    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
   console.log("Province Income");
   client.guilds.forEach((guild) => {
