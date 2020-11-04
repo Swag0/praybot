@@ -286,7 +286,7 @@ function CurseAtUser(msg) {
 
   AssignRole(msg.member);
 } else {
-  msg.channel.send("You have annoyed us far too much. Continue your petty arguement later.")
+  msg.channel.send("You have annoyed us far too much. Continue your petty argument later.")
 }}
 
 function GiftPrayers(msg) {
