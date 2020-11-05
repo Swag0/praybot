@@ -1,10 +1,13 @@
 "use strict";
 
+const schedule = require("node-schedule");
 const util = require("util");
 const Discord = require("discord.js");
 const { IncrementPrays } = require ("./functions/actions/create/pray");
 const { Buy } = require ("./functions/actions/create/build");
+const { TimeUntilTick } = require ("./functions/misc");
 const { Config } = require ('./functions/config');
+const { Misc } = require ('./functions/misc');
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require ("./database");
@@ -35,14 +38,20 @@ function AssignRole(member){
 
 
 client.on('ready', () => {
+  var rule = new schedule.RecurrenceRule();
+  rule.hour = [0, 6, 12, 18];
+  rule.minute = 0;
+
+
   console.log(`Watching 3 Servers`)
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
+  
 
-  setInterval(AddChurchIncome, Config.incomeRate);
-  setInterval(AddCommunityIncome, Config.incomeRate);
-  setInterval(AddCityIncome, Config.incomeRate);
-  setInterval(AddProvinceIncome, Config.incomeRate);
+  var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
+  var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
+  var cityjob = schedule.scheduleJob(rule, AddCityIncome);
+  var provincejob = schedule.scheduleJob(rule, AddProvinceIncome);
   
 });
 //86400000 = 24 hrs.
@@ -71,6 +80,9 @@ client.on('message', msg => {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         StealPrayers(msg);
       }
+    }
+    else if (msg.content === "†time" || msg.content === "+time") {
+      TimeUntilTick(msg);
     }
     //else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
     //  Help(msg);
