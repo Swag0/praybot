@@ -8,6 +8,7 @@ const { Buy } = require ("./functions/actions/create/build");
 const { TimeUntilTick } = require ("./functions/misc");
 const { Config } = require ('./functions/config');
 const { Misc } = require ('./functions/misc');
+const { Count } = require ('./functions/count/count')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require ("./database");
@@ -65,8 +66,7 @@ client.on('error', err => {
 client.on('message', msg => {
   if (!msg.author.bot) {
     if (msg.content === "†praycount" || msg.content === "†Praycount" || msg.content === "+praycount" || msg.content === "+Praycount") {
-      let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");  
+      Count();
     }
     if (msg.content === "†pray" || msg.content === "+pray") {
       IncrementPrays(msg.author.id, msg, dbHandler);
@@ -111,7 +111,7 @@ client.on('message', msg => {
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().citynum + " cities");
     }
-    else if (msg.content === "†provincenum" || msg.content === "†provincecat" || msg.content === "+provincenum" || msg.content === "+provincecount" ){
+    else if (msg.content === "†provincenum" || msg.content === "†provincecount" || msg.content === "+provincenum" || msg.content === "+provincecount" ){
       let userstore = db.get('users');
       msg.reply("You have " + userstore.find({ id: msg.author.id }).value().provincenum + " provinces");
     }
