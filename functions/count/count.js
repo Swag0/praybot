@@ -9,24 +9,24 @@ function Count(userId, msg, dbHandler) {
 
     console.log(msg.mentions.users.first());
 
-    let checkedmemberpray = "";
+    let target = "";
 
     if (msg.mentions.users.first() == undefined) {
         console.log("Nobody was mentioned. Typical people talking only about themselves. This is why COVID still exists.");
     } else {
-        checkedmemberpray = msg.mentions.users.first().id;
+        target = msg.mentions.users.first().id;
     }
     
     
     
-    console.log(checkedmemberpray != "");
+    console.log(target != "");
 
-    if (checkedmemberpray) {
+    if (target) {
 
-        dbHandler.CheckifUserExists(checkedmemberpray);
+        dbHandler.CheckifUserExists(target);
 
         let targetuser = userstore.find({
-            id: checkedmemberpray
+            id: target
         }).value();
 
         console.log("Someone is checking someone out");
