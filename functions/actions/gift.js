@@ -47,7 +47,7 @@ function GiftPrayers(userId, msg, dbHandler) {
     }
   
   
-    let giftnum = num;
+    let giftnum = Math.floor(num);
   
     let targetcurrentprayers = userstore.find({
       id: target
@@ -59,7 +59,8 @@ function GiftPrayers(userId, msg, dbHandler) {
       })
       .write();
    
-      if (target = 391015029379432448) {
+      console.log("Is Praybot: " + target == 391015029379432448);
+      if (target == 391015029379432448) {
         msg.channel.send("I recieved " + giftnum + " prayers.");
       } else {
         msg.channel.send(msg.mentions.users.first().username + " recieved " + giftnum + " prayers.");

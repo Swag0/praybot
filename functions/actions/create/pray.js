@@ -24,7 +24,8 @@ function IncrementPrays(userId, msg, dbHandler) {
             id:userId
         }).assign(user).write();
 
-  
+    user.prayers = Math.floor(user.prayers);
+
     console.log(user.username + " has " + user.prayers + " prayers ");
       msg.reply("You have " + user.prayers + " prayers");
     } else {
