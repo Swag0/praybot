@@ -9,6 +9,7 @@ const { TimeUntilTick } = require ("./functions/misc");
 const { Config } = require ('./functions/config');
 const { Misc } = require ('./functions/misc');
 const { Count } = require ('./functions/count/count')
+const { GiftPrayers } = require ('./functions/actions/gift')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require ("./database");
@@ -100,20 +101,16 @@ client.on('message', msg => {
       Buy(msg.author.id, msg, dbHandler, "province");
     }
     else if (msg.content === "†churchnum" || msg.content === "†churchcount" || msg.content === "+churchcount" || msg.content === "+churchnum"){
-      let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().churchnum + " churches");
+      Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†communitynum" || msg.content === "†communitycount" || msg.content === "+communitycount" || msg.content === "+communitynum"){
-      let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().communitynum + " communities");
+      Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†citynum" || msg.content === "†citycount" || msg.content === "+citynum" || msg.content === "+citycount"){
-      let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().citynum + " cities");
+      Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†provincenum" || msg.content === "†provincecount" || msg.content === "+provincenum" || msg.content === "+provincecount" ){
-      let userstore = db.get('users');
-      msg.reply("You have " + userstore.find({ id: msg.author.id }).value().provincenum + " provinces");
+      Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
@@ -148,7 +145,7 @@ client.on('message', msg => {
     }}
     else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        GiftPrayers(msg);
+        GiftPrayers(msg.author.id, msg, dbHandler);
       }
     }
     else if (msg.content === "levels") {
@@ -300,51 +297,6 @@ function CurseAtUser(msg) {
 } else {
   msg.channel.send("You have annoyed us far too much. Continue your petty argument later.")
 }}
-
-function GiftPrayers(msg) {
-
-  console.log(msg.author.username + " is being kind to " + msg.mentions.users.first().username + " for some reason.");
-
-  let userstore = db.get('users');
-
-  let target = msg.mentions.users.first().id;
-  let gifter = msg.author.id;
-
-  dbHandler.CheckifUserExists(target);
-  dbHandler.CheckifUserExists(gifter);
-
-
-  let num = 0;
-
-  if (!isNaN(Number(msg.content.split(" ").pop()))) {
-num = Number(msg.content.split(" ").pop());
-  }
-
-
-  let giftnum = num;
-
-  let targetcurrentprayers = userstore.find({
-    id: target
-  }).value().prayers;
-  userstore.find({
-    id: target
-  }).assign({
-      prayers: targetcurrentprayers + giftnum,
-    })
-    .write();
- 
-    msg.channel.send(msg.mentions.users.first().username + " recieved " + giftnum + " prayers.");
-    
-  let giftercurrentprayers = userstore.find({
-    id: gifter
-  }).value().prayers;
-  userstore.find({
-    id: gifter
-  }).assign({
-    prayers: giftercurrentprayers - giftnum,
-  })
-  .write();
-}
 
 function StealPrayers(msg) {
 

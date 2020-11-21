@@ -8,21 +8,7 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
     let user = userstore.find({
         id: userId
     }).value();
-  
-  
-    if (user.churchnum === null || user.churchnum === NaN || user.churchnum === undefined) {
-      user.churchnum = 0;
-    }
-    if (user.communitynum === null || user.communitynum === NaN || user.communitynum === undefined) {
-        user.communitynum = 0;
-    }
-    if (user.citynum === null || user.citynum === NaN || user.citynum === undefined) {
-        user.citynum = 0;
-    }
-    if (user.provincenum === null || user.provincenum === NaN || user.provincenum === undefined) {
-        user.provincenum = 0;
-    }
-
+    
     if (building == "church") {
         if (user.prayers >= Config.churchPrice) {
 

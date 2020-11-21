@@ -42,6 +42,10 @@ class DatabaseHandler {
             userstore.push({
                 id: id,
                 prayers: 1,
+                churchnum: 0,
+                communitynum: 0,
+                citynum: 0,
+                provincenum: 0,
                 lastpraydate: Date.now(),
                 lastcursedate: Date.now(),
                 laststealdate: Date.now()

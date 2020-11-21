@@ -30,16 +30,37 @@ function Count(userId, msg, dbHandler) {
         }).value();
 
         console.log("Someone is checking someone out");
-      
-        msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.prayers + " prayers.") 
+
+        if (msg.content.includes("pray")) {
+            msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.prayers + " prayers.") 
+        } else if (msg.content.includes("church")) {
+            msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.churchnum + " churches.") 
+        } else if (msg.content.includes("community")) {
+            msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.communitynum + " communities.") 
+        } else if (msg.content.includes("city")) {
+            msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.citynum + " cities.") 
+        } else if (msg.content.includes("province")) {
+            msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.provincenum + " provinces.") 
+        }
+
     } else {
 
         let user = userstore.find({
             id: userId
         }).value();
+    
 
-
-        msg.reply("You have " + user.prayers + " prayers");  
+        if (msg.content.includes("pray")) {
+            msg.reply("You have " + user.prayers + " prayers");  
+        } else if (msg.content.includes("church")) {
+            msg.reply("You have " + user.churchnum + " churches");  
+        } else if (msg.content.includes("community")) {
+            msg.reply("You have " + user.communitynum + " communities");  
+        } else if (msg.content.includes("city")) {
+            msg.reply("You have " + user.citynum + " cities");  
+        } else if (msg.content.includes("province")) {
+            msg.reply("You have " + user.provincenum + " provinces");  
+        } 
     }
 }
 
