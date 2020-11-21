@@ -1,4 +1,5 @@
-const { CheckifUserExists } = require("../../../bot");
+const { Config } = require("../config");
+const { CheckifUserExists } = require("../../bot");
 
 function Count(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
@@ -6,9 +7,19 @@ function Count(userId, msg, dbHandler) {
 
     dbHandler.CheckifUserExists(userId);
 
-    let checkedmemberpray = msg.mentions.users.first().id;
+    console.log(msg.mentions.users.first());
 
+    let checkedmemberpray = "";
+
+    if (msg.mentions.users.first() == undefined) {
+        console.log("Nobody was mentioned. Typical people talking only about themselves. This is why COVID still exists.");
+    } else {
+        checkedmemberpray = msg.mentions.users.first().id;
+    }
     
+    
+    
+    console.log(checkedmemberpray != "");
 
     if (checkedmemberpray) {
 
@@ -19,28 +30,17 @@ function Count(userId, msg, dbHandler) {
         }).value();
 
         console.log("Someone is checking someone out");
-        let userstore = db.get('users');
       
         msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.prayers + " prayers.") 
+    } else {
+
+        let user = userstore.find({
+            id: userId
+        }).value();
+
+
+        msg.reply("You have " + user.prayers + " prayers");  
     }
-
-    let user = userstore.find({
-        id: userId
-    }).value();
-    
-
-
-    msg.reply("You have " + user.prayers + " prayers");  
-
-    
-    
-
-
-    
-
-    
-
 }
-
 
 module.exports = { Count };
