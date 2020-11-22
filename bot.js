@@ -100,21 +100,22 @@ client.on('message', msg => {
     else if (msg.content === "†buildprovince" || msg.content === "†province" || msg.content === "+buildprovince" || msg.content === "+province" ){
       Buy(msg.author.id, msg, dbHandler, "province");
     }
-    else if (msg.content === "†churchnum" || msg.content === "†churchcount" || msg.content === "+churchcount" || msg.content === "+churchnum"){
+    else if (msg.content.startsWith("†churchcount") || msg.content.startsWith("†Churchcount") || msg.content.startsWith("+churchcount") || msg.content.startsWith("+Churchcount")) {
       Count(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content === "†communitynum" || msg.content === "†communitycount" || msg.content === "+communitycount" || msg.content === "+communitynum"){
+    else if (msg.content.startsWith("†communitycount") || msg.content.startsWith("†Communitycount") || msg.content.startsWith("+communitycount") || msg.content.startsWith("+Communitycount")) {
       Count(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content === "†citynum" || msg.content === "†citycount" || msg.content === "+citynum" || msg.content === "+citycount"){
+    else if (msg.content.startsWith("†citycount") || msg.content.startsWith("†Citycount") || msg.content.startsWith("+citycount") || msg.content.startsWith("+Citycount")) {
       Count(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content === "†provincenum" || msg.content === "†provincecount" || msg.content === "+provincenum" || msg.content === "+provincecount" ){
+    else if (msg.content.startsWith("†provincecount") || msg.content.startsWith("†Provincecount") || msg.content.startsWith("+provincecount") || msg.content.startsWith("+Provincecount")) {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
     }
+    /* doesn't work. (obsolete.)
     else if (msg.content.startsWith("†checkchurch") || msg.content.startsWith("+checkchurch")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckChurches(msg);   
@@ -142,7 +143,7 @@ client.on('message', msg => {
         CheckCommunity(msg);
         CheckCity(msg);
         CheckProvince(msg);
-    }}
+    }}*/
     else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         GiftPrayers(msg.author.id, msg, dbHandler);
