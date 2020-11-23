@@ -135,7 +135,8 @@ client.on('message', msg => {
      }
      else if (msg.content === "†bugs" || msg.content === "+bugs" ) {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
-      //gifting negative prayers doesn't give to me, prayday doesn't happen, other stuff.
+      //gifting negative prayers doesn't give to me, prayday doesn't happen, username is not applied when starting game
+      //other stuff.
      }
     }
 });
