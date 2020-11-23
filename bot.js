@@ -114,19 +114,18 @@ client.on('message', msg => {
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
-    }/*
-    else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckPrayers(msg);
-        CheckChurches(msg);
-        CheckCommunity(msg);
-        CheckCity(msg);
-        CheckProvince(msg);
-    }}*/
+    }
+    else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall"))  {
+      Count(msg.author.id, msg, dbHandler);
+    }
     else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         GiftPrayers(msg.author.id, msg, dbHandler);
       }
+    }
+    else if (msg.content === "†BUBBLEWRAP") {
+      msg.reply("Ok but why.");
+      msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
     }
     else if (msg.content === "†levels") {
      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");

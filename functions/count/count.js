@@ -41,6 +41,8 @@ function Count(userId, msg, dbHandler) {
             msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.citynum + " cities.") 
         } else if (msg.content.includes("province")) {
             msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.provincenum + " provinces.") 
+        } else if (msg.content.includes("all")) {
+            msg.reply(msg.mentions.users.first().username + " has " + targetuser.prayers + " prayers, " +  + targetuser.churchnum + " churches, "  + targetuser.communitynum + " communities, "  + targetuser.citynum + " cities, and "  + targetuser.provincenum + " provinces.");
         }
 
     } else {
@@ -60,7 +62,9 @@ function Count(userId, msg, dbHandler) {
             msg.reply("You have " + user.citynum + " cities");  
         } else if (msg.content.includes("province")) {
             msg.reply("You have " + user.provincenum + " provinces");  
-        } 
+        } else if (msg.content.includes("all")) {
+            msg.reply("You have: " + user.prayers + " prayers, " +  + user.churchnum + " churches, "  + user.communitynum + " communities, "  + user.citynum + " cities, and "  + user.provincenum + " provinces.");
+        }
     }
 }
 
