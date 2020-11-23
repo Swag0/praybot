@@ -3,7 +3,7 @@ const { CheckifUserExists } = require("../../../bot");
 
 
 function IncrementPrays(userId, msg, dbHandler) {
-    console.log("Incrementing prayers for user id: " + userId);
+    //console.log("Incrementing prayers for user id: " + userId);
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
   

@@ -49,12 +49,11 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
   
-
+  var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
   var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
   var cityjob = schedule.scheduleJob(rule, AddCityIncome);
   var provincejob = schedule.scheduleJob(rule, AddProvinceIncome);
-  
 });
 //86400000 = 24 hrs.
 
@@ -114,28 +113,7 @@ client.on('message', msg => {
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
-    }
-    /* doesn't work. (obsolete.)
-    else if (msg.content.startsWith("†checkchurch") || msg.content.startsWith("+checkchurch")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckChurches(msg);   
-    }}
-    else if (msg.content.startsWith("†checkpray") || msg.content.startsWith("+checkpray")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckPrayers(msg);
-    }}
-    else if (msg.content.startsWith("+checkcommunity") || msg.content.startsWith("†checkcommunity")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckCommunity(msg);
-    }}
-    else if (msg.content.startsWith("†checkcity") || msg.content.startsWith("+checkcity")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckCity(msg);
-    }}
-    else if (msg.content.startsWith("†checkprovince") || msg.content.startsWith("+checkprovince")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CheckProvince(msg);
-    }}
+    }/*
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall")) {
       if (msg.mentions.users.first() && msg.mentions.users.first()) {
         CheckPrayers(msg);
@@ -149,9 +127,16 @@ client.on('message', msg => {
         GiftPrayers(msg.author.id, msg, dbHandler);
       }
     }
-    else if (msg.content === "levels") {
+    else if (msg.content === "†levels") {
      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
+    else if (msg.content === "†upcoming" || msg.content === "+upcoming" ) {
+      msg.reply("Upcoming updates are: Cursing and Stealing, Prayday actually comes, Fully online bot, upgrades, and extra levels.");
+     }
+     else if (msg.content === "†bugs" || msg.content === "+bugs" ) {
+      msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
+      //gifting negative prayers doesn't give to me, prayday doesn't happen, other stuff.
+     }
     }
 });
 
@@ -454,20 +439,27 @@ function CheckProvince(msg) {
 
 }
 
+function IncomeNotification() {
+  console.log("Income");
+  client.guilds.forEach((guild) => {
+   let channel = guild.channels.find("name", "church");
+    if (channel !== null && channel !== undefined){
+      channel.send("Income Recieved");
+    }
+  });
+}
 
 function AddChurchIncome() {
+  dbHandler.getDB().get('users').value().forEach((user) => {
+    user.prayers += user.churchnum * Config.churchPrice/10;
+
+    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+  })
   db.get('users').value().forEach((user)  => {
 
     user.prayers += user.churchnum * Config.churchPrice/10;
 
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
-  });
-  console.log("Church Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Church Income Recieved");
-    }
   });
 }
 
@@ -478,13 +470,6 @@ function AddCommunityIncome() {
 
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
-  console.log("Community Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Community Income Recieved");
-    }
-  });
 }
 
 function AddCityIncome() {
@@ -494,11 +479,6 @@ function AddCityIncome() {
 
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
-  console.log("City Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-
-  });
 }
 
 function AddProvinceIncome() {
@@ -507,13 +487,6 @@ function AddProvinceIncome() {
     user.prayers += user.provincenum * Config.provincePrice/10;
 
     db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
-  });
-  console.log("Province Income");
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Province Income Recieved");
-    }
   });
 }
 
