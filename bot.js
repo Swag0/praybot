@@ -45,11 +45,12 @@ client.on('ready', () => {
   rule.minute = 0;
 
 
+
   console.log(`Watching 3 Servers`)
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
   
-  var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
+  //var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
   var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
   var cityjob = schedule.scheduleJob(rule, AddCityIncome);
@@ -451,43 +452,39 @@ function IncomeNotification() {
 }
 
 function AddChurchIncome() {
+  console.log("Church Income added?")
   dbHandler.getDB().get('users').value().forEach((user) => {
     user.prayers += user.churchnum * Config.churchPrice/10;
 
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
-  })
-  db.get('users').value().forEach((user)  => {
-
-    user.prayers += user.churchnum * Config.churchPrice/10;
-
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+    dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
+  console.log("Income Confirmed.");
 }
 
 function AddCommunityIncome() {
-  db.get('users').value().forEach((user)  => {
+  dbHandler.getDB().get('users').value().forEach((user) => {
 
     user.prayers += user.communitynum * Config.communityPrice/10;
 
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+    dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
 }
 
 function AddCityIncome() {
-  db.get('users').value().forEach((user)  => {
+  dbHandler.getDB().get('users').value().forEach((user) => {
 
     user.prayers += user.citynum * Config.cityPrice/10;
 
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+    dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
 }
 
 function AddProvinceIncome() {
-  db.get('users').value().forEach((user)  => {
+  dbHandler.getDB().get('users').value().forEach((user) => {
 
     user.prayers += user.provincenum * Config.provincePrice/10;
 
-    db.get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
+    dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
 }
 
