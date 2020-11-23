@@ -132,11 +132,11 @@ client.on('message', msg => {
      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming" ) {
-      msg.reply("Upcoming updates are: Cursing and Stealing, Prayday actually comes, Fully online bot, upgrades, and extra levels.");
+      msg.reply("Upcoming updates are: Cursing and Stealing, Fully online bot, upgrades, and extra levels.");
      }
      else if (msg.content === "†bugs" || msg.content === "+bugs" ) {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
-      //gifting negative prayers doesn't give to me, prayday doesn't happen, username is not applied when starting game
+      //gifting negative prayers doesn't give to me, username is not applied when starting game
       //other stuff.
      }
     }
