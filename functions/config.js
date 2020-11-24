@@ -1,7 +1,7 @@
 const Config = {
-    prayCooldown: 900000,
-    curseCooldown: 900000,
-    stealCooldown: 1800000,
+    prayCooldown: 900000, //15 minutes
+    curseCooldown: 7200000, //2 hours
+    stealCooldown: 1800000, //30 minutes
     tickRate: 3600000, //hour
     incomeRate: 21600000, //6 hours
 

@@ -11,15 +11,9 @@ function Count(userId, msg, dbHandler) {
 
     let target = "";
 
-    if (msg.mentions.users.first() == undefined) {
-        console.log("Nobody was mentioned. Typical people talking only about themselves. This is why COVID still exists.");
-    } else {
+    if (msg.mentions.users.first() != undefined) {
         target = msg.mentions.users.first().id;
     }
-    
-    
-    
-    console.log(target != "");
 
     if (target) {
 

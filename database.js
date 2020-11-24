@@ -41,12 +41,12 @@ class DatabaseHandler {
         if (util.isNullOrUndefined(userstore.find({ id: id }).value())) {
             userstore.push({
                 id: id,
-                prayers: 1,
+                prayers: 0,
                 churchnum: 0,
                 communitynum: 0,
                 citynum: 0,
                 provincenum: 0,
-                lastpraydate: Date.now(),
+                lastpraydate: Date.now() - 900001,
                 lastcursedate: Date.now(),
                 laststealdate: Date.now()
             }).write();

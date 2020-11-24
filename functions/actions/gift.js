@@ -4,23 +4,15 @@ const { CheckifUserExists } = require("../../bot");
 function GiftPrayers(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-
     dbHandler.CheckifUserExists(userId);
 
     console.log(msg.author.username + " is being kind to " + msg.mentions.users.first().username + " for some reason.");
-  
-    
-    if (msg.mentions.users.first() == undefined) {
-        msg.reply("You have to gift to someone.");
-        return;
-    }
 
     let target = msg.mentions.users.first().id;
     let gifter = msg.author.id;
   
     dbHandler.CheckifUserExists(target);
     dbHandler.CheckifUserExists(gifter);
-  
   
     let num = 0;
   
@@ -58,8 +50,7 @@ function GiftPrayers(userId, msg, dbHandler) {
         prayers: targetcurrentprayers + giftnum,
       })
       .write();
-   
-      console.log("Is Praybot: " + target == 391015029379432448);
+
       if (target == 391015029379432448) {
         msg.channel.send("I recieved " + giftnum + " prayers.");
       } else {

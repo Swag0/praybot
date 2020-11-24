@@ -10,6 +10,8 @@ const { Config } = require ('./functions/config');
 const { Misc } = require ('./functions/misc');
 const { Count } = require ('./functions/count/count')
 const { GiftPrayers } = require ('./functions/actions/gift')
+const { StealPrayers } = require ('./functions/actions/steal')
+const { Curse } = require ('./functions/actions/curse')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require ("./database");
@@ -50,7 +52,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
   
-  //var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
+  var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
   var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
   var cityjob = schedule.scheduleJob(rule, AddCityIncome);
@@ -73,21 +75,23 @@ client.on('message', msg => {
       IncrementPrays(msg.author.id, msg, dbHandler);
     }
     else if (msg.content.startsWith("†curse") || msg.content.startsWith("+curse")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        CurseAtUser(msg);
+      if (msg.mentions.users.first()) {
+        Curse(msg.author.id, msg, dbHandler);
       }
     }
     else if (msg.content.startsWith("†steal") || msg.content.startsWith("+steal")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
-        StealPrayers(msg);
+      if (msg.mentions.users.first()) {
+        StealPrayers(msg.author.id, msg, dbHandler);
       }
+      //console.log("remember? stealing doesn't work...");
     }
     else if (msg.content === "†time" || msg.content === "+time") {
       TimeUntilTick(msg);
     }
-    //else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
-    //  Help(msg);
-    //}
+    else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
+      msg.channel.send("Help is for the weak. ");
+      //Help(msg);
+    }
     else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church"){
       Buy(msg.author.id, msg, dbHandler, "church");
     }
@@ -119,7 +123,7 @@ client.on('message', msg => {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
-      if (msg.mentions.users.first() && msg.mentions.users.first()) {
+      if (msg.mentions.users.first()) {
         GiftPrayers(msg.author.id, msg, dbHandler);
       }
     }
@@ -285,66 +289,6 @@ function CurseAtUser(msg) {
   msg.channel.send("You have annoyed us far too much. Continue your petty argument later.")
 }}
 
-function StealPrayers(msg) {
-
-  console.log(msg.author.username + " is pickpocketing " + msg.mentions.users.first().username + " at the church.");
-
-  let target = msg.mentions.users.first().id;
-  let robber = msg.author.id;
-
-  dbHandler.CheckifUserExists(target);
-  dbHandler.CheckifUserExists(robber);
-  let userstore = db.get('users');
-  if (Date.now() - userstore.find({ id: msg.author.id }).value().laststealdate > 21600000) {
-  msg.reply("You have slipped under the gods watch for now. Be wary of stealing in the next few hours.");
-
-  let num = Math.floor(Math.random()*3) + 1; // *3 means highest is 3 
-  num *= Math.floor(Math.random()*4) == 1 ? -1 : 1; // this makes 75/25 positive
-
-
-  let prayersteal = num
-
-  let positivesteal = Math.abs(num)
-
-  let targetcurrentprayers = userstore.find({
-    id: target
-  }).value().prayers;
-  userstore.find({
-    id: target
-  }).assign({
-      prayers: targetcurrentprayers - prayersteal,
-    })
-    .write();
-    if  (prayersteal > 0){
-    msg.channel.send(msg.mentions.users.first().username + " lost " + prayersteal + " prayers.");
-    } else {
-      msg.channel.send(msg.mentions.users.first().username + " gained " + positivesteal + " prayers")
-    }
-  let robbercurrentprayers = userstore.find({
-    id: robber
-  }).value().prayers;
-  userstore.find({
-    id: robber
-  }).assign({
-    prayers: robbercurrentprayers + prayersteal,
-    laststealdate: Date.now()
-  })
-  .write();
-  if (prayersteal > 0) {
-     msg.reply("You gained " + prayersteal + " prayers.")
-     AssignRole(msg.member);
-     AssignRole(msg.mentions.members.first());
-  } else {
-     msg.reply("You didn't honor the kindness of the gods. You lost " + positivesteal + " prayers")
-  }
- 
-
-  msg.channel.send("You have " + userstore.find({ id: msg.author.id }).value().prayers + " prayers");
-} else {
-  msg.channel.send("The gods have been watching you. Prepare for a tough ordeal.")
-}}
-
-
 
 function BuyCity(msg) {
   let userstore = db.get('users');
@@ -441,23 +385,22 @@ function CheckProvince(msg) {
 }
 
 function IncomeNotification() {
-  console.log("Income");
+  console.log("Income Added");
+  /*
   client.guilds.forEach((guild) => {
    let channel = guild.channels.find("name", "church");
     if (channel !== null && channel !== undefined){
       channel.send("Income Recieved");
     }
-  });
+  });*/
 }
 
 function AddChurchIncome() {
-  console.log("Church Income added?")
   dbHandler.getDB().get('users').value().forEach((user) => {
     user.prayers += user.churchnum * Config.churchPrice/10;
 
     dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
-  console.log("Income Confirmed.");
 }
 
 function AddCommunityIncome() {
