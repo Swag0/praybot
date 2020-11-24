@@ -7,7 +7,6 @@ function Count(userId, msg, dbHandler) {
 
     dbHandler.CheckifUserExists(userId);
 
-    console.log(msg.mentions.users.first());
 
     let target = "";
 
@@ -22,8 +21,6 @@ function Count(userId, msg, dbHandler) {
         let targetuser = userstore.find({
             id: target
         }).value();
-
-        console.log("Someone is checking someone out");
 
         if (msg.content.includes("pray")) {
             msg.channel.send(msg.mentions.users.first().username + " has " + targetuser.prayers + " prayers.") 

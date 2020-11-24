@@ -42,21 +42,23 @@ function AssignRole(member){
 
 
 client.on('ready', () => {
+
   var rule = new schedule.RecurrenceRule();
   rule.hour = [0, 6, 12, 18];
   rule.minute = 0;
-
 
 
   console.log(`Watching 3 Servers`)
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
   
-  var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
   var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
   var cityjob = schedule.scheduleJob(rule, AddCityIncome);
   var provincejob = schedule.scheduleJob(rule, AddProvinceIncome);
+  var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
+
+
 });
 //86400000 = 24 hrs.
 
@@ -83,14 +85,12 @@ client.on('message', msg => {
       if (msg.mentions.users.first()) {
         StealPrayers(msg.author.id, msg, dbHandler);
       }
-      //console.log("remember? stealing doesn't work...");
     }
     else if (msg.content === "†time" || msg.content === "+time") {
       TimeUntilTick(msg);
     }
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
-      msg.channel.send("Help is for the weak. ");
-      //Help(msg);
+      Help(msg);
     }
     else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church"){
       Buy(msg.author.id, msg, dbHandler, "church");
@@ -135,7 +135,7 @@ client.on('message', msg => {
      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming" ) {
-      msg.reply("Upcoming updates are: Fully online bot, upgrades, and extra levels.");
+      msg.reply("Upcoming updates are: Fully online bot, daily announcements, upgrades, and extra levels.");
      }
      else if (msg.content === "†bugs" || msg.content === "+bugs" ) {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
@@ -145,15 +145,11 @@ client.on('message', msg => {
     }
 });
 
+//780209511339655199 is church area.
+
 function IncomeNotification() {
   console.log("Income Added");
-  /*
-  client.guilds.forEach((guild) => {
-   let channel = guild.channels.find("name", "church");
-    if (channel !== null && channel !== undefined){
-      channel.send("Income Recieved");
-    }
-  });*/
+  //This may or may not work. client.channels.get(`780209511339655199`).send(`Income Added.`);
 }
 
 function AddChurchIncome() {
@@ -193,45 +189,40 @@ function AddProvinceIncome() {
 
 
 function Help(msg) {
-  msg.channel.send(`\`\`\`
-  Help:
-  Type pray to pray
-  Type swear @target to make the target lose 1-3 prayers and you lose 0-3.
-  Type steal @target to steal 0-2 prayers from your target or to lose 0-2 prayers to the target
-  Type praycount to check how many prayers you have.
-  --------------------------------------Churches--------------------------------
-  Type buildchurch to build a church for 10 prayers that will provide you with 1 prayer every 24 hours.
-  Type churchcount to check how many churches you own.
-  --------------------------------------Communities-----------------------------
-  Type buildcommunity to build a community for 1,000 prayers that will provide you with 1 church every 24 hours.
-  Type communitycount to check how many communities you own.
-  ----------------------------------------Cities----------------------------------
-  Type buildcity to build a city for 10,000 prayers that will provide you with 1 community every 24 hours.
-  Type citycount to check how many cities you own.
-  --------------------------------------Provinces--------------------------------
-  Type buildprovince to build a province for 100,000 prayers that will provide you with 1 city every 24 hours.
-  Type provincecount to check how many provinces you own.
-  \`\`\``)
-
-  msg.channel.send(`\`\`\`
-  --------------------------------------Checking-Other's-Prayers----------------
-  Type checkchurch @target to check how many churches the target has.
-  Type checkpray @target to check how many prayers the target has.
-  Type checkcommunities @target to check how many communities the target has
-  Type checkcities @target to check how many cities the target has
-  Type checkprovinces @target to check how many provinces the target has
-  Type checkall @target to check how many prayers, churches, communities, cities, and provinces the target is enslaving.
-  --------------------------------------Rewards--------------------------------
-  10 prayers for @Prayer role. 50 prayers for @Exstremist role. 100 prayers for @Priest role. 250 prayers for @Prophet role. 500 prayers for @God role.
-  ---------------------------------------Gift----------------------------------
-  Type "gift @target *num*" to give *num* prayers to @target
-  --------------------------------------Others---------------------------------
-  Type repose for this help page.
-  Type invite to invite Praybot to your server.
-  Type levels to check levels currently and soon to be in the game.
-  Coming Soon: More levels.
-  You don't get to know who created me.
-  \`\`\``)
+  const helpEmbed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('Help Page')
+      .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
+      .addFields(
+        { name: 'Pray', value: '†pray' },
+        //
+        { name: 'Build', value: 'All Functions' },
+        { name: 'Church', value: '†church', inline: true },
+        { name: 'Community', value: '†community', inline: true },
+        { name: 'City', value: '†city', inline: true },
+        { name: 'Province', value: '†province', inline: true },
+        //
+        { name: 'Actions', value: 'All Functions' },
+        { name: 'Curse', value: '†curse @target', inline: true },
+        { name: 'Steal', value: '†steal @target', inline: true },
+        { name: 'Gift', value: '†gift @target', inline: true },
+        //
+        { name: 'Count or Count @target', value: 'All Functions' },
+        { name: 'Prayers', value: '†praycount', inline: true },
+        { name: 'Church', value: '†churchcount', inline: true },
+        { name: 'Community', value: '†communitycount', inline: true },
+        { name: 'City', value: '†citycount', inline: true },
+        { name: 'Province', value: '†provincecount', inline: true },
+        { name: 'All', value: '†checkall', inline: true },
+        //
+        { name: 'Time Until Prayday', value: '†time' },
+        { name: 'Upcoming Updates', value: '†upcoming' },
+        { name: 'Invite', value: '†invite' },
+        { name: 'Help Command', value: '†repose' },
+      )
+      .setTimestamp()
+      .setFooter('Prefix is † or +', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
+      msg.channel.send(helpEmbed);
 }
 
 client.login(process.env.SECRETBOI);
