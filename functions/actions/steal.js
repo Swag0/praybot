@@ -37,6 +37,11 @@ function StealPrayers(userId, msg, dbHandler) {
         msg.reply("Your target needs at least 3 prayers to be stolen from them.");
         return;
     }
+
+    if (target == "391015029379432448") {
+        msg.reply("Don't even try.");
+        return;
+    }
     //console.log(msg.author.username + " is stealing from " + msg.mentions.users.first().username + ".");
 
     if (Date.now() - user.laststealdate > Config.stealCooldown) {

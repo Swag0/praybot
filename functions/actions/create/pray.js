@@ -26,11 +26,15 @@ function IncrementPrays(userId, msg, dbHandler) {
 
     user.prayers = Math.floor(user.prayers);
 
-    console.log(user.username + " has " + user.prayers + " prayers ");
+    console.log(user.username + " has " + user.prayers + " prayers.");
       msg.reply("You have " + user.prayers + " prayers");
     } else {
       let remainingTime = Config.prayCooldown - (Date.now() - user.lastpraydate)
-      msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      if (userId == 346758543489105941) {
+        msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      } else {
+        msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      }
     }
   }
   module.exports = { IncrementPrays };

@@ -6,6 +6,7 @@ const Discord = require("discord.js");
 const { IncrementPrays } = require ("./functions/actions/create/pray");
 const { Buy } = require ("./functions/actions/create/build");
 const { TimeUntilTick } = require ("./functions/misc");
+const { Cooldown } = require ("./functions/cooldown");
 const { Config } = require ('./functions/config');
 const { Misc } = require ('./functions/misc');
 const { Count } = require ('./functions/count/count')
@@ -48,7 +49,7 @@ client.on('ready', () => {
   rule.minute = 0;
 
 
-  console.log(`Watching 3 Servers`)
+  console.log(`Watching ${client.guilds.cache.size} Servers.`);
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity("you", { type: "WATCHING" });
   
@@ -127,6 +128,9 @@ client.on('message', msg => {
         GiftPrayers(msg.author.id, msg, dbHandler);
       }
     }
+    else if (msg.content.startsWith("†cooldown") || msg.content.startsWith("+cooldown") || msg.content.startsWith("+cd") || msg.content.startsWith("†cd") || msg.content.startsWith("+rd") || msg.content.startsWith("†rd")) {
+      Cooldown(msg.author.id, msg, dbHandler)
+    }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
@@ -135,13 +139,16 @@ client.on('message', msg => {
      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming" ) {
-      msg.reply("Upcoming updates are: Fully online bot, daily announcements, upgrades, and extra levels.");
+      msg.reply("Upcoming updates are: Fully online bot, leaderboard, daily announcements, upgrades, and extra levels.");
      }
      else if (msg.content === "†bugs" || msg.content === "+bugs" ) {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
       //gifting negative prayers doesn't give to me, username is not applied when starting game
       //other stuff.
      }
+     /*else if (msg.content === "test") {
+       //
+     }*/
     }
 });
 
@@ -149,7 +156,10 @@ client.on('message', msg => {
 
 function IncomeNotification() {
   console.log("Income Added");
-  //This may or may not work. client.channels.get(`780209511339655199`).send(`Income Added.`);
+  //This may or may not work. 
+  let churchChannel = client.channels.cache.get(`780209511339655199`);
+
+  churchChannel.send("Income Received");
 }
 
 function AddChurchIncome() {
@@ -216,6 +226,9 @@ function Help(msg) {
         { name: 'All', value: '†checkall', inline: true },
         //
         { name: 'Time Until Prayday', value: '†time' },
+        { name: 'Cooldown', value: '†cooldown / †cd', inline: true },
+        { name: 'Ready Cooldowns', value: '†cooldownr / †rd', inline: true },
+        //
         { name: 'Upcoming Updates', value: '†upcoming' },
         { name: 'Invite', value: '†invite' },
         { name: 'Help Command', value: '†repose' },

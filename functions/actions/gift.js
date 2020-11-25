@@ -29,6 +29,10 @@ function GiftPrayers(userId, msg, dbHandler) {
         msg.reply("Sorry you don't have that many prayers.");
         return;
     }
+    if (num < (giftercurrentprayers * -1)) {
+      msg.reply("No.");
+        return;
+    }
 
     if (num < 0) {
         msg.reply("You fool. You absolute buffoon. I hereby diagnose you with idiocy. You think that I will be fooled by numbers below 0? I am not some kind of 1st grader. Well, the joke is on you sir. Checkmate.");
