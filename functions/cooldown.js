@@ -37,13 +37,17 @@ function Cooldown(userId, msg, dbHandler) {
         }
     }
     //Next Curse
-    if (Date.now() - user.lastcursedate > Config.curseCooldown) {
+    if (Date.now() - user.laststealdate > Config.stealCooldown) {
         msg.reply("Curse CD: Ready.");
     } else {
         if (!ready) {
             msg.reply("Curse CD: " + (Math.floor(remainingTimeCurse / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCurse / 1000 / 60) - (Math.floor(remainingTimeCurse / 1000 / 60 / 60) * 60)) + ":" + Math.floor(remainingTimeCurse / 1000 % 60) + ".");
         }
     }
+
+    if ((Date.now() - user.lastpraydate < Config.prayCooldown) && (Date.now() - user.laststealdate < Config.stealCooldown) && (Date.now() - user.laststealdate < Config.stealCooldown) && ready) {
+        msg.reply("You have no cooldowns up right now.");
+    } 
     
 
 }
