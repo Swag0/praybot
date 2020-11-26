@@ -19,6 +19,8 @@ const DatabaseHandler = require ("./database");
 
 const dbHandler = new DatabaseHandler();
 
+//FYI: Super important link https://discordjs.guide/popular-topics/embeds.html
+
 function AssignRole(member){
   
   console.log("Giving faithful supporters roles in their otherwise useless lives")
@@ -146,6 +148,9 @@ client.on('message', msg => {
       //gifting negative prayers doesn't give to me, username is not applied when starting game
       //other stuff.
      }
+     else if (msg.content === "†announcements" || msg.content === "+announcements" ) {
+      Announcement(msg);
+     }
      /*else if (msg.content === "test") {
        //
      }*/
@@ -173,7 +178,7 @@ function AddChurchIncome() {
 function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.communitynum * Config.communityPrice/10;
+    user.prayers += user.communitynum * Config.cityPrice/10 + (config.cityPrice/100);
 
     dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -182,7 +187,7 @@ function AddCommunityIncome() {
 function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.citynum * Config.cityPrice/10;
+    user.prayers += user.citynum * Config.cityPrice/10 + (config.cityPrice/100);
 
     dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -191,12 +196,24 @@ function AddCityIncome() {
 function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.provincenum * Config.provincePrice/10;
+    user.prayers += user.provincenum * Config.provincePrice/10 + (config.provincePrice/100);
 
     dbHandler.getDB().get('users').find({id: user.id }).assign({ prayers: user.prayers }).write();
   });
 }
 
+function Announcement(msg) {
+  const announceEmbed = new Discord.MessageEmbed()
+
+  .setColor('#0099ff')
+      .setTitle('Announcements:')
+      .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
+      .addFields(
+        { name: 'Special Event?', value: "Double Prayers on November 26th after 7:45 AM." },
+      )
+      .setFooter('Check the announcements tomorrow for more news.', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
+      msg.channel.send(announceEmbed);
+}
 
 function Help(msg) {
   const helpEmbed = new Discord.MessageEmbed()
@@ -206,18 +223,18 @@ function Help(msg) {
       .addFields(
         { name: 'Pray', value: '†pray' },
         //
-        { name: 'Build', value: 'All Functions' },
+        { name: '\u200b', value: 'Build' },
         { name: 'Church', value: '†church', inline: true },
         { name: 'Community', value: '†community', inline: true },
         { name: 'City', value: '†city', inline: true },
         { name: 'Province', value: '†province', inline: true },
         //
-        { name: 'Actions', value: 'All Functions' },
+        { name: '\u200b', value: 'Actions' },
         { name: 'Curse', value: '†curse @target', inline: true },
         { name: 'Steal', value: '†steal @target', inline: true },
         { name: 'Gift', value: '†gift @target', inline: true },
         //
-        { name: 'Count or Count @target', value: 'All Functions' },
+        { name: '\u200b', value: 'Count or Count @target' },
         { name: 'Prayers', value: '†praycount', inline: true },
         { name: 'Church', value: '†churchcount', inline: true },
         { name: 'Community', value: '†communitycount', inline: true },
@@ -230,6 +247,7 @@ function Help(msg) {
         { name: 'Ready Cooldowns', value: '†cooldownr / †rd', inline: true },
         //
         { name: 'Upcoming Updates', value: '†upcoming' },
+        { name: 'Announcements', value: '†announcements' },
         { name: 'Invite', value: '†invite' },
         { name: 'Help Command', value: '†repose' },
       )

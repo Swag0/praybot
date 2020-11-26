@@ -18,7 +18,7 @@ function StealPrayers(userId, msg, dbHandler) {
 
  
 
-    let stealnum = Math.floor(Math.random() * 4);
+    let stealnum = Math.floor(Math.random() * 5);
 
     let stealerprayers = userstore.find({
         id: stealer
@@ -33,8 +33,8 @@ function StealPrayers(userId, msg, dbHandler) {
         return;
     }    
 
-    if (targetprayers < 3) {
-        msg.reply("Your target needs at least 3 prayers to be stolen from them.");
+    if (targetprayers < 4) {
+        msg.reply("Your target needs at least 4 prayers to be stolen from them.");
         return;
     }
 

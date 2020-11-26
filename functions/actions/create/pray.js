@@ -15,7 +15,10 @@ function IncrementPrays(userId, msg, dbHandler) {
 
 
     if (Date.now() - user.lastpraydate > Config.prayCooldown) {
-      msg.reply("You have been acknowledged for praying to your gods. Do not pray again for 15 minutes. ");
+
+      //user.prayers += 2;
+      //msg.reply("Today is double pray day. 🎉");
+      msg.reply("You have been acknowledged for praying to the gods. Do not pray again for 15 minutes. ");
   
         user.prayers++;
         user.lastpraydate = Date.now();

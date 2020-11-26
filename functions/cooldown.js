@@ -25,7 +25,11 @@ function Cooldown(userId, msg, dbHandler) {
         msg.reply("Pray CD: Ready.");
     } else {
         if (!ready) {
-            msg.reply("Pray CD: " +  Math.floor(remainingTimePray / 1000 / 60) + ":" + Math.floor(remainingTimePray / 1000 % 60) + ".");
+            if (Math.floor(remainingTimePray / 1000 % 60) < 10) {
+                msg.reply("Pray CD: " +  Math.floor(remainingTimePray / 1000 / 60) + ":0" + Math.floor(remainingTimePray / 1000 % 60) + ".");
+            } else {
+                msg.reply("Pray CD: " +  Math.floor(remainingTimePray / 1000 / 60) + ":" + Math.floor(remainingTimePray / 1000 % 60) + ".");
+            }
         }
     }
     //Next Steal
@@ -33,7 +37,11 @@ function Cooldown(userId, msg, dbHandler) {
         msg.reply("Steal CD: Ready.");
     } else {
         if (!ready) {
-            msg.reply("Steal CD: " +  Math.floor(remainingTimeSteal / 1000 / 60) + ":" + Math.floor(remainingTimeSteal / 1000 % 60) + ".");
+            if (Math.floor(remainingTimeSteal / 1000 % 60) < 10) {
+                msg.reply("Steal CD: " +  Math.floor(remainingTimeSteal / 1000 / 60) + ":0" + Math.floor(remainingTimeSteal / 1000 % 60) + ".");
+            } else {
+                msg.reply("Steal CD: " +  Math.floor(remainingTimeSteal / 1000 / 60) + ":" + Math.floor(remainingTimeSteal / 1000 % 60) + ".");
+            }
         }
     }
     //Next Curse
@@ -41,8 +49,16 @@ function Cooldown(userId, msg, dbHandler) {
         msg.reply("Curse CD: Ready.");
     } else {
         if (!ready) {
-            msg.reply("Curse CD: " + (Math.floor(remainingTimeCurse / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCurse / 1000 / 60) - (Math.floor(remainingTimeCurse / 1000 / 60 / 60) * 60)) + ":" + Math.floor(remainingTimeCurse / 1000 % 60) + ".");
-        }
+            if (remainingTimeCurse < 0) { //negative numbers confuse bot
+                msg.reply("Curse CD: Ready.");
+            } else {
+                if (Math.floor(remainingTimeCurse / 1000 % 60) < 10) {
+                    msg.reply("Curse CD: " + (Math.floor(remainingTimeCurse / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCurse / 1000 / 60) - (Math.floor(remainingTimeCurse / 1000 / 60 / 60) * 60)) + ":0" + Math.floor(remainingTimeCurse / 1000 % 60) + ".");
+                } else {
+                    msg.reply("Curse CD: " + (Math.floor(remainingTimeCurse / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCurse / 1000 / 60) - (Math.floor(remainingTimeCurse / 1000 / 60 / 60) * 60)) + ":" + Math.floor(remainingTimeCurse / 1000 % 60) + ".");
+                }
+            }
+           }
     }
 
     if ((Date.now() - user.lastpraydate < Config.prayCooldown) && (Date.now() - user.laststealdate < Config.stealCooldown) && (Date.now() - user.laststealdate < Config.stealCooldown) && ready) {
