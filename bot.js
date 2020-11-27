@@ -13,6 +13,7 @@ const { Count } = require('./functions/count/count')
 const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
+const { Test } = require('./functions/test')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -157,9 +158,9 @@ client.on('message', msg => {
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
     }
-    /*else if (msg.content === "test") {
-      AddCommunityIncome();
-    }*/
+    else if (msg.content === "test") {
+      Test(msg.author.id, msg, dbHandler);
+    }
   }
 });
 
