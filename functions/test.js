@@ -12,10 +12,10 @@ function Test(userId, msg, dbHandler) {
       id: userId
     }).value();
 
-    console.log(user.username + " used test function.");
+    //console.log(user.username + " used test function.");
 
     if (user.id != 346758543489105941) {
-      console.log("We don't like their kind. ")
+      console.log("Someone else tried to test");
       return;
     }
 
