@@ -3,41 +3,48 @@ const { CheckifUserExists } = require("../../../bot");
 
 
 function IncrementPrays(userId, msg, dbHandler) {
-    //console.log("Incrementing prayers for user id: " + userId);
-    let userstore = dbHandler.getDB().get('users');
-    //check first if user is a new user
+  //console.log("Incrementing prayers for user id: " + userId);
+  let userstore = dbHandler.getDB().get('users');
+  //check first if user is a new user
+
+  dbHandler.CheckifUserExists(userId);
+
+  let user = userstore.find({
+    id: userId
+  }).value();
+
+
+  if (Date.now() - user.lastpraydate > Config.prayCooldown) {
+
   
-    dbHandler.CheckifUserExists(userId);
+    msg.channel.send("You have been acknowledged for praying to the gods. Do not pray again for 15 minutes. ");
 
-    let user = userstore.find({
-        id: userId
-    }).value();
+    user.prayers++;
+    user.lastpraydate = Date.now();
 
-
-    if (Date.now() - user.lastpraydate > Config.prayCooldown) {
-
-      //user.prayers += 2;
-      //msg.reply("Today is double pray day. 🎉");
-      msg.reply("You have been acknowledged for praying to the gods. Do not pray again for 15 minutes. ");
-  
-        user.prayers++;
-        user.lastpraydate = Date.now();
-
-        userstore.find({
-            id:userId
-        }).assign(user).write();
+    userstore.find({
+      id: userId
+    }).assign(user).write();
 
     user.prayers = Math.floor(user.prayers);
 
     console.log(user.username + " has " + user.prayers + " prayers.");
-      msg.reply("You have " + user.prayers + " prayers");
-    } else {
-      let remainingTime = Config.prayCooldown - (Date.now() - user.lastpraydate)
-      if (userId == 346758543489105941) {
+    msg.reply("You have " + user.prayers + " prayers");
+  } else {
+    let remainingTime = Config.prayCooldown - (Date.now() - user.lastpraydate)
+    if (userId == 346758543489105941) {
+      if (Math.floor(remainingTime / 1000 % 60) < 10) {
+        msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
+       } else {
         msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      }
       } else {
-        msg.channel.send("You are an insignificant being. Please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      if (Math.floor(remainingTime / 1000 % 60) < 10) {
+        msg.channel.send("You are an insignificant being. Please pray in " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
+      } else {
+        msg.channel.send("You are an insignificant being. Please pray in " + Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
       }
     }
   }
-  module.exports = { IncrementPrays };
+}
+module.exports = { IncrementPrays };
