@@ -1,6 +1,7 @@
 const { Config } = require("./config");
 const { CheckifUserExists } = require("../bot");
 const Discord = require("discord.js");
+const client = new Discord.Client();
 
 function Test(userId, msg, dbHandler) {
 
@@ -15,7 +16,7 @@ function Test(userId, msg, dbHandler) {
     //console.log(user.username + " used test function.");
 
     if (user.id != 346758543489105941) {
-      console.log("Someone else tried to test");
+      console.log(user.username + " tried to test.");
       return;
     }
 
