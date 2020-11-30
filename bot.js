@@ -167,7 +167,7 @@ client.on('message', msg => {
 //780209511339655199 is church area.
 
 function IncomeNotification() {
-  console.log("Income Added");
+  console.log("Income Added at " + Date.now());
   //This may or may not work. 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
 
