@@ -18,6 +18,7 @@ class DatabaseHandler {
                 lastpraydate: 0,
                 lastcursedate: 0,
                 laststealdate: 0,
+                lastgambledate: 0,
                 churchnum: 0,
                 communitynum: 0,
                 citynum: 0,
@@ -48,7 +49,8 @@ class DatabaseHandler {
                 provincenum: 0,
                 lastpraydate: Date.now() - 900001,
                 lastcursedate: Date.now(),
-                laststealdate: Date.now()
+                laststealdate: Date.now(),
+                lastgambledate: Date.now()
             }).write();
             return;
         } else {

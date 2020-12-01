@@ -62,14 +62,17 @@ function Curse(userId, msg, dbHandler) {
         msg.channel.send(msg.mentions.users.first().username + " lost " + cursenum + " prayers.");
         msg.channel.send(msg.author.username + " lost " + (cursenum - 1) + " prayers.");
 
+        console.log("Curse: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
+
     } else {
       let remainingTime = Config.curseCooldown - (Date.now() - user.lastcursedate)
       
       if (remainingTime > 3600000) {
-        msg.channel.send("The gods are watching. Wait " + (Math.floor(remainingTime / 1000 / 60 / 60)) + " hour and " + (Math.floor(remainingTime / 1000 / 60) - (Math.floor(remainingTime / 1000 / 60 / 60) * 60)) + " minutes to steal again.");
+        msg.channel.send("The gods are watching. Wait " + (Math.floor(remainingTime / 1000 / 60 / 60)) + " hour and " + (Math.floor(remainingTime / 1000 / 60) - (Math.floor(remainingTime / 1000 / 60 / 60) * 60)) + " minutes to curse again.");
       } else {
-        msg.channel.send("The gods are watching. Wait " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + " to steal again.");
+        msg.channel.send("The gods are watching. Wait " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + " to curse again.");
       }
+      console.log("Attempted Curse: " + msg.author.username + ".");
      
       }
 

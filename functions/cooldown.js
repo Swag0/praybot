@@ -11,14 +11,29 @@ function Cooldown(userId, msg, dbHandler) {
         id: userId
     }).value();
 
+    if (user.lastpraydate == undefined || user.lastpraydate == NaN) {
+        user.lastpraydate = 0;
+    }
+    if (user.laststealdate == undefined || user.laststealdate == NaN) {
+        user.laststealdate = 0;
+    }
+    if (user.lastcursedate == undefined || user.lastcursedate == NaN) {
+        user.lastcursedate = 0;
+    }
+    if (user.lastgambledate == undefined || user.lastgambledate == NaN) {
+        user.lastgambledate = 0;
+    }
+
     let remainingTimePray = Config.prayCooldown - (Date.now() - user.lastpraydate);
     let remainingTimeSteal = Config.stealCooldown - (Date.now() - user.laststealdate);
     let remainingTimeCurse = Config.curseCooldown - (Date.now() - user.lastcursedate);
+    let remainingTimeGamble = Config.gambleCooldown - (Date.now() - user.lastgambledate);
 
 
     let answerPray = "";
     let answerSteal = "";
     let answerCurse = "";
+    let answerGamble = "";
 
     //Next Pray
     if (Date.now() - user.lastpraydate > Config.prayCooldown) {
@@ -55,6 +70,17 @@ function Cooldown(userId, msg, dbHandler) {
         }
     }
 
+    //Next Gamble
+    if (Date.now() - user.lastgambledate > Config.gambleCooldown) {
+        answerGamble = "Ready";
+    } else {
+        if (Math.floor(remainingTimeGamble / 1000 % 60) < 10) {
+            answerGamble = Math.floor(remainingTimeGamble / 1000 / 60) + ":0" + Math.floor(remainingTimeGamble / 1000 % 60);
+        } else {
+            answerGamble = Math.floor(remainingTimeGamble / 1000 / 60) + ":" + Math.floor(remainingTimeGamble / 1000 % 60);
+        }
+    }
+
 
 
 
@@ -64,6 +90,7 @@ function Cooldown(userId, msg, dbHandler) {
         .addField("Pray CD: ", answerPray)
         .addField("Steal CD: ", answerSteal)
         .addField("Curse CD: ", answerCurse)
+        .addField("Gamble CD: ", answerGamble)
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(cdembed);

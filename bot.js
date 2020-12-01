@@ -10,6 +10,7 @@ const { Cooldown } = require("./functions/cooldown");
 const { Config } = require('./functions/config');
 const { Misc } = require('./functions/misc');
 const { Count } = require('./functions/count/count')
+const { Gamble } = require('./functions/actions/gamble')
 const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
@@ -43,7 +44,6 @@ function AssignRole(member) {
     member.addRole(GetRoleID("God", member));
   }*/
 }
-
 
 client.on('ready', () => {
 
@@ -96,8 +96,11 @@ client.on('message', msg => {
         StealPrayers(msg.author.id, msg, dbHandler);
       }
     }
-    else if (msg.content === "†time" || msg.content === "+time") {
+    else if (msg.content === "†time" || msg.content === "+time" || msg.content === "+prayday" || msg.content === "†prayday") {
       TimeUntilTick(msg);
+    }
+    else if (msg.content === "†gamble" || msg.content === "+gamble") {
+      Gamble(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
       Help(msg);
@@ -171,7 +174,7 @@ function IncomeNotification() {
   //This may or may not work. 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
 
-  churchChannel.send("Income Received");
+  churchChannel.send("**Income Received**");
 }
 
 function AddChurchIncome() {
@@ -240,6 +243,7 @@ function Help(msg) {
       { name: 'Curse', value: '†curse @target', inline: true },
       { name: 'Steal', value: '†steal @target', inline: true },
       { name: 'Gift', value: '†gift @target', inline: true },
+      { name: 'Gamble', value: '†gamble', inline: true },
       //
       { name: '\u200b', value: 'Count or Count @target' },
       { name: 'Prayers', value: '†praycount', inline: true },

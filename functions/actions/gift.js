@@ -6,8 +6,6 @@ function GiftPrayers(userId, msg, dbHandler) {
     //check first if user is a new user
     dbHandler.CheckifUserExists(userId);
 
-    console.log(msg.author.username + " is being kind to " + msg.mentions.users.first().username + " for some reason.");
-
     let target = msg.mentions.users.first().id;
     let gifter = msg.author.id;
   
@@ -34,9 +32,13 @@ function GiftPrayers(userId, msg, dbHandler) {
         return;
     }
 
+    if (target === gifter) {
+      msg.reply("You can't gift yourself.");
+      return;
+  }
+
     if (num < 0) {
-        msg.reply("You fool. You absolute buffoon. I hereby diagnose you with idiocy. You think that I will be fooled by numbers below 0? I am not some kind of 1st grader. Well, the joke is on you sir. Checkmate.");
-        msg.channel.send("I will take those prayers from you, you moronic swine.");
+        msg.reply("You can't gift negative numbers... For that, you will lose those *gifted* prayers.");
         num = Math.abs(num);
         dbHandler.CheckifUserExists(391015029379432448);
         target = 391015029379432448; //praybot
@@ -67,6 +69,9 @@ function GiftPrayers(userId, msg, dbHandler) {
       prayers: giftercurrentprayers - giftnum,
     })
     .write();
+
+    console.log("Gift: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
+
   }
 
   module.exports = { GiftPrayers };
