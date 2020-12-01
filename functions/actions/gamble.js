@@ -36,8 +36,6 @@ function Gamble(userId, msg, dbHandler) {
 
         let gamblenum = Math.floor(Math.random() * 3 + 1);
 
-        console.log("Number is " + gamblenum);
-
         msg.channel.send("Pick a number.")
 
 
@@ -55,7 +53,6 @@ function Gamble(userId, msg, dbHandler) {
                         if (collected.first().emoji.name == '1️⃣') {
                             guess = 1;
                             if (guess == gamblenum) {
-                                console.log("Correct Guess.");
                                 userstore.find({
                                     id: player
                                 }).assign({
@@ -71,13 +68,12 @@ function Gamble(userId, msg, dbHandler) {
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were incorrect.');
+                                msg.channel.send("The answer was " + gamblenum + ".");
                             }
                         }
                         else if (collected.first().emoji.name == '2️⃣') {
-                            msg.reply('You guessed 2.');
                             guess = 2;
                             if (guess == gamblenum) {
-                                console.log("Correct Guess.");
                                 userstore.find({
                                     id: player
                                 }).assign({
@@ -93,13 +89,12 @@ function Gamble(userId, msg, dbHandler) {
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were incorrect.');
+                                msg.channel.send("The answer was " + gamblenum + ".");
                             }
                         }
                         else if (collected.first().emoji.name == '3️⃣') {
-                            msg.reply('You guessed 3.');
                             guess = 3;
                             if (guess == gamblenum) {
-                                console.log("Correct Guess.");
                                 userstore.find({
                                     id: player
                                 }).assign({
@@ -115,6 +110,7 @@ function Gamble(userId, msg, dbHandler) {
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were incorrect.');
+                                msg.channel.send("The answer was " + gamblenum + ".");
                             }
                         }
                     }).catch(() => {
@@ -124,8 +120,6 @@ function Gamble(userId, msg, dbHandler) {
             }).catch(function () {
                 console.log("something maybe did sad");
             });
-
-
 
     } else {
 
