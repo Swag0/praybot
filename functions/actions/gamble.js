@@ -131,9 +131,9 @@ function Gamble(userId, msg, dbHandler) {
 
         let remainingTime = Config.gambleCooldown - (Date.now() - user.lastgambledate)
         if (Math.floor(remainingTime / 1000 % 60) < 10) {
-            msg.channel.send("Every form of addiction is bad, no matter whether the narcotic be alcohol, morphine or gambling. Wait " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
+            msg.channel.send("You have gambled too much. Do not fall to addiction. Wait " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
         } else {
-            msg.channel.send("Every form of addiction is bad, no matter whether the narcotic be alcohol, morphine or gambling. Wait " + Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+            msg.channel.send("You have gambled too much. Do not fall to addiction. Wait " + Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
         }
     }
 }
