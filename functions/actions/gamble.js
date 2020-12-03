@@ -20,8 +20,8 @@ function Gamble(userId, msg, dbHandler) {
         id: player
     }).value().prayers;
 
-    if (playerprayers < 2) {
-        msg.reply("You need 2 prayers in order to gamble.");
+    if (playerprayers < 1) {
+        msg.reply("You need 1 prayer in order to gamble.");
         return;
     }
 
@@ -30,11 +30,12 @@ function Gamble(userId, msg, dbHandler) {
     }
 
     if (Date.now() - user.lastgambledate > Config.gambleCooldown) {
-        user.lastgambledate = Date.now();
 
         let guess = 0;
 
         let gamblenum = Math.floor(Math.random() * 3 + 1);
+
+        console.log(user.username + " should say " + gamblenum + ".");
 
         msg.channel.send("Pick a number.")
 
@@ -51,12 +52,13 @@ function Gamble(userId, msg, dbHandler) {
                 message.awaitReactions((reaction, user) => user.id == msg.author.id && (reaction.emoji.name == '1️⃣' || reaction.emoji.name == '2️⃣' || reaction.emoji.name == '3️⃣'),
                     { max: 1, time: 10000 }).then(collected => {
                         if (collected.first().emoji.name == '1️⃣') {
+                            user.lastgambledate = Date.now();
                             guess = 1;
                             if (guess == gamblenum) {
                                 userstore.find({
                                     id: player
                                 }).assign({
-                                    prayers: playerprayers + 2,
+                                    prayers: playerprayers + 3,
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were correct.');
@@ -72,12 +74,13 @@ function Gamble(userId, msg, dbHandler) {
                             }
                         }
                         else if (collected.first().emoji.name == '2️⃣') {
+                            user.lastgambledate = Date.now();
                             guess = 2;
                             if (guess == gamblenum) {
                                 userstore.find({
                                     id: player
                                 }).assign({
-                                    prayers: playerprayers + 2,
+                                    prayers: playerprayers + 3,
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were correct.');
@@ -93,12 +96,13 @@ function Gamble(userId, msg, dbHandler) {
                             }
                         }
                         else if (collected.first().emoji.name == '3️⃣') {
+                            user.lastgambledate = Date.now();
                             guess = 3;
                             if (guess == gamblenum) {
                                 userstore.find({
                                     id: player
                                 }).assign({
-                                    prayers: playerprayers + 2,
+                                    prayers: playerprayers + 3,
                                 })
                                     .write();
                                 msg.reply('You guessed ' + guess + ' and were correct.');

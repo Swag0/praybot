@@ -96,8 +96,8 @@ client.on('message', msg => {
         StealPrayers(msg.author.id, msg, dbHandler);
       }
     }
-    else if (msg.content === "†time" || msg.content === "+time" || msg.content === "+prayday" || msg.content === "†prayday") {
-      TimeUntilTick(msg);
+    else if (msg.content === "†time" || msg.content === "+time" || msg.content === "+prayday" || msg.content === "†prayday" || msg.content === "+income" || msg.content === "†income") {
+      TimeUntilTick(msg, dbHandler);
     }
     else if (msg.content === "†gamble" || msg.content === "+gamble") {
       Gamble(msg.author.id, msg, dbHandler);

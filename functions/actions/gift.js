@@ -50,6 +50,11 @@ function GiftPrayers(userId, msg, dbHandler) {
     let targetcurrentprayers = userstore.find({
       id: target
     }).value().prayers;
+
+    if (msg.content.includes("all")) {
+      giftnum = giftercurrentprayers;
+    }
+
     userstore.find({
       id: target
     }).assign({

@@ -5,23 +5,28 @@ const client = new Discord.Client();
 
 function Test(userId, msg, dbHandler) {
 
-    let userstore = dbHandler.getDB().get('users');
+  let userstore = dbHandler.getDB().get('users');
 
-    dbHandler.CheckifUserExists(userId);
+  dbHandler.CheckifUserExists(userId);
 
-    let user = userstore.find({
-      id: userId
-    }).value();
+  let user = userstore.find({
+    id: userId
+  }).value();
 
-    //console.log(user.username + " used test function.");
+  //console.log(user.username + " used test function.");
 
-    if (user.id != 346758543489105941) {
-      console.log(user.username + " tried to test.");
-      msg.delete();
-      return;
-    }
+  if (user.id != 346758543489105941) {
+    console.log(user.username + " tried to test.");
+    msg.delete();
+    return;
+  }
 
-    console.log("Hello Cole.")
+  msg.delete();
+
+  console.log("Hello Cole.")
+
+
+
 }
 
 module.exports = { Test };
