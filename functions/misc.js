@@ -11,6 +11,10 @@ function TimeUntilTick(msg, dbHandler) {
     }).value();
     
     let income = user.churchnum + (user.communitynum*11) + (user.citynum*110) + (user.provincenum*1100)
+    
+    if (user.item == "Bible") {
+        income *= 2;
+    }
 
     var nextHour = (3600000 - new Date().getTime() % 3600000);
     

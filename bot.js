@@ -160,12 +160,12 @@ client.on('message', msg => {
     }
     else if (msg.content === "†bugs" || msg.content === "+bugs") {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
-      //gifting negative prayers doesn't give to me, username is not applied when starting game
+      //username is not applied when starting game
       //other stuff.
     }
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
-    }
+    } 
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
     } 
