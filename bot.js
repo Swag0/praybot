@@ -253,7 +253,8 @@ function Help(msg) {
       { name: 'Province', value: '†provincecount', inline: true },
       { name: 'All', value: '†checkall', inline: true },
       //
-      { name: 'Time Until Prayday', value: '†time' },
+      { name: 'Time Until Prayday', value: '†time', inline: true },
+      { name: 'Income at Prayday', value: '†income', inline: true },
       { name: 'Cooldown', value: '†cooldown / †cd', inline: true },
       //
       { name: 'Upcoming Updates', value: '†upcoming' },

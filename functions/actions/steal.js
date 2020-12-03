@@ -2,6 +2,23 @@ const { Config } = require("../config");
 const { CheckifUserExists } = require("../../bot");
 
 function StealPrayers(userId, msg, dbHandler) {
+
+    let failureArr = 
+    [
+    "tripped", 
+    "exploded", 
+    "had an anvil fall on their head", 
+    "imploded", 
+    "was smited by Zeus", 
+    "ceased to exist",
+    "was nuked",
+    "fell",
+    "crossed the River Styx"
+    ] //stealer __ and lost x prayers.
+
+    let randomArr = Math.floor(Math.random() * failureArr.length);
+    let failureMsg = failureArr[randomArr];
+
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
     dbHandler.CheckifUserExists(userId);
@@ -74,7 +91,7 @@ function StealPrayers(userId, msg, dbHandler) {
             msg.channel.send(msg.mentions.users.first().username + " had " + stealnum + " prayers stolen from him.");
             msg.channel.send(msg.author.username + " gained " + stealnum + " prayers.");
         } else { //negative
-            msg.channel.send(msg.author.username + " tripped and lost " + (stealnum * -1) + " prayers.")
+            msg.channel.send(msg.author.username + " " + failureMsg + " and lost " + (stealnum * -1) + " prayers.")
             msg.channel.send(msg.mentions.users.first().username + " found " + (stealnum * -1) + " prayers.");
         }
 

@@ -37,6 +37,8 @@ function Gamble(userId, msg, dbHandler) {
 
         console.log(user.username + " should say " + gamblenum + ".");
 
+        user.lastgambledate = Date.now();
+
         msg.channel.send("Pick a number.")
 
 
@@ -52,7 +54,6 @@ function Gamble(userId, msg, dbHandler) {
                 message.awaitReactions((reaction, user) => user.id == msg.author.id && (reaction.emoji.name == '1️⃣' || reaction.emoji.name == '2️⃣' || reaction.emoji.name == '3️⃣'),
                     { max: 1, time: 10000 }).then(collected => {
                         if (collected.first().emoji.name == '1️⃣') {
-                            user.lastgambledate = Date.now();
                             guess = 1;
                             if (guess == gamblenum) {
                                 userstore.find({
@@ -74,7 +75,6 @@ function Gamble(userId, msg, dbHandler) {
                             }
                         }
                         else if (collected.first().emoji.name == '2️⃣') {
-                            user.lastgambledate = Date.now();
                             guess = 2;
                             if (guess == gamblenum) {
                                 userstore.find({
@@ -96,7 +96,6 @@ function Gamble(userId, msg, dbHandler) {
                             }
                         }
                         else if (collected.first().emoji.name == '3️⃣') {
-                            user.lastgambledate = Date.now();
                             guess = 3;
                             if (guess == gamblenum) {
                                 userstore.find({
@@ -119,6 +118,8 @@ function Gamble(userId, msg, dbHandler) {
                         }
                     }).catch(() => {
                         msg.reply('No reaction after 10 seconds, operation cancelled');
+                        user.lastgambledate = 0;
+
                     });
 
             }).catch(function () {
