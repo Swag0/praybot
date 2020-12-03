@@ -7,6 +7,7 @@ const { IncrementPrays } = require("./functions/actions/create/pray");
 const { Buy } = require("./functions/actions/create/build");
 const { TimeUntilTick } = require("./functions/misc");
 const { Cooldown } = require("./functions/cooldown");
+const { Item } = require("./functions/item");
 const { Config } = require('./functions/config');
 const { Misc } = require('./functions/misc');
 const { Count } = require('./functions/count/count')
@@ -144,6 +145,9 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†cooldown") || msg.content.startsWith("+cooldown") || msg.content.startsWith("+cd") || msg.content.startsWith("†cd")) {
       Cooldown(msg.author.id, msg, dbHandler)
     }
+    else if (msg.content.startsWith("†item") || msg.content.startsWith("+item")) {
+      Item(msg.author.id, msg, dbHandler)
+    }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
@@ -164,7 +168,7 @@ client.on('message', msg => {
     }
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
-    }
+    } 
   }
 });
 
@@ -180,7 +184,12 @@ function IncomeNotification() {
 
 function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
-    user.prayers += user.churchnum * 1;
+    
+    if (user.item = "Bible") {
+      user.prayers += user.churchnum * 2;
+    } else {
+      user.prayers += user.churchnum * 1;
+    }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -189,7 +198,11 @@ function AddChurchIncome() {
 function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.communitynum * 11;
+    if (user.item = "Bible") {
+      user.prayers += user.communitynum * 22;
+    } else {
+      user.prayers += user.communitynum * 11;
+    }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -198,7 +211,11 @@ function AddCommunityIncome() {
 function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.citynum * 110;
+    if (user.item = "Bible") {
+      user.prayers += user.citynum * 220;
+    } else {
+      user.prayers += user.citynum * 110;
+    }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -207,7 +224,11 @@ function AddCityIncome() {
 function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    user.prayers += user.provincenum * 1100;
+    if (user.item = "Bible") {
+      user.prayers += user.provincejob * 2200;
+    } else {
+      user.prayers += user.communitynum * 1100;
+    }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -217,16 +238,16 @@ function AssignItem() {
 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
 
-  churchChannel.send("**Unscrewing Stuff Up**");
+  churchChannel.send("**Items Added**");
 
   /*
-  Holy Grail: 50% chance extra prayer (pray.js)
-  Blessed: You can not be cursed (curse.js)
-  Godspeed: 2x steal value (steal.js)
-  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js)
-  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js)
-  Priest: 10 minute pray timer (pray.js)
-  Bible: 2x income (bot.js)
+  Holy Grail: 2x prayers (pray.js) done
+  Blessed: You can not be cursed (curse.js) done
+  Godspeed: 2x steal value (steal.js) done
+  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) done
+  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) cd edit
+  Priest: 10 minute pray timer (pray.js) cd edit
+  Bible: 2x income (bot.js) done
   */
   let itemArr =
     [
@@ -292,6 +313,8 @@ function Help(msg) {
       { name: 'City', value: '†citycount', inline: true },
       { name: 'Province', value: '†provincecount', inline: true },
       { name: 'All', value: '†checkall', inline: true },
+      //
+      { name: 'Check Item', value: '†item' },
       //
       { name: 'Time Until Prayday', value: '†time', inline: true },
       { name: 'Income at Prayday', value: '†income', inline: true },

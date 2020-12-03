@@ -8,13 +8,22 @@ function Curse(userId, msg, dbHandler) {
 
     let target = msg.mentions.users.first().id;
     let curser = msg.author.id;
+  
+    dbHandler.CheckifUserExists(target);
+    dbHandler.CheckifUserExists(curser);
 
     let user = userstore.find({
         id: userId
     }).value();
-  
-    dbHandler.CheckifUserExists(target);
-    dbHandler.CheckifUserExists(curser);
+
+    let targetId = userstore.find({
+        id: target
+    }).value();
+
+    if (targetId.item == "Blessed") {
+        msg.channel.send(msg.mentions.users.first().username + " can not be cursed as they are Blessed.")
+        return;
+    }
 
  
 

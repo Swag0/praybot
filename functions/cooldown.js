@@ -24,7 +24,13 @@ function Cooldown(userId, msg, dbHandler) {
         user.lastgambledate = 0;
     }
 
-    let remainingTimePray = Config.prayCooldown - (Date.now() - user.lastpraydate);
+
+    let cooldown = Config.prayCooldown;
+    if (user.item == "Priest") {
+        cooldown /= 1.5;
+    }
+
+    let remainingTimePray = cooldown - (Date.now() - user.lastpraydate);
     let remainingTimeSteal = Config.stealCooldown - (Date.now() - user.laststealdate);
     let remainingTimeCurse = Config.curseCooldown - (Date.now() - user.lastcursedate);
     let remainingTimeGamble = Config.gambleCooldown - (Date.now() - user.lastgambledate);
@@ -34,6 +40,8 @@ function Cooldown(userId, msg, dbHandler) {
     let answerSteal = "";
     let answerCurse = "";
     let answerGamble = "";
+    
+    
 
     //Next Pray
     if (Date.now() - user.lastpraydate > Config.prayCooldown) {
@@ -71,7 +79,16 @@ function Cooldown(userId, msg, dbHandler) {
     }
 
     //Next Gamble
-    if (Date.now() - user.lastgambledate > Config.gambleCooldown) {
+
+
+    cooldown = Config.gambleCooldown;
+    if (user.item == "Atheist") {
+        cooldown /= 4;
+    }
+
+    remainingTimeGamble = cooldown - (Date.now() - user.lastgambledate);
+
+    if (Date.now() - user.lastgambledate > cooldown) {
         answerGamble = "Ready";
     } else {
         if (Math.floor(remainingTimeGamble / 1000 % 60) < 10) {
@@ -82,6 +99,9 @@ function Cooldown(userId, msg, dbHandler) {
     }
 
 
+    if (user.item == "Atheist") {
+        answerPray = "Can't Pray Today."
+    }
 
 
     const cdembed = new Discord.MessageEmbed()

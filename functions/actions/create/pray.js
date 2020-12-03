@@ -14,12 +14,30 @@ function IncrementPrays(userId, msg, dbHandler) {
   }).value();
 
 
-  if (Date.now() - user.lastpraydate > Config.prayCooldown) {
-
+  if (user.item == "Atheist") {
+    msg.reply("You are an atheist, so you can't pray. Go gamble your life savings away.");
+    return;
+  }
   
+  let cooldown = Config.prayCooldown;
+
+  if (user.item == "Priest") {
+    cooldown = Config.prayCooldown / 1.5;
+  }
+  
+
+  if (Date.now() - user.lastpraydate > cooldown) {
+
     msg.channel.send("You have been acknowledged for praying to the gods. Do not pray again for 15 minutes. ");
 
-    user.prayers++;
+
+    if (user.item == "Holy Grail") {
+      user.prayers += 2;
+      msg.reply("You also have the Holy Grail, so you got 2 prayers. ");
+    } else {
+      user.prayers++;
+    }
+    
     user.lastpraydate = Date.now();
 
     userstore.find({
@@ -30,8 +48,9 @@ function IncrementPrays(userId, msg, dbHandler) {
 
     console.log(user.username + " has " + user.prayers + " prayers.");
     msg.reply("You have " + user.prayers + " prayers");
+
   } else {
-    let remainingTime = Config.prayCooldown - (Date.now() - user.lastpraydate)
+    let remainingTime = cooldown - (Date.now() - user.lastpraydate)
     if (userId == 346758543489105941) {
       if (Math.floor(remainingTime / 1000 % 60) < 10) {
         msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");

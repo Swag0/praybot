@@ -29,7 +29,13 @@ function Gamble(userId, msg, dbHandler) {
         user.lastgambledate = 0;
     }
 
-    if (Date.now() - user.lastgambledate > Config.gambleCooldown) {
+    let cooldown = Config.gambleCooldown;
+
+    if (user.item == "Atheist") {
+        cooldown = Config.gambleCooldown / 4;
+      }
+
+    if (Date.now() - user.lastgambledate > cooldown) {
 
         let guess = 0;
 
@@ -128,7 +134,7 @@ function Gamble(userId, msg, dbHandler) {
 
     } else {
 
-        let remainingTime = Config.gambleCooldown - (Date.now() - user.lastgambledate)
+        let remainingTime = cooldown - (Date.now() - user.lastgambledate)
         if (Math.floor(remainingTime / 1000 % 60) < 10) {
             msg.channel.send("You have gambled too much. Do not fall to addiction. Wait " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
         } else {
