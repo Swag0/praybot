@@ -89,6 +89,15 @@ function Item(userId, msg, dbHandler) {
             .setTimestamp()
             .setFooter("", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(itemEmbed);
+    } else if (user.item == "Devil's Advocate") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
+            .setTimestamp()
+            .setFooter("", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
+        msg.channel.send(itemEmbed);
     }
 
 

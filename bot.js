@@ -132,7 +132,7 @@ client.on('message', msg => {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
-      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot")
+      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&perms=68672")
     }
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall")) {
       Count(msg.author.id, msg, dbHandler);
@@ -241,13 +241,14 @@ function AssignItem() {
   churchChannel.send("**Items Added**");
 
   /*
-  Holy Grail: 2x prayers (pray.js) done
-  Blessed: You can not be cursed (curse.js) done
-  Godspeed: 2x steal value (steal.js) done
-  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) done
-  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) cd edit
-  Priest: 10 minute pray timer (pray.js) cd edit
-  Bible: 2x income (bot.js) done
+  Holy Grail: 2x prayers (pray.js) 
+  Blessed: You can not be cursed (curse.js) 
+  Godspeed: 2x steal value (steal.js) 
+  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) 
+  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) 
+  Priest: 10 minute pray timer (pray.js)
+  Bible: 2x income (bot.js) 
+  Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
   */
   let itemArr =
     [
@@ -258,6 +259,7 @@ function AssignItem() {
       "Atheist",
       "Priest",
       "Bible",
+      "Devil's Advocate"
     ]
 
 
