@@ -66,6 +66,7 @@ client.on('ready', () => {
   var provincejob = schedule.scheduleJob(rule, AddProvinceIncome);
   var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
 
+  var itemJob = schedule.scheduleJob(dailyrule, AssignItem);
   //var dailyJob = schedule.scheduleJob(dailyrule, Announcement);
 
 
@@ -209,6 +210,45 @@ function AddProvinceIncome() {
     user.prayers += user.provincenum * 1100;
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+}
+
+function AssignItem() {
+
+  let churchChannel = client.channels.cache.get(`780209511339655199`);
+
+  churchChannel.send("**Unscrewing Stuff Up**");
+
+  /*
+  Holy Grail: 50% chance extra prayer (pray.js)
+  Blessed: You can not be cursed (curse.js)
+  Godspeed: 2x steal value (steal.js)
+  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js)
+  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js)
+  Priest: 10 minute pray timer (pray.js)
+  Bible: 2x income (bot.js)
+  */
+  let itemArr =
+    [
+      "Holy Grail",
+      "Blessed",
+      "Godspeed",
+      "Zeus' Chosen",
+      "Atheist",
+      "Priest",
+      "Bible",
+    ]
+
+
+  dbHandler.getDB().get('users').value().forEach((user) => {
+    let randomArr = Math.floor(Math.random() * itemArr.length);
+    let givenItem = itemArr[randomArr];
+
+    if (user.prayers > 0) {
+      user.item = givenItem;
+    }
+    
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ item: user.item }).write();
   });
 }
 

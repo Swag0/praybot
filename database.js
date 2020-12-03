@@ -23,6 +23,7 @@ class DatabaseHandler {
                 communitynum: 0,
                 citynum: 0,
                 provincenum: 0,
+                item: "",
                 //countrynum: 0,
                 //continentnum: 0,
                 //planetnum: 0,
@@ -50,7 +51,8 @@ class DatabaseHandler {
                 lastpraydate: Date.now() - 900001,
                 lastcursedate: Date.now(),
                 laststealdate: Date.now(),
-                lastgambledate: Date.now()
+                lastgambledate: Date.now(),
+                item: ""
             }).write();
             return;
         } else {
