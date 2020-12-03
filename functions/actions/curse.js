@@ -92,6 +92,15 @@ function Curse(userId, msg, dbHandler) {
             msg.channel.send(msg.author.username + " lost " + (cursenum - 1) + " prayers.");
         }
 
+        if (targetprayers < 0) { //if less than 0 prays, then 
+            userstore.find({
+                id: target
+            }).assign({
+                prayers: 0,
+            })
+                .write();
+        }
+
         console.log("Curse: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
 
     } else {
