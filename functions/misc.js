@@ -10,10 +10,20 @@ function TimeUntilTick(msg, dbHandler) {
         id: msg.author.id
     }).value();
     
-    let income = user.churchnum + (user.communitynum*11) + (user.citynum*110) + (user.provincenum*1100)
+    
+    let income = 0;
     
     if (user.item == "Bible") {
-        income *= 2;
+        income += (churchnum*2);
+    }
+    if (user.item == "Religious School") {
+        income += (communitynum*2);
+    }
+    if (user.item == "Sistine Chapel") {
+        income += (citynum*2);
+    }
+    if (user.item == "Bible Belt") {
+        income += (provincenum*2);
     }
 
     var nextHour = (3600000 - new Date().getTime() % 3600000);

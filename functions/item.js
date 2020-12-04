@@ -78,7 +78,31 @@ function Item(userId, msg, dbHandler) {
             .setColor('#0099ff')
             .setTitle(user.username)
             .addField("Item: ", user.item)
-            .addField("Use: ", "You receive 1.5x income.")
+            .addField("Use: ", "You receive 2x income on churches.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (user.item == "Religious School") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "You receive 2x income on communities.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (user.item == "Sistine Chapel") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "You receive 2x income on cities.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (user.item == "Bible Belt") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "You receive 2x income on provinces.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else if (user.item == "Devil's Advocate") {
@@ -93,8 +117,8 @@ function Item(userId, msg, dbHandler) {
         const itemEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(user.username)
-        .addField("Item: ", "No Item Equipped")
-        .addField("Why? ", "Your account is too new to have items. Please wait a day.")
+        .addField("Item: ", user.item)
+        .addField("Why? ", "")
         .setTimestamp()
     msg.channel.send(itemEmbed);
     }

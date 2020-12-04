@@ -158,7 +158,7 @@ client.on('message', msg => {
       msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming") {
-      msg.channel.send("Upcoming updates are: Fully online bot, leaderboard, achievements, upgrades, and extra levels.");
+      msg.channel.send("Upcoming updates are: Fully online bot, leaderboard, ambrosia, achievements, upgrades, and extra levels.");
     }
     else if (msg.content === "†bugs" || msg.content === "+bugs") {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
@@ -170,12 +170,22 @@ client.on('message', msg => {
     } 
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
+      Leaderboard();
     } 
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler) 
     } //profile has to be last because it is p, and starts with p
   }
 });
+
+function Leaderboard() {
+  dbHandler.getDB().get('users').value().forEach((user) => {
+
+    console.log(user.username + " has " + user.prayers);
+
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+}
 
 //780209511339655199 is church area.
 
@@ -184,14 +194,14 @@ function IncomeNotification() {
   //This may or may not work. 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
 
-  churchChannel.send("**Income Received**");
+  churchChannel.send("**Income UnReceived**");
 }
 
 function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
     
-    if (user.item = "Bible") {
-      user.prayers += Math.ceil(user.churchnum * 1.5);
+    if (user.item == "Bible") {
+      user.prayers = user.churchnum * 2;
     } else {
       user.prayers += user.churchnum * 1;
     }
@@ -203,8 +213,8 @@ function AddChurchIncome() {
 function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item = "Bible") {
-      user.prayers += Math.ceil(user.communitynum * 16.5);
+    if (user.item == "Religious School") {
+      user.prayers += (user.communitynum * 22)
     } else {
       user.prayers += (user.communitynum * 11);
     }
@@ -216,8 +226,8 @@ function AddCommunityIncome() {
 function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item = "Bible") {
-      user.prayers += Math.ceil(user.citynum * 165);
+    if (user.item == "Sistine Chapel") {
+      user.prayers += user.citynum * 220;
     } else {
       user.prayers += user.citynum * 110;
     }
@@ -229,8 +239,8 @@ function AddCityIncome() {
 function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item = "Bible") {
-      user.prayers += Math.ceil(user.provincenum * 1650);
+    if (user.item == "Bible Belt") {
+      user.prayers += user.provincenum * 2200;
     } else {
       user.prayers += user.provincenum * 1100;
     }
@@ -247,13 +257,19 @@ function AssignItem() {
 
   /*
   Holy Grail: 2x prayers (pray.js) 
-  Blessed: You can not be cursed (curse.js) 
+  Blessed: You can not be cursed (curse.js) (maybe also make steal as well)
   Godspeed: 2x steal value (steal.js) 
   Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) 
   Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) 
   Priest: 10 minute pray timer (pray.js)
-  Bible: 1.5x income (bot.js) 
   Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
+  Bible Change: 2x income on churches
+  Religious School: 2x income on community
+  Sistine Chapel: 2x income on city
+  Bible Belt: 2x income on province
+
+  **ADD THIS**
+  Menorah: You can steal up to 7 prayers.
   */
   let itemArr =
     [
@@ -263,8 +279,11 @@ function AssignItem() {
       "Zeus' Chosen",
       "Atheist",
       "Priest",
+      "Devil's Advocate",
       "Bible",
-      "Devil's Advocate"
+      "Religious School",
+      "Sistine Chapel",
+      "Bible Belt"
     ]
 
 
