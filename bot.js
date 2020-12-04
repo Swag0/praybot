@@ -8,6 +8,7 @@ const { Buy } = require("./functions/actions/create/build");
 const { TimeUntilTick } = require("./functions/misc");
 const { Cooldown } = require("./functions/cooldown");
 const { Item } = require("./functions/item");
+const { Profile} = require("./functions/profile");
 const { Config } = require('./functions/config');
 const { Misc } = require('./functions/misc');
 const { Count } = require('./functions/count/count')
@@ -51,6 +52,7 @@ client.on('ready', () => {
   var rule = new schedule.RecurrenceRule();
   rule.hour = [0, 6, 12, 18];
   rule.minute = 0;
+
 
   var dailyrule = new schedule.RecurrenceRule();
   dailyrule.hour = 0;
@@ -148,6 +150,9 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†item") || msg.content.startsWith("+item")) {
       Item(msg.author.id, msg, dbHandler)
     }
+    else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content === "+p" || msg.content === "†p") {
+      Profile(msg.author.id, msg, dbHandler)
+    }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
@@ -186,7 +191,7 @@ function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
     
     if (user.item = "Bible") {
-      user.prayers += user.churchnum * 2;
+      user.prayers += Math.ceil(user.churchnum * 1.5);
     } else {
       user.prayers += user.churchnum * 1;
     }
@@ -199,9 +204,9 @@ function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item = "Bible") {
-      user.prayers += user.communitynum * 22;
+      user.prayers += Math.ceil(user.communitynum * 16.5);
     } else {
-      user.prayers += user.communitynum * 11;
+      user.prayers += (user.communitynum * 11);
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -212,7 +217,7 @@ function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item = "Bible") {
-      user.prayers += user.citynum * 220;
+      user.prayers += Math.ceil(user.citynum * 165);
     } else {
       user.prayers += user.citynum * 110;
     }
@@ -225,9 +230,9 @@ function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item = "Bible") {
-      user.prayers += user.provincejob * 2200;
+      user.prayers += Math.ceil(user.provincenum * 1650);
     } else {
-      user.prayers += user.communitynum * 1100;
+      user.prayers += user.provincenum * 1100;
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -247,7 +252,7 @@ function AssignItem() {
   Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) 
   Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) 
   Priest: 10 minute pray timer (pray.js)
-  Bible: 2x income (bot.js) 
+  Bible: 1.5x income (bot.js) 
   Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
   */
   let itemArr =

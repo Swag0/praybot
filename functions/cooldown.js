@@ -114,8 +114,5 @@ function Cooldown(userId, msg, dbHandler) {
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(cdembed);
-
-
-
 }
 module.exports = { Cooldown };
