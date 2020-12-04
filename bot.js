@@ -150,9 +150,6 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†item") || msg.content.startsWith("+item")) {
       Item(msg.author.id, msg, dbHandler)
     }
-    else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content === "+p" || msg.content === "†p") {
-      Profile(msg.author.id, msg, dbHandler)
-    }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
@@ -161,7 +158,7 @@ client.on('message', msg => {
       msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming") {
-      msg.reply("Upcoming updates are: Profile, fully online bot, leaderboard, achievements, upgrades, and extra levels.");
+      msg.channel.send("Upcoming updates are: Fully online bot, leaderboard, achievements, upgrades, and extra levels.");
     }
     else if (msg.content === "†bugs" || msg.content === "+bugs") {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
@@ -174,6 +171,9 @@ client.on('message', msg => {
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
     } 
+    else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
+      Profile(msg.author.id, msg, dbHandler) 
+    } //profile has to be last because it is p, and starts with p
   }
 });
 

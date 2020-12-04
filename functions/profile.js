@@ -12,7 +12,36 @@ function Profile(userId, msg, dbHandler) {
         id: userId
     }).value();
 
-    const profileEmbed = new Discord.MessageEmbed()
+
+    let target = "";
+
+    if (msg.mentions.users.first() != undefined) {
+        target = msg.mentions.users.first().id;
+    }
+
+    if (target) {
+
+        dbHandler.CheckifUserExists(target);
+
+        let player = userstore.find({
+            id: target
+        }).value();
+
+        const profileEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle(player.username)
+        .addField("Prayers: ", player.prayers)
+        .addField("Churches ", player.churchnum)
+        .addField("Communities: ", player.communitynum)
+        .addField("Cities ", player.citynum)
+        .addField("Provinces: ", player.provincenum)
+        .addField("Item: ", player.item)
+        .setTimestamp()
+        .setFooter(player.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
+        msg.channel.send(profileEmbed);
+
+    } else {
+        const profileEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(user.username)
         .addField("Prayers: ", user.prayers)
@@ -24,6 +53,9 @@ function Profile(userId, msg, dbHandler) {
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
     msg.channel.send(profileEmbed);
+    }
+
+    
 
 }
 
