@@ -170,7 +170,7 @@ client.on('message', msg => {
     } 
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
-      //Leaderboard();
+      Leaderboard();
     } 
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler) 
@@ -189,28 +189,18 @@ function Leaderboard() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.username) {
-      playerArr.push(user.prayers);
+      
+      playerArr.push(user.prayers + ": " + user.username);
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
-
-  playerArr.sort(function(a, b) {
-    return a - b;
-  });
+  
+  const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
+  playerArr = playerArr.sort(sortAlphaNum);
   playerArr = playerArr.reverse();
   
   console.log(playerArr);
-
-  dbHandler.getDB().get('users').value().forEach((user) => {
-
-    
-    if (user.prayers == playerArr) {
-      playerArr.push(user.username);
-    }
-
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
-  });
 }
 
 //780209511339655199 is church area.
