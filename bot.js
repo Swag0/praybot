@@ -323,6 +323,8 @@ function Help(msg) {
       //
       { name: 'Check Item', value: '†item' },
       //
+      { name: 'Profile', value: '†p / †p @target' },
+      //
       { name: 'Time Until Prayday', value: '†time', inline: true },
       { name: 'Income at Prayday', value: '†income', inline: true },
       { name: 'Cooldown', value: '†cooldown / †cd', inline: true },
