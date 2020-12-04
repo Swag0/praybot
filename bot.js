@@ -170,7 +170,7 @@ client.on('message', msg => {
     } 
     else if (msg.content === "test") {
       Test(msg.author.id, msg, dbHandler);
-      Leaderboard();
+      //Leaderboard();
     } 
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler) 
@@ -179,9 +179,35 @@ client.on('message', msg => {
 });
 
 function Leaderboard() {
+
+  let playerArr =
+    [
+      
+    ]
+  
+
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    console.log(user.username + " has " + user.prayers);
+    if (user.username) {
+      playerArr.push(user.prayers);
+    }
+
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+
+  playerArr.sort(function(a, b) {
+    return a - b;
+  });
+  playerArr = playerArr.reverse();
+  
+  console.log(playerArr);
+
+  dbHandler.getDB().get('users').value().forEach((user) => {
+
+    
+    if (user.prayers == playerArr) {
+      playerArr.push(user.username);
+    }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
@@ -194,7 +220,7 @@ function IncomeNotification() {
   //This may or may not work. 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
 
-  churchChannel.send("**Income UnReceived**");
+  churchChannel.send("**Income Received**");
 }
 
 function AddChurchIncome() {
@@ -271,6 +297,8 @@ function AssignItem() {
   **ADD THIS**
   Menorah: You can steal up to 7 prayers.
   */
+
+  //Reroll cost will be next income + 5 prayers
   let itemArr =
     [
       "Holy Grail",

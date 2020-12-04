@@ -14,16 +14,24 @@ function TimeUntilTick(msg, dbHandler) {
     let income = 0;
     
     if (user.item == "Bible") {
-        income += (churchnum*2);
+        income += (user.churchnum*2);
+    } else {
+        income += (user.churchnum);
     }
     if (user.item == "Religious School") {
-        income += (communitynum*2);
+        income += (user.communitynum*22);
+    } else {
+        income += (user.communitynum*11);
     }
     if (user.item == "Sistine Chapel") {
-        income += (citynum*2);
+        income += (user.citynum*220);
+    } else {
+        income += user.citynum*110;
     }
     if (user.item == "Bible Belt") {
-        income += (provincenum*2);
+        income += (user.provincenum*2200);
+    } else {
+        income += (user.provincenum*1100);
     }
 
     var nextHour = (3600000 - new Date().getTime() % 3600000);

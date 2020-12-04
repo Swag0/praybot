@@ -21,8 +21,12 @@ function Gamble(userId, msg, dbHandler) {
     }).value().prayers;
 
     if (playerprayers < 1) {
-        msg.reply("You need 1 prayer in order to gamble.");
-        return;
+        if (user.item == "Atheist") {
+            msg.reply("You have no prayers, so don't lose or you are going into debt");
+        } else {
+            msg.reply("You need 1 prayer in order to gamble.");
+            return;
+        }
     }
 
     if (user.lastgambledate == undefined || user.lastgambledate == NaN) {
@@ -33,7 +37,7 @@ function Gamble(userId, msg, dbHandler) {
 
     if (user.item == "Atheist") {
         cooldown = Config.gambleCooldown / 4;
-      }
+    }
 
     if (Date.now() - user.lastgambledate > cooldown) {
 
