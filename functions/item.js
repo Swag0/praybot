@@ -113,14 +113,22 @@ function Item(userId, msg, dbHandler) {
             .addField("Use: ", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
             .setTimestamp()
         msg.channel.send(itemEmbed);
+    } else if (user.item == "Menorah") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "Menorah: You can steal up to 7 prayers.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
     } else {
         const itemEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(user.username)
         .addField("Item: ", user.item)
-        .addField("Why? ", "")
+        .addField("Use: ", "Nothing.")
         .setTimestamp()
-    msg.channel.send(itemEmbed);
+        msg.channel.send(itemEmbed);
     }
 
 

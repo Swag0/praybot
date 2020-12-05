@@ -294,8 +294,6 @@ function AssignItem() {
   Religious School: 2x income on community
   Sistine Chapel: 2x income on city
   Bible Belt: 2x income on province
-
-  **ADD THIS**
   Menorah: You can steal up to 7 prayers.
   */
 
@@ -312,7 +310,8 @@ function AssignItem() {
       "Bible",
       "Religious School",
       "Sistine Chapel",
-      "Bible Belt"
+      "Bible Belt",
+      "Menorah"
     ]
 
 

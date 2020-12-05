@@ -45,6 +45,10 @@ function StealPrayers(userId, msg, dbHandler) {
 
     let stealnum = Math.floor(Math.random() * 3 + 1); //1-3
 
+    if (user.item == "Menorah") {
+        stealnum = Math.floor(Math.random() * 7 + 1); //1-7
+    }
+
     let stealerprayers = userstore.find({
         id: stealer
     }).value().prayers;
@@ -59,21 +63,28 @@ function StealPrayers(userId, msg, dbHandler) {
         return;
     }
 
-    if (stealerprayers < 3) {
+    if (stealerprayers < 3 && (user.item != "Menorah")) {
         msg.reply("You need 3 prayers in order to steal.");
+        return;
+    } else if (stealerprayers < 7) {
+        msg.reply("You have the menorah, so you need 7 prayers in order to steal.");
         return;
     }
 
     if (targetprayers < 3) {
-        msg.reply("Your target needs at least 3 prayers to be stolen from them.");
+        msg.reply("Your target needs 3 prayers to steal from.");
         return;
     }
+
+    if (targetprayers < 7 && user.item == "Menorah") {
+        stealnum = Math.floor(Math.random() * targetprayers + 1);
+    }
+
 
     if (target == "391015029379432448") {
         msg.reply("Don't even try.");
         return;
     }
-    //console.log(msg.author.username + " is stealing from " + msg.mentions.users.first().username + ".");
 
     if (Date.now() - user.laststealdate > Config.stealCooldown) {
 
