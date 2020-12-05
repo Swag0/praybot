@@ -18,12 +18,14 @@ function Test(userId, msg, dbHandler) {
   if (user.id != 346758543489105941) {
     console.log(user.username + " tried to test.");
     msg.delete();
-    return;
+    return false;
+  } else {
+    msg.delete();
+    console.log("Hello Cole.")
+    return true;
   }
 
-  msg.delete();
-
-  console.log("Hello Cole.")
+  
 
 
 

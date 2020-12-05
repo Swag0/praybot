@@ -8,7 +8,8 @@ const { Buy } = require("./functions/actions/create/build");
 const { TimeUntilTick } = require("./functions/misc");
 const { Cooldown } = require("./functions/cooldown");
 const { Item } = require("./functions/item");
-const { Profile} = require("./functions/profile");
+const { Profile } = require("./functions/profile");
+const { HelpPage } = require("./functions/help");
 const { Config } = require('./functions/config');
 const { Misc } = require('./functions/misc');
 const { Count } = require('./functions/count/count')
@@ -108,7 +109,7 @@ client.on('message', msg => {
       Gamble(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
-      Help(msg);
+      HelpPage(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church") {
       Buy(msg.author.id, msg, dbHandler, "church");
@@ -135,7 +136,7 @@ client.on('message', msg => {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
-      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&perms=68672")
+      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&perms=74816")
     }
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall")) {
       Count(msg.author.id, msg, dbHandler);
@@ -154,7 +155,7 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†reroll") || msg.content.startsWith("+reroll")) {
       Reroll(msg.author.id, msg, dbHandler)
     }
-    else  if (msg.content === "†leaderboard" || msg.conten === "+leaderboard") {
+    else if (msg.content === "†leaderboard" || msg.conten === "+leaderboard") {
       Leaderboard(msg);
     }
     else if (msg.content === "†BUBBLEWRAP") {
@@ -174,12 +175,23 @@ client.on('message', msg => {
     }
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
-    } 
+    }
     else if (msg.content === "test") {
-      Test(msg.author.id, msg, dbHandler);
-    } 
+      if (Test(msg.author.id, msg, dbHandler)) {
+        console.log("Tested");
+      }
+    }
+    else if (msg.content === "ADDINCOMEE") {
+      if (Test(msg.author.id, msg, dbHandler)) {
+        AddChurchIncome();
+        AddCommunityIncome();
+        AddCityIncome();
+        AddProvinceIncome();
+        IncomeNotification();
+      }
+    }
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
-      Profile(msg.author.id, msg, dbHandler) 
+      Profile(msg.author.id, msg, dbHandler)
     } //profile has to be last because it is p, and starts with p
   }
 });
@@ -188,33 +200,33 @@ function Leaderboard(msg) {
 
   let playerArr =
     [
-      
+
     ]
-  
+
 
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.username) {
-      
+
       playerArr.push(user.prayers + ": " + user.username);
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
-  
+
   const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
   playerArr = playerArr.sort(sortAlphaNum);
   playerArr = playerArr.reverse();
-  
+
   const leaderEmbed = new Discord.MessageEmbed()
-  .setColor('#0099ff')
-  .setTitle('Leaderboard')
-  .addField("1. ", playerArr[0])
-  .addField("2. ", playerArr[1])
-  .addField("3. ", playerArr[2])
-  .addField("4. ", playerArr[3])
-  .addField("5. ", playerArr[4])
-  .setTimestamp()
+    .setColor('#0099ff')
+    .setTitle('Leaderboard')
+    .addField("1. ", playerArr[0])
+    .addField("2. ", playerArr[1])
+    .addField("3. ", playerArr[2])
+    .addField("4. ", playerArr[3])
+    .addField("5. ", playerArr[4])
+    .setTimestamp()
   msg.channel.send(leaderEmbed);
 }
 
@@ -230,7 +242,7 @@ function IncomeNotification() {
 
 function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
-    
+
     if (user.item == "Bible") {
       user.prayers = user.churchnum * 2;
     } else {
@@ -326,7 +338,7 @@ function AssignItem() {
     if (user.prayers > 0) {
       user.item = givenItem;
     }
-    
+
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ item: user.item }).write();
   });
 }
@@ -342,54 +354,6 @@ function Announcement(msg) {
     )
     .setFooter('Check the announcements tomorrow for more news.', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
   msg.channel.send(announceEmbed);
-}
-
-function Help(msg) {
-  const helpEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
-    .setTitle('Help Page')
-    .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
-    .addFields(
-      { name: 'Pray', value: '†pray' },
-      //
-      { name: '\u200b', value: 'Build' },
-      { name: 'Church', value: '†church', inline: true },
-      { name: 'Community', value: '†community', inline: true },
-      { name: 'City', value: '†city', inline: true },
-      { name: 'Province', value: '†province', inline: true },
-      //
-      { name: '\u200b', value: 'Actions' },
-      { name: 'Curse', value: '†curse @target', inline: true },
-      { name: 'Steal', value: '†steal @target', inline: true },
-      { name: 'Gift', value: '†gift @target', inline: true },
-      { name: 'Gamble', value: '†gamble', inline: true },
-      //
-      { name: '\u200b', value: 'Count or Count @target' },
-      { name: 'Prayers', value: '†praycount', inline: true },
-      { name: 'Church', value: '†churchcount', inline: true },
-      { name: 'Community', value: '†communitycount', inline: true },
-      { name: 'City', value: '†citycount', inline: true },
-      { name: 'Province', value: '†provincecount', inline: true },
-      { name: 'All', value: '†checkall', inline: true },
-      //
-      { name: 'Check Item', value: '†item' },
-      //
-      { name: 'Profile', value: '†p / †p @target' },
-      //
-      { name: 'Leaderboard', value: '†leaderboard' },
-      //
-      { name: 'Time Until Prayday', value: '†time', inline: true },
-      { name: 'Income at Prayday', value: '†income', inline: true },
-      { name: 'Cooldown', value: '†cooldown / †cd', inline: true },
-      //
-      { name: 'Upcoming Updates', value: '†upcoming' },
-      { name: 'Announcements', value: '†announcements' },
-      { name: 'Invite', value: '†invite' },
-      { name: 'Help Command', value: '†repose' },
-    )
-    .setTimestamp()
-    .setFooter('Prefix is † or +', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
-  msg.channel.send(helpEmbed);
 }
 
 client.login(process.env.SECRETBOI);

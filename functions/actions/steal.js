@@ -66,7 +66,8 @@ function StealPrayers(userId, msg, dbHandler) {
     if (stealerprayers < 3 && (user.item != "Menorah")) {
         msg.reply("You need 3 prayers in order to steal.");
         return;
-    } else if (stealerprayers < 7) {
+    }
+    if (stealerprayers < 7 && (user.item == "Menorah")) {
         msg.reply("You have the menorah, so you need 7 prayers in order to steal.");
         return;
     }
