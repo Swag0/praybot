@@ -17,6 +17,7 @@ const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
 const { Test } = require('./functions/test')
+const { Reroll } = require('./functions/reroll')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -150,6 +151,12 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†item") || msg.content.startsWith("+item")) {
       Item(msg.author.id, msg, dbHandler)
     }
+    else if (msg.content.startsWith("†reroll") || msg.content.startsWith("+reroll")) {
+      Reroll(msg.author.id, msg, dbHandler)
+    }
+    else  if (msg.content === "†leaderboard" || msg.conten === "+leaderboard") {
+      Leaderboard(msg);
+    }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
@@ -164,9 +171,6 @@ client.on('message', msg => {
       msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
       //username is not applied when starting game
       //other stuff.
-    }
-    else  if (msg.content === "†leaderboard" || msg.conten === "+leaderboard") {
-      Leaderboard(msg);
     }
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
