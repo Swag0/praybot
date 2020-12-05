@@ -12,10 +12,15 @@ function GiftPrayers(userId, msg, dbHandler) {
     dbHandler.CheckifUserExists(target);
     dbHandler.CheckifUserExists(gifter);
   
-    let num = 0;
+    let num = "-";
   
     if (!isNaN(Number(msg.content.split(" ").pop()))) {
         num = Number(msg.content.split(" ").pop());
+    }
+
+    if (num == "-") {
+      msg.reply("You need to gift an amount of prayers.");
+      return;
     }
     
 

@@ -178,7 +178,7 @@ client.on('message', msg => {
     }
     else if (msg.content === "test") {
       if (Test(msg.author.id, msg, dbHandler)) {
-        console.log("Tested");
+        Cleaning();
       }
     }
     else if (msg.content === "ADDINCOMEE") {
@@ -196,6 +196,16 @@ client.on('message', msg => {
   }
 });
 
+function Cleaning() {
+  dbHandler.getDB().get('users').value().forEach((user) => {
+
+    if (user.prayers == 0 && (user.laststealdate === user.lastgambledate)) {
+
+      console.log(user.id + " is not active.");
+    }
+  });
+}
+
 function Leaderboard(msg) {
 
   let playerArr =
@@ -210,8 +220,6 @@ function Leaderboard(msg) {
 
       playerArr.push(user.prayers + ": " + user.username);
     }
-
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
   });
 
   const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })

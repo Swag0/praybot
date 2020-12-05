@@ -96,7 +96,7 @@ function StealPrayers(userId, msg, dbHandler) {
         } else {
             stealnum *= Math.floor(Math.random() * 4) == 1 ? -1 : 1; // this makes 75/25 positive
         }
-        
+
 
         if (user.item == "Godspeed") {
             userstore.find({
@@ -124,7 +124,7 @@ function StealPrayers(userId, msg, dbHandler) {
         if (stealnum > 0) { //pos
             msg.channel.send(msg.mentions.users.first().username + " had " + stealnum + " prayers stolen from him.");
             if (user.item == "Godspeed") {
-            msg.channel.send(msg.author.username + " gained " + (2*stealnum) + " prayers as they have Godspeed.");
+                msg.channel.send(msg.author.username + " gained " + (2 * stealnum) + " prayers as they have Godspeed.");
             } else {
                 msg.channel.send(msg.author.username + " gained " + stealnum + " prayers.");
             }

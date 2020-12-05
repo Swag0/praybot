@@ -6,7 +6,6 @@ const db = low(adapter);
 
 
 
-
 class DatabaseHandler {
 
     constructor() {

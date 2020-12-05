@@ -85,6 +85,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Leaderboard", 'Use †leaderboard to return the 5 users with the most prayers.')
                 .addField("Cooldown", 'Use †cd to return your cooldowns on praying, gambling, stealing, and cursing.')
                 .addField("Invite", 'Use †invite to return the invite link for this bot.')
+                .addField("Help", 'Use †help or †repose to access this help menu.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
         }
