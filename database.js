@@ -41,14 +41,11 @@ class DatabaseHandler {
     CheckifUserExists(id) {
         let userstore = db.get('users');
 
-        let user = userstore.find({
-            id: id
-        }).value();
+        
 
         if (util.isNullOrUndefined(userstore.find({ id: id }).value())) {
             userstore.push({
                 id: id,
-                username: user.username,
                 prayers: 0,
                 churchnum: 0,
                 communitynum: 0,
