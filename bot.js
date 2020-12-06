@@ -64,7 +64,7 @@ client.on('ready', () => {
 
   console.log(`Watching ${client.guilds.cache.size} Servers.`);
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity("you", { type: "WATCHING" });
+  client.user.setActivity("you | †help", { type: "WATCHING" }); //WATCHING you
 
   var churchjob = schedule.scheduleJob(rule, AddChurchIncome);
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
