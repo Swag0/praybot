@@ -42,10 +42,10 @@ function HelpPage(userId, msg, dbHandler) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle("Building Commands")
-                .addField("Building Churches", 'Use *†church* to build a church. On prayday, you will gain 1 prayer per church.')
-                .addField("Building Communities", 'Use *†community* to build a community. On prayday, you will gain 11 prayers per community.')
-                .addField("Building Cities", 'Use *†city* to build a city. On prayday, you will gain 110 prayers per city.')
-                .addField("Building Provinces", 'Use *†province* to build a province. On prayday, you will gain 1100 prayers per province.')
+                .addField("Building Churches", 'Use *†church* *x* to build *x* churches. On prayday, you will gain 1 prayer per church.')
+                .addField("Building Communities", 'Use *†community* *x* to build *x* communities. On prayday, you will gain 11 prayers per community.')
+                .addField("Building Cities", 'Use *†city* *x* to build *x* cities. On prayday, you will gain 110 prayers per city.')
+                .addField("Building Provinces", 'Use *†province* *x* to build *x* provinces. On prayday, you will gain 1100 prayers per province.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
         } else if (page == 3) {
@@ -73,6 +73,7 @@ function HelpPage(userId, msg, dbHandler) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle("Item Commands")
+                .addField("Item List", 'Use *†itemlist* to show all items and their functions.')
                 .addField("Check Item", 'Use *†item* to return your item and its functions.')
                 .addField("Reroll", 'Use *†reroll* to reroll your item. The formula for cost is *income + 5 prayers*.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');

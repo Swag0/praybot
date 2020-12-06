@@ -111,16 +111,16 @@ client.on('message', msg => {
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
       HelpPage(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content === "†buildchurch" || msg.content === "†church" || msg.content === "+buildchurch" || msg.content === "+church") {
+    else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
       Buy(msg.author.id, msg, dbHandler, "church");
     }
-    else if (msg.content === "†buildcommunity" || msg.content === "†community" || msg.content === "+buildcommunity" || msg.content === "+community") {
+    else if (msg.content.startsWith("†community") || msg.content.startsWith("+community")) {
       Buy(msg.author.id, msg, dbHandler, "community");
     }
-    else if (msg.content === "†buildcity" || msg.content === "†city" || msg.content === "+buildcity" || msg.content === "+city") {
+    else if (msg.content.startsWith("†city") || msg.content.startsWith("+city")) {
       Buy(msg.author.id, msg, dbHandler, "city");
     }
-    else if (msg.content === "†buildprovince" || msg.content === "†province" || msg.content === "+buildprovince" || msg.content === "+province") {
+    else if (msg.content.startsWith("†province") || msg.content.startsWith("+province")) {
       Buy(msg.author.id, msg, dbHandler, "province");
     }
     else if (msg.content.startsWith("†churchcount") || msg.content.startsWith("†Churchcount") || msg.content.startsWith("+churchcount") || msg.content.startsWith("+Churchcount")) {
@@ -179,6 +179,13 @@ client.on('message', msg => {
     else if (msg.content === "test") {
       if (Test(msg.author.id, msg, dbHandler)) {
         Cleaning();
+        //msg.channel.send("*Manually pinging*" + " <@" + msg.author.id + ">")
+        msg.channel.send("*Manually pinging* <@" + msg.author.id + ">")
+        .then(function (message) {
+          msg.channel.send("Their username is " + message.mentions.users.first().username + ".");
+          console.log("<@767818830134247444>".id)
+        });
+        
       }
     }
     else if (msg.content === "ADDINCOMEE") {

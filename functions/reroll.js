@@ -41,8 +41,6 @@ function Reroll(userId, msg, dbHandler) {
         return;
     }
 
-    console.log(user.prayers + " v. " + cost);
-
     let itemArr =
         [
             "Holy Grail",

@@ -14,14 +14,40 @@ function Item(userId, msg, dbHandler) {
 
 
     /*
-    Holy Grail: Gives 2x prayers
-    Blessed: You can not be cursed
-    Godspeed: 2x steal value
-    Zeus' Chosen: Increased backfire chance when stolen from.
-    Atheist: Can't pray, but 15 minute gamble timer.
-    Priest: 10 minute pray timer
-    Bible: 2x income
+   Holy Grail: 2x prayers (pray.js) 
+  Blessed: You can not be cursed (curse.js) (maybe also make steal as well)
+  Godspeed: 2x steal value (steal.js) 
+  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) 
+  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) 
+  Priest: 10 minute pray timer (pray.js)
+  Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
+  Bible: 2x income on churches
+  Religious School: 2x income on community
+  Sistine Chapel: 2x income on city
+  Bible Belt: 2x income on province
+  Menorah: You can steal up to 7 prayers.
     */
+
+    if (msg.content === "†itemlist" || msg.content === "+itemlist" || msg.content === "†items" || msg.content === "+items") {
+        const itemListEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle("Item List")
+            .addField("Blessed", 'You can not be cursed.')
+            .addField("Godspeed", '2x Steal Value.')
+            .addField("Zeus' Chosen", "Increased backfire chance when stolen from.")
+            .addField("Atheist", "Can't pray, but 15 minute gamble timer.")
+            .addField("Priest", "10 minute pray timer.")
+            .addField("Devil's Advocate", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
+            .addField("Bible", "2x income on churches.")
+            .addField("Religious School", " 2x income on communities.")
+            .addField("Sistine Chapel", " 2x income on cities.")
+            .addField("Bible Belt", " 2x income on provinces.")
+            .addField("Menorah", " You can steal up to 7 prayers.")
+            .setTimestamp()
+            .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
+        msg.channel.send(itemListEmbed);
+        return;
+    }
 
     if (user.item == "Holy Grail") {
         const itemEmbed = new Discord.MessageEmbed()
@@ -123,11 +149,11 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else {
         const itemEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle(user.username)
-        .addField("Item: ", user.item)
-        .addField("Use: ", "Nothing.")
-        .setTimestamp()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "Nothing.")
+            .setTimestamp()
         msg.channel.send(itemEmbed);
     }
 

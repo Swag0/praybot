@@ -8,59 +8,76 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
     let user = userstore.find({
         id: userId
     }).value();
+
+    let num = 1;
+  
+    if (!isNaN(Number(msg.content.split(" ").pop()))) {
+        num = Number(msg.content.split(" ").pop());
+    }
+
+    if (Math.round(num) != num) {
+        msg.reply("Please enter an integer.")
+        return;
+    }
+
+    if (num < 1) {
+        msg.reply("Please enter a positive integer.")
+        return;
+    } 
+
+
     
     if (building == "church") {
-        if (user.prayers >= Config.churchPrice) {
+        if ((user.prayers / num) >= Config.churchPrice) {
 
-            user.churchnum++;
-            user.prayers -= Config.churchPrice;
+            user.churchnum += num;
+            user.prayers -= (Config.churchPrice * num);
             
-              msg.reply("You bought a church for 10 prayers and now have " + user.churchnum + " churches.");
+              msg.reply("You bought " + num + " church(es) for " + (Config.churchPrice * num) + " prayers and now have " + user.churchnum + " churches.");
           } else {
-              msg.reply("You need 10 prayers to build a church.")
+              msg.reply("You need " + (Config.churchPrice * num) + " to build " + num + " church(es).");
               msg.reply("You currently have " + (user.churchnum) + " churches. ")
           }
     }  
 
     if (building == "community") {
-        if (user.prayers >= Config.communityPrice) {
+        if ((user.prayers / num) >= Config.communityPrice) {
 
-            user.communitynum++;
-            user.prayers -= Config.communityPrice;
+            user.communitynum += num;
+            user.prayers -= (Config.communityPrice * num);
             
-              msg.reply("You bought a community for 100 prayers and now have " + user.communitynum + " communities.");
+              msg.reply("You bought " + num + " communities for " + (Config.communityPrice * num) + " prayers and now have " + user.communitynum + " communities.");
           } else {
-              msg.reply("You need 100 prayers to build a community.")
+              msg.reply("You need " + (Config.communityPrice * num) + " to build " + num + " communities.");
               msg.reply("You currently have " + (user.communitynum) + " communities. ")
           }
     } 
     
     if (building == "city") {
-        if (user.prayers >= Config.cityPrice) {
+        if ((user.prayers / num) >= Config.cityPrice) {
 
-            user.citynum++;
-            user.prayers -= Config.cityPrice;
+            user.citynum += num;
+            user.prayers -= (Config.cityPrice * num);
             
-              msg.reply("You bought a city for 1000 prayers and now have " + user.citynum + " cities.");
+              msg.reply("You bought " + num + " cities for " + (Config.cityPrice * num) + " prayers and now have " + user.citynum + " cities.");
           } else {
-              msg.reply("You need 1000 prayers to build a city.")
+              msg.reply("You need " + (Config.cityPrice * num) + " to build " + num + " cities.");
               msg.reply("You currently have " + (user.citynum) + " cities. ")
           }
-
-    }
+    } 
 
     if (building == "province") {
-        if (user.prayers >= Config.provincePrice) {
+        if ((user.prayers / num) >= Config.provincePrice) {
 
-            user.provincenum++;
-            user.prayers -= Config.provincePrice;
+            user.provincePrice += num;
+            user.prayers -= (Config.provincePrice * num);
             
-              msg.reply("You bought a province for 10,000 prayers and now have " + user.provincenum + " provinces.");
+              msg.reply("You bought " + num + " province(s) for " + (Config.provincePrice * num) + " prayers and now have " + user.provincenum + " provinces.");
           } else {
-              msg.reply("You need 10,000 prayers to build a province.")
+              msg.reply("You need " + (Config.provincePrice * num) + " to build " + num + " province(s).");
               msg.reply("You currently have " + (user.provincenum) + " provinces. ")
           }
-    }
+    } 
 
     userstore.find({
         id:userId
