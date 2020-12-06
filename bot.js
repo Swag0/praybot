@@ -136,7 +136,7 @@ client.on('message', msg => {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
-      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&perms=74816")
+      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
     }
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall")) {
       Count(msg.author.id, msg, dbHandler);
