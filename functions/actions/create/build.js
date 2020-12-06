@@ -3,7 +3,7 @@ const { CheckifUserExists } = require("../../../bot");
 
 function Buy(userId, msg, dbHandler, building) { //building type in msg
     let userstore = dbHandler.getDB().get('users');
-    dbHandler.CheckifUserExists(msg.author.id);
+    dbHandler.CheckifUserExists(msg.author.id, msg);
 
     let user = userstore.find({
         id: userId

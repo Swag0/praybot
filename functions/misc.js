@@ -4,7 +4,7 @@ const { CheckifUserExists } = require("../bot");
 function TimeUntilTick(msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(msg.author.id);
+    dbHandler.CheckifUserExists(msg.author.id, msg);
     
     let user = userstore.find({
         id: msg.author.id

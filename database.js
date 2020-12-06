@@ -37,14 +37,28 @@ class DatabaseHandler {
     }
 
 
-    CheckifUserExists(id) {
+    CheckifUserExists(id, msg = "") {
         let userstore = db.get('users');
 
-        
-
         if (util.isNullOrUndefined(userstore.find({ id: id }).value())) {
+
+            var usersname;
+
+            if (msg) {
+                if (!msg.mentions.members.size) {
+                    msg.channel.send("*Logging* " + "<@" + id + "> *into Praybot databases.*")
+                    usersname = msg.author.username;
+                } else {
+                    msg.channel.send("*Logging* " + "<@" + id + "> *into Praybot databases.*")
+                    usersname = msg.mentions.users.first().username;
+                }
+            }
+
+            console.log("New User: " + usersname + " added.");
+
             userstore.push({
                 id: id,
+                username: usersname,
                 prayers: 0,
                 churchnum: 0,
                 communitynum: 0,

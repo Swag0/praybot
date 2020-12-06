@@ -6,7 +6,7 @@ const client = new Discord.Client();
 function Gamble(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let player = msg.author.id;
 
@@ -14,7 +14,7 @@ function Gamble(userId, msg, dbHandler) {
         id: userId
     }).value();
 
-    dbHandler.CheckifUserExists(player);
+    dbHandler.CheckifUserExists(player, msg);
 
     let playerprayers = userstore.find({
         id: player

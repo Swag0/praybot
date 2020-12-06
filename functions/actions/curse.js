@@ -4,13 +4,13 @@ const { CheckifUserExists } = require("../../bot");
 function Curse(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let target = msg.mentions.users.first().id;
     let curser = msg.author.id;
 
-    dbHandler.CheckifUserExists(target);
-    dbHandler.CheckifUserExists(curser);
+    dbHandler.CheckifUserExists(target, msg);
+    dbHandler.CheckifUserExists(curser, msg);
 
     let user = userstore.find({
         id: userId

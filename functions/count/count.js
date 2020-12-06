@@ -5,7 +5,7 @@ function Count(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
 
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
 
     let target = "";
@@ -16,7 +16,7 @@ function Count(userId, msg, dbHandler) {
 
     if (target) {
 
-        dbHandler.CheckifUserExists(target);
+        dbHandler.CheckifUserExists(target, msg);
 
         let targetuser = userstore.find({
             id: target

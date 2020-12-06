@@ -4,13 +4,13 @@ const { CheckifUserExists } = require("../../bot");
 function GiftPrayers(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let target = msg.mentions.users.first().id;
     let gifter = msg.author.id;
   
-    dbHandler.CheckifUserExists(target);
-    dbHandler.CheckifUserExists(gifter);
+    dbHandler.CheckifUserExists(target, msg);
+    dbHandler.CheckifUserExists(gifter, msg);
   
     let num = "-";
   

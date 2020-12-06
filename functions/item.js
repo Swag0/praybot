@@ -6,7 +6,7 @@ function Item(userId, msg, dbHandler) {
 
     let userstore = dbHandler.getDB().get('users');
 
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let user = userstore.find({
         id: userId

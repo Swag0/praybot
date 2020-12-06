@@ -21,7 +21,7 @@ function StealPrayers(userId, msg, dbHandler) {
 
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let target = msg.mentions.users.first().id;
     let stealer = msg.author.id;
@@ -30,8 +30,8 @@ function StealPrayers(userId, msg, dbHandler) {
         id: userId
     }).value();
 
-    dbHandler.CheckifUserExists(target);
-    dbHandler.CheckifUserExists(stealer);
+    dbHandler.CheckifUserExists(target, msg);
+    dbHandler.CheckifUserExists(stealer, msg);
 
     let targetId = userstore.find({
         id: target

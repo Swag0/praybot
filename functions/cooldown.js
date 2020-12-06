@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 function Cooldown(userId, msg, dbHandler) {
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
-    dbHandler.CheckifUserExists(userId);
+    dbHandler.CheckifUserExists(userId, msg);
 
     let user = userstore.find({
         id: userId
