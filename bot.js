@@ -155,7 +155,7 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†reroll") || msg.content.startsWith("+reroll")) {
       Reroll(msg.author.id, msg, dbHandler)
     }
-    else if (msg.content === "†leaderboard" || msg.conten === "+leaderboard") {
+    else if (msg.content === "†leaderboard" || msg.content === "+leaderboard") {
       Leaderboard(msg);
     }
     else if (msg.content === "†BUBBLEWRAP") {
