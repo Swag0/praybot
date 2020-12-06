@@ -18,6 +18,7 @@ const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
 const { Test } = require('./functions/test')
+const { SetUsername } = require('./functions/username')
 const { Reroll } = require('./functions/reroll')
 const conf = require('dotenv').config();
 const client = new Discord.Client();
@@ -86,6 +87,9 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
+    if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
+      SetUsername(msg.author.id, msg, dbHandler);
+    }
     if (msg.content.startsWith("†praycount") || msg.content.startsWith("†Praycount") || msg.content.startsWith("+praycount") || msg.content.startsWith("+Praycount")) {
       Count(msg.author.id, msg, dbHandler);
     }
