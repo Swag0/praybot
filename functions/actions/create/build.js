@@ -33,10 +33,14 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
             user.churchnum += num;
             user.prayers -= (Config.churchPrice * num);
             
-              msg.reply("You bought " + num + " church(es) for " + (Config.churchPrice * num) + " prayers and now have " + user.churchnum + " churches.");
+            if (num == 1) msg.reply("You bought 1 church for " + (Config.churchPrice * num) + " prayers and now have " + user.churchnum + " churches.");
+            else msg.reply("You bought " + num + " churches for " + (Config.churchPrice * num) + " prayers and now have " + user.churchnum + " churches.");
+              
           } else {
-              msg.reply("You need " + (Config.churchPrice * num) + " to build " + num + " church(es).");
-              msg.reply("You currently have " + (user.churchnum) + " churches. ")
+            if (num == 1) msg.reply("You need " + (Config.churchPrice * num) + " to build " + num + " church.");
+            else msg.reply("You need " + (Config.churchPrice * num) + " to build " + num + " church(es).");
+
+            msg.reply("You currently have " + (user.churchnum) + " churches. ");
           }
     }  
 
@@ -46,9 +50,12 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
             user.communitynum += num;
             user.prayers -= (Config.communityPrice * num);
             
-              msg.reply("You bought " + num + " communities for " + (Config.communityPrice * num) + " prayers and now have " + user.communitynum + " communities.");
+            if (num == 1) msg.reply("You bought 1 community for " + (Config.communityPrice * num) + " prayers and now have " + user.communitynum + " communities.");
+            else msg.reply("You bought " + num + " communities for " + (Config.communityPrice * num) + " prayers and now have " + user.communitynum + " communities.");
+
           } else {
-              msg.reply("You need " + (Config.communityPrice * num) + " to build " + num + " communities.");
+              if (num == 1 )msg.reply("You need " + (Config.communityPrice * num) + " to build " + num + " community.");
+              else msg.reply("You need " + (Config.communityPrice * num) + " to build " + num + " communities.");
               msg.reply("You currently have " + (user.communitynum) + " communities. ")
           }
     } 
@@ -59,9 +66,12 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
             user.citynum += num;
             user.prayers -= (Config.cityPrice * num);
             
-              msg.reply("You bought " + num + " cities for " + (Config.cityPrice * num) + " prayers and now have " + user.citynum + " cities.");
+            if (num == 1) msg.reply("You bought 1 city for " + (Config.cityPrice * num) + " prayers and now have " + user.citynum + " cities.");
+            else msg.reply("You bought " + num + " cities for " + (Config.cityPrice * num) + " prayers and now have " + user.citynum + " cities.");
+              
           } else {
-              msg.reply("You need " + (Config.cityPrice * num) + " to build " + num + " cities.");
+              if (num == 1) msg.reply("You need " + (Config.cityPrice * num) + " to build " + num + " city.");
+              else msg.reply("You need " + (Config.cityPrice * num) + " to build " + num + " cities.");
               msg.reply("You currently have " + (user.citynum) + " cities. ")
           }
     } 
@@ -72,9 +82,12 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
             user.provincePrice += num;
             user.prayers -= (Config.provincePrice * num);
             
-              msg.reply("You bought " + num + " province(s) for " + (Config.provincePrice * num) + " prayers and now have " + user.provincenum + " provinces.");
+            if (num == 1) msg.reply("You bought 1 province for " + (Config.provincePrice * num) + " prayers and now have " + user.provincenum + " provinces.");
+            else msg.reply("You bought " + num + " provinces for " + (Config.provincePrice * num) + " prayers and now have " + user.provincenum + " provinces.");
+
           } else {
-              msg.reply("You need " + (Config.provincePrice * num) + " to build " + num + " province(s).");
+              if (num == 1) msg.reply("You need " + (Config.provincePrice * num) + " to build " + num + " province.");
+              else msg.reply("You need " + (Config.provincePrice * num) + " to build " + num + " provinces.");
               msg.reply("You currently have " + (user.provincenum) + " provinces. ")
           }
     } 
@@ -82,6 +95,8 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
     userstore.find({
         id:userId
     }).assign(user).write();
+
+    console.log(user.username + " bought => " + num + " " + building + ".")
   
     
   }

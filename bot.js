@@ -17,6 +17,7 @@ const { Gamble } = require('./functions/actions/gamble')
 const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
+const { Smite } = require('./functions/actions/smite')
 const { Test } = require('./functions/test')
 const { SetUsername } = require('./functions/username')
 const { Reroll } = require('./functions/reroll')
@@ -90,10 +91,10 @@ client.on('message', msg => {
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
       SetUsername(msg.author.id, msg, dbHandler);
     }
-    if (msg.content.startsWith("†praycount") || msg.content.startsWith("†Praycount") || msg.content.startsWith("+praycount") || msg.content.startsWith("+Praycount")) {
+    else if (msg.content.startsWith("†praycount") || msg.content.startsWith("†Praycount") || msg.content.startsWith("+praycount") || msg.content.startsWith("+Praycount")) {
       Count(msg.author.id, msg, dbHandler);
     }
-    if (msg.content === "†pray" || msg.content === "+pray") {
+    else if (msg.content === "†pray" || msg.content === "+pray") {
       IncrementPrays(msg.author.id, msg, dbHandler);
     }
     else if (msg.content.startsWith("†curse") || msg.content.startsWith("+curse")) {
@@ -104,6 +105,11 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†steal") || msg.content.startsWith("+steal")) {
       if (msg.mentions.users.first()) {
         StealPrayers(msg.author.id, msg, dbHandler);
+      }
+    }
+    else if (msg.content.startsWith("†smite") || msg.content.startsWith("+smite")) {
+      if (msg.mentions.users.first()) {
+        Smite(msg.author.id, msg, dbHandler);
       }
     }
     else if (msg.content === "†time" || msg.content === "+time" || msg.content === "+prayday" || msg.content === "†prayday" || msg.content === "+income" || msg.content === "†income") {
@@ -183,13 +189,6 @@ client.on('message', msg => {
     else if (msg.content === "test") {
       if (Test(msg.author.id, msg, dbHandler)) {
         Cleaning();
-        //msg.channel.send("*Manually pinging*" + " <@" + msg.author.id + ">")
-        msg.channel.send("*Manually pinging* <@" + msg.author.id + ">")
-        .then(function (message) {
-          msg.channel.send("Their username is " + message.mentions.users.first().username + ".");
-          console.log("<@767818830134247444>".id)
-        });
-        
       }
     }
     else if (msg.content === "ADDINCOMEE") {
@@ -201,6 +200,11 @@ client.on('message', msg => {
         IncomeNotification();
       }
     }
+    else if (msg.content === "ADDITEMM") {
+      if (Test(msg.author.id, msg, dbHandler)) {
+        AssignItem();
+      }
+    }
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler)
     } //profile has to be last because it is p, and starts with p
@@ -210,8 +214,7 @@ client.on('message', msg => {
 function Cleaning() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.prayers == 0 && (user.laststealdate === user.lastgambledate)) {
-
+    if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.id + " is not active.");
     }
   });
@@ -247,29 +250,34 @@ function Leaderboard(msg) {
     .addField("5. ", playerArr[4])
     .setTimestamp()
   msg.channel.send(leaderEmbed);
+
+  //console.log(playerArr);
 }
 
 //780209511339655199 is church area.
 
 function IncomeNotification() {
   console.log("Income Added at " + Date.now());
-  //This may or may not work. 
-  let churchChannel = client.channels.cache.get(`780209511339655199`);
+  let churchChannel = client.channels.cache.get(`780209511339655199`); //Study Group
+
+  churchChannel.send("**Income Received**");
+
+  churchChannel = client.channels.cache.get(`786422189490569256`); //NQARDR
 
   churchChannel.send("**Income Received**");
 }
 
 function AddChurchIncome() {
-  dbHandler.getDB().get('users').value().forEach((user) => {
+    dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item == "Bible") {
-      user.prayers = user.churchnum * 2;
-    } else {
-      user.prayers += user.churchnum * 1;
-    }
+      if (user.item == "Bible") {
+        user.prayers += user.churchnum * 2;
+      } else {
+        user.prayers += user.churchnum * 1;
+      }
 
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
-  });
+      dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+    });
 }
 
 function AddCommunityIncome() {
@@ -317,6 +325,10 @@ function AssignItem() {
 
   churchChannel.send("**Items Added**");
 
+  churchChannel = client.channels.cache.get(`786422189490569256`); //NQARDR
+
+  churchChannel.send("**Items Added**");
+
   /*
   Holy Grail: 2x prayers (pray.js) 
   Blessed: You can not be cursed (curse.js) (maybe also make steal as well)
@@ -330,6 +342,7 @@ function AssignItem() {
   Sistine Chapel: 2x income on city
   Bible Belt: 2x income on province
   Menorah: You can steal up to 7 prayers.
+  Master Bolt: Usable once only -- Steals 10% of target prayers.
   */
 
   //Reroll cost will be next income + 5 prayers
@@ -346,13 +359,16 @@ function AssignItem() {
       "Religious School",
       "Sistine Chapel",
       "Bible Belt",
-      "Menorah"
+      "Menorah",
+      "Master Bolt"
     ]
 
 
   dbHandler.getDB().get('users').value().forEach((user) => {
     let randomArr = Math.floor(Math.random() * itemArr.length);
     let givenItem = itemArr[randomArr];
+
+    if (givenItem == "Master Bolt") console.log(user.item + " received " + givenItem);
 
     if (user.prayers > 0) {
       user.item = givenItem;

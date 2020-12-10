@@ -26,6 +26,7 @@ function Item(userId, msg, dbHandler) {
   Sistine Chapel: 2x income on city
   Bible Belt: 2x income on province
   Menorah: You can steal up to 7 prayers.
+  Master Bolt: Usable once only -- Steals 10% of target prayers.
     */
 
     if (msg.content === "†itemlist" || msg.content === "+itemlist" || msg.content === "†items" || msg.content === "+items") {
@@ -39,10 +40,11 @@ function Item(userId, msg, dbHandler) {
             .addField("Priest", "10 minute pray timer.")
             .addField("Devil's Advocate", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
             .addField("Bible", "2x income on churches.")
-            .addField("Religious School", " 2x income on communities.")
-            .addField("Sistine Chapel", " 2x income on cities.")
-            .addField("Bible Belt", " 2x income on provinces.")
-            .addField("Menorah", " You can steal up to 7 prayers.")
+            .addField("Religious School", "2x income on communities.")
+            .addField("Sistine Chapel", "2x income on cities.")
+            .addField("Bible Belt", "2x income on provinces.")
+            .addField("Menorah", "You can steal up to 7 prayers.")
+            .addField("Master Bolt", "A one time smite that steals 10% of the target's prayers.")
             .setTimestamp()
             .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(itemListEmbed);
@@ -145,6 +147,13 @@ function Item(userId, msg, dbHandler) {
             .setTitle(user.username)
             .addField("Item: ", user.item)
             .addField("Use: ", "Menorah: You can steal up to 7 prayers.")
+            .setTimestamp()
+    } else if (user.item == "Master Bolt") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "Master Bolt: A one time smite that steals 10% of the target's prayers.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else {

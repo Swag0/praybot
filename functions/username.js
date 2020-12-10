@@ -37,6 +37,12 @@ function SetUsername(userId, msg, dbHandler) {
                 { max: 1, time: 10000 }).then(collected => {
                     if (collected.first().emoji.name == '✅') {
                         msg.channel.send("Ok. Your new username is " + newUsername + ".")
+                        userstore.find({
+                            id: userId
+                        }).assign({
+                            username: newUsername,
+                        })
+                            .write();
                     }
                     else if (collected.first().emoji.name == '❎') {
                         msg.channel.send("Ok. You will stay as " + usersname + ".")
@@ -52,13 +58,6 @@ function SetUsername(userId, msg, dbHandler) {
         });
 
     }
-
-    userstore.find({
-        id: userId
-    }).assign({
-        username: newUsername,
-    })
-        .write();
 
 
 

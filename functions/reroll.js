@@ -11,36 +11,6 @@ function Reroll(userId, msg, dbHandler) {
         id: userId
     }).value();
 
-    let cost = 5;
-
-    if (user.item == "Bible") {
-        cost += (user.churchnum * 2);
-    } else {
-        cost += (user.churchnum);
-    }
-    if (user.item == "Religious School") {
-        cost += (user.communitynum * 22);
-    } else {
-        cost += (user.communitynum * 11);
-    }
-    if (user.item == "Sistine Chapel") {
-        cost += (user.citynum * 220);
-    } else {
-        cost += user.citynum * 110;
-    }
-    if (user.item == "Bible Belt") {
-        cost += (user.provincenum * 2200);
-    } else {
-        cost += (user.provincenum * 1100);
-    }
-
-    if (user.prayers >= cost) {
-        console.log("Can afford reroll.")
-    } else {
-        msg.reply("You don't have enough to reroll. You need " + cost + " prayers.")
-        return;
-    }
-
     let itemArr =
         [
             "Holy Grail",
@@ -57,19 +27,66 @@ function Reroll(userId, msg, dbHandler) {
             "Menorah"
         ]
 
+    for (var i = itemArr.length - 1; i >= 0; i--) {
+        if (itemArr[i] === user.item) {
+            itemArr.splice(i, 1);
+        }
+    }
+
     let randomArr = Math.floor(Math.random() * itemArr.length);
+
     let givenItem = itemArr[randomArr];
 
-    user.item = givenItem;
+    let cost = 5;
 
-    userstore.find({
-        id: msg.author.id
-    }).assign({
-        prayers: user.prayers -= cost,
-    })
-        .write();
+    cost += (user.churchnum * 1);
+    cost += (user.communitynum * 11);
+    cost += user.citynum * 110;
+    cost += (user.provincenum * 1100);
 
-    msg.reply("You rerolled and got " + user.item)
+    if (user.prayers >= cost) {
+        msg.reply("You can afford the reroll. It costs " + cost + " prayers. Are you sure you want to reroll?")
+            .then(function (message) {
+
+                message.react('✅').then(r => {
+                    message.react('❎');
+                });
+
+                // First argument is a filter function
+                message.awaitReactions((reaction, user) => user.id == msg.author.id && (reaction.emoji.name == '✅' || reaction.emoji.name == '❎'),
+                    { max: 1, time: 10000 }).then(collected => {
+                        if (collected.first().emoji.name == '✅') {
+                            msg.channel.send("Ok. You rerolled and now have " + givenItem + ".");
+                            user.item = givenItem;
+
+                            userstore.find({
+                                id: msg.author.id
+                            }).assign({
+                                prayers: user.prayers -= cost,
+                            })
+                                .write();
+                            return;
+                        }
+                        else if (collected.first().emoji.name == '❎') {
+                            msg.channel.send("Ok. You will keep " + user.item + ".")
+                            return;
+                        }
+                    }).catch(() => {
+                        msg.reply('No reaction after 10 seconds, operation cancelled');
+                        return;
+
+                    });
+
+            }).catch(function () {
+                console.log("something maybe did sad");
+                return;
+            });
+    } else {
+        msg.reply("You don't have enough to reroll. You need " + cost + " prayers.")
+        return;
+    }
+
+
 
 
 }
