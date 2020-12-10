@@ -64,7 +64,7 @@ function Cooldown(userId, msg, dbHandler) {
         }
     }
     //Next Curse
-    if (Date.now() - user.laststealdate > Config.stealCooldown) {
+    if (Date.now() - user.lastcursedate > Config.curseCooldown) {
         answerCurse = "Ready";
     } else {
         if (remainingTimeCurse < 0) { //negative numbers confuse bot

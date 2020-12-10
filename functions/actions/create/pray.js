@@ -28,8 +28,6 @@ function IncrementPrays(userId, msg, dbHandler) {
 
   if (Date.now() - user.lastpraydate > cooldown) {
 
-    msg.channel.send("You have been acknowledged for praying to the gods. Do not pray again for 15 minutes. ");
-
 
     if (user.item == "Holy Grail") {
       user.prayers += 2;
@@ -47,7 +45,7 @@ function IncrementPrays(userId, msg, dbHandler) {
     user.prayers = Math.floor(user.prayers);
 
     console.log(user.username + " has " + user.prayers + " prayers.");
-    msg.reply("You have " + user.prayers + " prayers");
+    msg.reply("You now have " + user.prayers + " prayers");
 
   } else {
     let remainingTime = cooldown - (Date.now() - user.lastpraydate)
