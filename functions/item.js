@@ -146,14 +146,14 @@ function Item(userId, msg, dbHandler) {
             .setColor('#0099ff')
             .setTitle(user.username)
             .addField("Item: ", user.item)
-            .addField("Use: ", "Menorah: You can steal up to 7 prayers.")
+            .addField("Use: ", "You can steal up to 7 prayers.")
             .setTimestamp()
     } else if (user.item == "Master Bolt") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
             .addField("Item: ", user.item)
-            .addField("Use: ", "Master Bolt: A one time smite that steals 10% of the target's prayers.")
+            .addField("Use: ", "A one time smite that steals 10% of the target's prayers.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else {
