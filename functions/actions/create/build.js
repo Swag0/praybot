@@ -79,7 +79,7 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
     if (building == "province") {
         if ((user.prayers / num) >= Config.provincePrice) {
 
-            user.provincePrice += num;
+            user.provincenum += num;
             user.prayers -= (Config.provincePrice * num);
             
             if (num == 1) msg.reply("You bought 1 province for " + (Config.provincePrice * num) + " prayers and now have " + user.provincenum + " provinces.");

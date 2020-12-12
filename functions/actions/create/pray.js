@@ -18,13 +18,13 @@ function IncrementPrays(userId, msg, dbHandler) {
     msg.reply("You are an atheist, so you can't pray. Go gamble your life savings away.");
     return;
   }
-  
+
   let cooldown = Config.prayCooldown;
 
   if (user.item == "Priest") {
     cooldown = Config.prayCooldown / 1.5;
   }
-  
+
 
   if (Date.now() - user.lastpraydate > cooldown) {
 
@@ -35,7 +35,7 @@ function IncrementPrays(userId, msg, dbHandler) {
     } else {
       user.prayers++;
     }
-    
+
     user.lastpraydate = Date.now();
 
     userstore.find({
@@ -51,11 +51,11 @@ function IncrementPrays(userId, msg, dbHandler) {
     let remainingTime = cooldown - (Date.now() - user.lastpraydate)
     if (userId == 346758543489105941) {
       if (Math.floor(remainingTime / 1000 % 60) < 10) {
-        msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
-       } else {
-        msg.channel.send("You are a significant being. But still, please pray in " +  Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
-      }
+        msg.channel.send("You are a significant being. But still, please pray in " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
       } else {
+        msg.channel.send("You are a significant being. But still, please pray in " + Math.floor(remainingTime / 1000 / 60) + ":" + Math.floor(remainingTime / 1000 % 60) + ".");
+      }
+    } else {
       if (Math.floor(remainingTime / 1000 % 60) < 10) {
         msg.channel.send("You are an insignificant being. Please pray in " + Math.floor(remainingTime / 1000 / 60) + ":0" + Math.floor(remainingTime / 1000 % 60) + ".");
       } else {

@@ -22,6 +22,7 @@ function Smite(userId, msg, dbHandler) { //building type in msg
     }
 
     //if you do have master bolt,
+
     let smiteAmount;
 
     let smiterprayers = userstore.find({

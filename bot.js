@@ -121,18 +121,6 @@ client.on('message', msg => {
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
       HelpPage(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
-      Buy(msg.author.id, msg, dbHandler, "church");
-    }
-    else if (msg.content.startsWith("†community") || msg.content.startsWith("+community")) {
-      Buy(msg.author.id, msg, dbHandler, "community");
-    }
-    else if (msg.content.startsWith("†city") || msg.content.startsWith("+city")) {
-      Buy(msg.author.id, msg, dbHandler, "city");
-    }
-    else if (msg.content.startsWith("†province") || msg.content.startsWith("+province")) {
-      Buy(msg.author.id, msg, dbHandler, "province");
-    }
     else if (msg.content.startsWith("†churchcount") || msg.content.startsWith("†Churchcount") || msg.content.startsWith("+churchcount") || msg.content.startsWith("+Churchcount")) {
       Count(msg.author.id, msg, dbHandler);
     }
@@ -144,6 +132,18 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†provincecount") || msg.content.startsWith("†Provincecount") || msg.content.startsWith("+provincecount") || msg.content.startsWith("+Provincecount")) {
       Count(msg.author.id, msg, dbHandler);
+    }
+    else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
+      Buy(msg.author.id, msg, dbHandler, "church");
+    }
+    else if (msg.content.startsWith("†community") || msg.content.startsWith("+community")) {
+      Buy(msg.author.id, msg, dbHandler, "community");
+    }
+    else if (msg.content.startsWith("†city") || msg.content.startsWith("+city")) {
+      Buy(msg.author.id, msg, dbHandler, "city");
+    }
+    else if (msg.content.startsWith("†province") || msg.content.startsWith("+province")) {
+      Buy(msg.author.id, msg, dbHandler, "province");
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
@@ -268,16 +268,16 @@ function IncomeNotification() {
 }
 
 function AddChurchIncome() {
-    dbHandler.getDB().get('users').value().forEach((user) => {
+  dbHandler.getDB().get('users').value().forEach((user) => {
 
-      if (user.item == "Bible") {
-        user.prayers += user.churchnum * 2;
-      } else {
-        user.prayers += user.churchnum * 1;
-      }
+    if (user.item == "Bible") {
+      user.prayers += user.churchnum * 2;
+    } else {
+      user.prayers += user.churchnum * 1;
+    }
 
-      dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
-    });
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+  });
 }
 
 function AddCommunityIncome() {
@@ -368,7 +368,7 @@ function AssignItem() {
     let randomArr = Math.floor(Math.random() * itemArr.length);
     let givenItem = itemArr[randomArr];
 
-    if (givenItem == "Master Bolt") console.log(user.item + " received " + givenItem);
+    if (givenItem == "Master Bolt") console.log(user.username + " received " + givenItem);
 
     if (user.prayers > 0) {
       user.item = givenItem;

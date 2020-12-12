@@ -40,8 +40,8 @@ function Cooldown(userId, msg, dbHandler) {
     let answerSteal = "";
     let answerCurse = "";
     let answerGamble = "";
-    
-    
+
+
 
     //Next Pray
     if (Date.now() - user.lastpraydate > Config.prayCooldown) {
@@ -113,6 +113,6 @@ function Cooldown(userId, msg, dbHandler) {
         .addField("Gamble CD: ", answerGamble)
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
-        msg.channel.send(cdembed);
+    msg.channel.send(cdembed);
 }
 module.exports = { Cooldown };
