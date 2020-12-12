@@ -322,11 +322,9 @@ function AddProvinceIncome() {
 function AssignItem() {
 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
-
   churchChannel.send("**Items Added**");
-
+  
   churchChannel = client.channels.cache.get(`786422189490569256`); //NQARDR
-
   churchChannel.send("**Items Added**");
 
   /*
