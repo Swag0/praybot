@@ -323,18 +323,18 @@ function AssignItem() {
 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
   churchChannel.send("**Items Added**");
-  
+
   churchChannel = client.channels.cache.get(`786422189490569256`); //NQARDR
   churchChannel.send("**Items Added**");
 
   /*
-  Holy Grail: 2x prayers (pray.js) 
-  Blessed: You can not be cursed (curse.js) (maybe also make steal as well)
-  Godspeed: 2x steal value (steal.js) 
-  Zeus' Chosen: Increased backfire chance when stolen from. (steal.js) 
-  Atheist: Can't pray, but 15 minute gamble timer. (pray.js and gamble.js) 
-  Priest: 10 minute pray timer (pray.js)
-  Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
+  Holy Grail: 2x prayers
+  Blessed: You can not be cursed 
+  Godspeed: 2x steal value 
+  Zeus' Chosen: Increased backfire chance when stolen from.
+  Atheist: Can't pray, but 15 minute gamble timer. 
+  Priest: 10 minute pray timer 
+  Devil's Advocate: 1.5x Curse Damage 
   Bible Change: 2x income on churches
   Religious School: 2x income on community
   Sistine Chapel: 2x income on city
