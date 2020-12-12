@@ -33,9 +33,6 @@ function Smite(userId, msg, dbHandler) { //building type in msg
         id: target
     }).value().prayers;
 
-    console.log(smiterprayers)
-    console.log(targetprayers)
-
     smiteAmount = Math.floor(targetprayers / 10);
 
     msg.reply("You smited " + msg.mentions.users.first().username + " and you got " + smiteAmount + " prayers. They lost " + smiteAmount + ".");
