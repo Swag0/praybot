@@ -13,22 +13,22 @@ function TimeUntilTick(msg, dbHandler) {
     
     let income = 0;
     
-    if (user.item == "Bible") {
+    if (user.item == "Bible" || user.item == "Altar") {
         income += (user.churchnum*2);
     } else {
         income += (user.churchnum);
     }
-    if (user.item == "Religious School") {
+    if (user.item == "Religious School" || user.item == "Altar") {
         income += (user.communitynum*22);
     } else {
         income += (user.communitynum*11);
     }
-    if (user.item == "Sistine Chapel") {
+    if (user.item == "Sistine Chapel" || user.item == "Altar") {
         income += (user.citynum*220);
     } else {
         income += user.citynum*110;
     }
-    if (user.item == "Bible Belt") {
+    if (user.item == "Bible Belt" || user.item == "Altar") {
         income += (user.provincenum*2200);
     } else {
         income += (user.provincenum*1100);
