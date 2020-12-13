@@ -43,7 +43,14 @@ function Gamble(userId, msg, dbHandler) {
 
         let guess = 0;
 
-        let gamblenum = Math.floor(Math.random() * 3 + 1);
+        let gamblenum = 0;
+
+        if (user.item == "Four Leaf Clover") {
+            gamblenum = Math.floor(Math.random() * 2 + 1);
+        }
+        else {
+            gamblenum = Math.floor(Math.random() * 3 + 1);
+        }
 
         console.log(user.username + " should say " + gamblenum + ".");
 
@@ -56,7 +63,7 @@ function Gamble(userId, msg, dbHandler) {
 
                 message.react('1️⃣').then(r => {
                     message.react('2️⃣').then(r => {
-                        message.react('3️⃣');
+                        if (user.item != "Four Leaf Clover") message.react('3️⃣');
                     })
                 });
 

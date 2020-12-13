@@ -88,6 +88,7 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
+    msg.content = msg.content.toLowerCase();
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
       SetUsername(msg.author.id, msg, dbHandler);
     }
@@ -265,12 +266,21 @@ function IncomeNotification() {
   churchChannel = client.channels.cache.get(`786422189490569256`); //NQARDR
 
   churchChannel.send("**Income Received**");
+
+  dbHandler.getDB().get('users').value().forEach((user) => {
+
+    if (user.item == "Altar") {
+      user.item = "No Item";
+    }
+
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ item: user.item }).write();
+  });
 }
 
 function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item == "Bible") {
+    if (user.item == "Bible" || user.item == "Altar") {
       user.prayers += user.churchnum * 2;
     } else {
       user.prayers += user.churchnum * 1;
@@ -283,7 +293,7 @@ function AddChurchIncome() {
 function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item == "Religious School") {
+    if (user.item == "Religious School" || user.item == "Altar") {
       user.prayers += (user.communitynum * 22)
     } else {
       user.prayers += (user.communitynum * 11);
@@ -296,7 +306,7 @@ function AddCommunityIncome() {
 function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item == "Sistine Chapel") {
+    if (user.item == "Sistine Chapel" || user.item == "Altar") {
       user.prayers += user.citynum * 220;
     } else {
       user.prayers += user.citynum * 110;
@@ -309,7 +319,7 @@ function AddCityIncome() {
 function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.item == "Bible Belt") {
+    if (user.item == "Bible Belt" || user.item == "Altar") {
       user.prayers += user.provincenum * 2200;
     } else {
       user.prayers += user.provincenum * 1100;
@@ -341,6 +351,15 @@ function AssignItem() {
   Bible Belt: 2x income on province
   Menorah: You can steal up to 7 prayers.
   Master Bolt: Usable once only -- Steals 10% of target prayers.
+  Four Leaf Clover: There will only be 2 choices for gambling for the day
+  Altar: Your pray day prayers doubles for ONE prayday
+  */
+
+  /*
+
+  Coming:
+  Sacred Bundle: You get to pick your item for the day
+
   */
 
   //Reroll cost will be next income + 5 prayers
@@ -358,7 +377,9 @@ function AssignItem() {
       "Sistine Chapel",
       "Bible Belt",
       "Menorah",
-      "Master Bolt"
+      "Master Bolt",
+      "Four Leaf Clover",
+      "Altar"
     ]
 
 
