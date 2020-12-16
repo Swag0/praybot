@@ -27,7 +27,7 @@ function Cooldown(userId, msg, dbHandler) {
 
     let cooldown = Config.prayCooldown;
     if (user.item == "Priest") {
-        cooldown /= 1.5;
+        cooldown /= 2;
     }
 
     let remainingTimePray = cooldown - (Date.now() - user.lastpraydate);
@@ -42,9 +42,8 @@ function Cooldown(userId, msg, dbHandler) {
     let answerGamble = "";
 
 
-
     //Next Pray
-    if (Date.now() - user.lastpraydate > Config.prayCooldown) {
+    if (Date.now() - user.lastpraydate > cooldown) {
         answerPray = "Ready";
     } else {
         if (Math.floor(remainingTimePray / 1000 % 60) < 10) {

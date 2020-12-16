@@ -13,7 +13,11 @@ function StealPrayers(userId, msg, dbHandler) {
             "ceased to exist",
             "was nuked",
             "fell",
-            "crossed the River Styx"
+            "crossed the River Styx",
+            "was squished",
+            "was stabbed multiple times",
+            "ate a poisonous potato",
+            "was created and destroyed in the completely fake creation of the universe via the Big Bang which definitely did not happen as god controls all, just as he snapped them into being only to snap them away on a whim where they died"
         ] //stealer __ and lost x prayers.
 
     let randomArr = Math.floor(Math.random() * failureArr.length);

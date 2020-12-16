@@ -53,14 +53,17 @@ function AssignRole(member) {
 
 client.on('ready', () => {
 
+  var dailyrule = new schedule.RecurrenceRule();
+  dailyrule.hour = 0;
+  dailyrule.minute = 0;
+  dailyrule.second = 1; //so that assign item happens after income
+
   var rule = new schedule.RecurrenceRule();
   rule.hour = [0, 6, 12, 18];
   rule.minute = 0;
 
 
-  var dailyrule = new schedule.RecurrenceRule();
-  dailyrule.hour = 0;
-  dailyrule.minute = 0;
+
 
 
   console.log(`Watching ${client.guilds.cache.size} Servers.`);
@@ -188,11 +191,12 @@ client.on('message', msg => {
       Announcement(msg);
     }
     else if (msg.content === "test") {
+      console.log(msg.member)
       if (Test(msg.author.id, msg, dbHandler)) {
         Cleaning();
       }
     }
-    else if (msg.content === "ADDINCOMEE") {
+    else if (msg.content === "addincomee") {
       if (Test(msg.author.id, msg, dbHandler)) {
         AddChurchIncome();
         AddCommunityIncome();
@@ -201,7 +205,7 @@ client.on('message', msg => {
         IncomeNotification();
       }
     }
-    else if (msg.content === "ADDITEMM") {
+    else if (msg.content === "additemm") {
       if (Test(msg.author.id, msg, dbHandler)) {
         AssignItem();
       }
@@ -209,6 +213,26 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler)
     } //profile has to be last because it is p, and starts with p
+    else if (msg.content.startsWith("†say")) {
+      if (msg.author.id == 346758543489105941) {
+        const args = msg.content.trim().split(/ +/g);
+        const cmd = args[0].slice(1).toLowerCase(); // case INsensitive, without prefix
+
+        msg.delete();
+
+        if (cmd === 'say') {
+          if (!args[1]) {
+            return;
+          }
+        }
+
+        let res;
+        res = args.slice(1, args.length);
+        var reqMessage = res.toString().replace(/,/g, " ");
+        msg.channel.send(reqMessage)
+
+      }
+    }
   }
 });
 
@@ -343,7 +367,7 @@ function AssignItem() {
   Godspeed: 2x steal value 
   Zeus' Chosen: Increased backfire chance when stolen from.
   Atheist: Can't pray, but 15 minute gamble timer. 
-  Priest: 10 minute pray timer 
+  Priest: 7.5 minute pray timer 
   Devil's Advocate: 1.5x Curse Damage 
   Bible Change: 2x income on churches
   Religious School: 2x income on community
@@ -363,29 +387,11 @@ function AssignItem() {
   */
 
   //Reroll cost will be next income + 5 prayers
-  let itemArr =
-    [
-      "Holy Grail",
-      "Blessed",
-      "Godspeed",
-      "Zeus' Chosen",
-      "Atheist",
-      "Priest",
-      "Devil's Advocate",
-      "Bible",
-      "Religious School",
-      "Sistine Chapel",
-      "Bible Belt",
-      "Menorah",
-      "Master Bolt",
-      "Four Leaf Clover",
-      "Altar"
-    ]
 
 
   dbHandler.getDB().get('users').value().forEach((user) => {
-    let randomArr = Math.floor(Math.random() * itemArr.length);
-    let givenItem = itemArr[randomArr];
+    let randomArr = Math.floor(Math.random() * Config.itemArr.length);
+    let givenItem = Config.itemArr[randomArr];
 
     if (givenItem == "Master Bolt") console.log(user.username + " received " + givenItem);
 
@@ -404,7 +410,8 @@ function Announcement(msg) {
     .setTitle('Announcements:')
     .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
     .addFields(
-      { name: 'No New Announcements', value: "\u200b" },
+      //{ name: 'No New Announcements', value: "\u200b" },
+      { name: 'Double Prayday', value: "Thursday December 17th" },
     )
     .setFooter('Check the announcements tomorrow for more news.', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
   msg.channel.send(announceEmbed);

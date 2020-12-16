@@ -9,7 +9,26 @@ const Config = {
     churchPrice: 10,
     communityPrice: 100,
     cityPrice: 1000,
-    provincePrice: 10000
+    provincePrice: 10000,
+
+    itemArr:
+    [
+      "Holy Grail",
+      "Blessed",
+      "Godspeed",
+      "Zeus' Chosen",
+      "Atheist",
+      "Priest",
+      "Devil's Advocate",
+      "Bible",
+      "Religious School",
+      "Sistine Chapel",
+      "Bible Belt",
+      "Menorah",
+      "Master Bolt",
+      "Four Leaf Clover",
+      "Altar"
+    ]
 }
 
 module.exports = { Config };

@@ -82,7 +82,7 @@ function HelpPage(userId, msg, dbHandler) {
         } else if (page == 6) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
-                .setTitle("Miscellanous Commands")
+                .setTitle("Miscellaneous Commands")
                 .addField("Profile", 'Use *†p* to return your possessions and your item.')
                 .addField("Leaderboard", 'Use *†leaderboard* to return the 5 users with the most prayers.')
                 .addField("Cooldown", 'Use *†cd* to return your cooldowns on praying, gambling, stealing, and cursing.')

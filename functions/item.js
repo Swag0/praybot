@@ -37,7 +37,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Godspeed", '2x Steal Value.')
             .addField("Zeus' Chosen", "Increased backfire chance when stolen from.")
             .addField("Atheist", "Can't pray, but 15 minute gamble timer.")
-            .addField("Priest", "10 minute pray timer.")
+            .addField("Priest", "7m 30s pray timer.")
             .addField("Devil's Advocate", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
             .addField("Bible", "2x income on churches.")
             .addField("Religious School", "2x income on communities.")
@@ -100,7 +100,7 @@ function Item(userId, msg, dbHandler) {
             .setColor('#0099ff')
             .setTitle(user.username)
             .addField("Item: ", user.item)
-            .addField("Use: ", "You have a 10 minute pray timer.")
+            .addField("Use: ", "You have a 7m 30s pray timer.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else if (user.item == "Bible") {

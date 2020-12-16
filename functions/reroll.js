@@ -11,31 +11,15 @@ function Reroll(userId, msg, dbHandler) {
         id: userId
     }).value();
 
-    let itemArr =
-        [
-            "Holy Grail",
-            "Blessed",
-            "Godspeed",
-            "Zeus' Chosen",
-            "Atheist",
-            "Priest",
-            "Devil's Advocate",
-            "Bible",
-            "Religious School",
-            "Sistine Chapel",
-            "Bible Belt",
-            "Menorah"
-        ]
-
-    for (var i = itemArr.length - 1; i >= 0; i--) {
-        if (itemArr[i] === user.item) {
-            itemArr.splice(i, 1);
+    for (var i = Config.itemArr.length - 1; i >= 0; i--) {
+        if (Config.itemArr[i] === user.item) {
+            Config.itemArr.splice(i, 1);
         }
     }
 
-    let randomArr = Math.floor(Math.random() * itemArr.length);
+    let randomArr = Math.floor(Math.random() * Config.itemArr.length);
 
-    let givenItem = itemArr[randomArr];
+    let givenItem = Config.itemArr[randomArr];
 
     let cost = 5;
 

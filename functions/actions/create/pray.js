@@ -22,7 +22,7 @@ function IncrementPrays(userId, msg, dbHandler) {
   let cooldown = Config.prayCooldown;
 
   if (user.item == "Priest") {
-    cooldown = Config.prayCooldown / 1.5;
+    cooldown = Config.prayCooldown / 2;
   }
 
 
