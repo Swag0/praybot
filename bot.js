@@ -427,8 +427,7 @@ function Announcement(msg) {
     .setTitle('Announcements:')
     .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
     .addFields(
-      //{ name: 'No New Announcements', value: "\u200b" },
-      { name: 'Double Prayday', value: "Thursday December 17th" },
+      { name: 'No New Announcements', value: "\u200b" },
     )
     .setFooter('Check the announcements tomorrow for more news.', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
   msg.channel.send(announceEmbed);
