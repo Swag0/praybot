@@ -18,7 +18,7 @@ const { GiftPrayers } = require('./functions/actions/gift')
 const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
 const { Smite } = require('./functions/actions/smite')
-const { Test } = require('./functions/test')
+const { IsAdmin } = require('./functions/admin')
 const { SetUsername } = require('./functions/username')
 const { Reroll } = require('./functions/reroll')
 const conf = require('dotenv').config();
@@ -192,12 +192,12 @@ client.on('message', msg => {
       Announcement(msg);
     }
     else if (msg.content.startsWith("test")) {
-      if (Test(msg.author.id, msg, dbHandler)) {
+      if (IsAdmin(msg)) {
         Cleaning();
       }
     }
     else if (msg.content === "addincomee") {
-      if (Test(msg.author.id, msg, dbHandler)) {
+      if (IsAdmin(msg)) {
         AddChurchIncome();
         AddCommunityIncome();
         AddCityIncome();
@@ -206,7 +206,7 @@ client.on('message', msg => {
       }
     }
     else if (msg.content === "additemm") {
-      if (Test(msg.author.id, msg, dbHandler)) {
+      if (IsAdmin(msg)) {
         AssignItem();
       }
     }
