@@ -27,8 +27,6 @@ function Curse(userId, msg, dbHandler) {
 
 
 
-    let cursenum = Math.floor(Math.random() * 3) + 1;
-
     let curserprayers = userstore.find({
         id: curser
     }).value().prayers;
@@ -37,73 +35,64 @@ function Curse(userId, msg, dbHandler) {
         id: target
     }).value().prayers;
 
-    if (curserprayers < 1) {
-        msg.reply("You need 2 prayer in order to curse someone.");
-        return;
-    }
 
-    if (targetprayers < 3) {
-        msg.reply("Your target needs at least 3 prayers to curse them.");
-        return;
-    }
-    //console.log(msg.author.username + " is stealing from " + msg.mentions.users.first().username + ".");
+    let cursednum = Math.ceil(targetprayers / 100); //2% of prayers
+    let cursernum = Math.ceil(curserprayers / 100);
 
+    console.log(user.item);
+
+    if (user.item == "Devil's Advocate") {
+        cursednum = Math.ceil(cursednum * 2)
+        cursernum = Math.floor(cursernum / 2)
+    }
+    
     if (Date.now() - user.lastcursedate > Config.curseCooldown) {
 
-        user.lastcursedate = Date.now();
+            msg.reply("Are you sure you want to curse them? You will lose " + cursernum + " and they will lose " + cursednum + ".")
+                .then(function (message) {
 
+                    message.react('✅').then(r => {
+                        message.react('❎');
+                    });
+
+                    // First argument is a filter function
+                    message.awaitReactions((reaction, user) => user.id == msg.author.id && (reaction.emoji.name == '✅' || reaction.emoji.name == '❎'),
+                        { max: 1, time: 10000 }).then(collected => {
+                            if (collected.first().emoji.name == '✅') {
+                                userstore.find({
+                                    id: target
+                                }).assign({
+                                    prayers: targetprayers - cursednum,
+                                })
+                                    .write();
+
+                                userstore.find({
+                                    id: curser
+                                }).assign({
+                                    prayers: curserprayers - cursernum,
+                                })
+                                    .write();
+
+                                msg.channel.send(msg.mentions.users.first().username + " lost " + cursednum + " prayers.");
+                                msg.channel.send(msg.author.username + " lost " + cursernum + " prayers.");
+                                user.lastcursedate = Date.now();
+                            }
+                            else if (collected.first().emoji.name == '❎') {
+                                message.edit("You did not curse " + msg.mentions.users.first().username + ".")
+                            }
+                        }).catch(() => {
+                            msg.reply('No reaction after 10 seconds, operation cancelled');
+
+                        });
+
+                }).catch(function () {
+                    console.log("something maybe did sad");
+                });
         //Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
-
-        if (user.item == "Devil's Advocate") {
-            userstore.find({
-                id: target
-            }).assign({
-                prayers: targetprayers - Math.ceil(cursenum * 1.5),
-            })
-                .write();
-
-            userstore.find({
-                id: curser
-            }).assign({
-                prayers: curserprayers - Math.ceil(cursenum * 0.5),
-            })
-                .write();
-
-            msg.channel.send(msg.mentions.users.first().username + " lost " + Math.ceil(cursenum * 1.5) + " prayers because of Devil's Advocate.");
-            msg.channel.send(msg.author.username + " lost " + (Math.ceil(cursenum / 2)) + " prayers because of Devil's Advocate.");
-        
-        } else {
-
-            userstore.find({
-                id: target
-            }).assign({
-                prayers: targetprayers - cursenum,
-            })
-                .write();
-
-            userstore.find({
-                id: curser
-            }).assign({
-                prayers: curserprayers - cursenum + 1,
-            })
-                .write();
-
-            msg.channel.send(msg.mentions.users.first().username + " lost " + cursenum + " prayers.");
-            msg.channel.send(msg.author.username + " lost " + (cursenum - 1) + " prayers.");
-        }
-
-        if (targetprayers < 0) { //if less than 0 prays, then 
-            userstore.find({
-                id: target
-            }).assign({
-                prayers: 0,
-            })
-                .write();
-        }
+    } else {
 
         console.log("Curse: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
 
-    } else {
         let remainingTime = Config.curseCooldown - (Date.now() - user.lastcursedate)
 
         if (remainingTime > 3600000) {
@@ -114,6 +103,5 @@ function Curse(userId, msg, dbHandler) {
         console.log("Attempted Curse: " + msg.author.username + ".");
 
     }
-
 }
 module.exports = { Curse };

@@ -38,7 +38,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Zeus' Chosen", "Increased backfire chance when stolen from.")
             .addField("Atheist", "Can't pray, but 15 minute gamble timer.")
             .addField("Priest", "7m 30s pray timer.")
-            .addField("Devil's Advocate", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
+            .addField("Devil's Advocate", "2x Curse Damage for 0.5x Curse Price (rounded down).")
             .addField("Bible", "2x income on churches.")
             .addField("Religious School", "2x income on communities.")
             .addField("Sistine Chapel", "2x income on cities.")
@@ -140,7 +140,7 @@ function Item(userId, msg, dbHandler) {
             .setColor('#0099ff')
             .setTitle(user.username)
             .addField("Item: ", user.item)
-            .addField("Use: ", "1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down).")
+            .addField("Use: ", "2x Curse Damage for 0.5x Curse Price (rounded down).")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else if (user.item == "Menorah") {
@@ -150,6 +150,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Item: ", user.item)
             .addField("Use: ", "You can steal up to 7 prayers.")
             .setTimestamp()
+        msg.channel.send(itemEmbed);
     } else if (user.item == "Master Bolt") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')

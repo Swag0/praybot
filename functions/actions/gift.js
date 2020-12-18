@@ -49,10 +49,8 @@ function GiftPrayers(userId, msg, dbHandler) {
   let giftnum = Math.floor(num);
 
   if (num < 0) {
-    msg.reply("You can't gift negative numbers... For that, you will lose those *gifted* prayers.");
-    num = Math.abs(num);
-    dbHandler.CheckifUserExists(391015029379432448);
-    target = 391015029379432448; //praybot
+    msg.reply("You can't gift negative numbers");
+    return;
   }
 
 

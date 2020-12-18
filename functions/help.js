@@ -34,7 +34,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Praying", 'Use *†pray* to gain a prayer.')
                 .addField("Gambling", 'Use *†gamble* to gamble your prayers. If correct, you will gain 3 prayers. If incorrect, you will lose 1.')
                 .addField("Stealing", 'Use *†steal @target* to steal prayers from your target. You will steal a random number from 1-3. There is a chance to backfire.')
-                .addField("Cursing", 'Use *†curse @target* to curse your target. Your target will lose 1-3 prayers. You will lose 0-2.')
+                .addField("Cursing", 'Use *†curse @target* to curse your target. You and your target will lose 1% of your/their prayers.')
                 .addField("Gifting", 'Use *†gift @target* to give your prayers to someone else.')
                 .addField("Smiting", 'Usable only if you have the **Master Bolt**. Use *†smite @target* to steal 10% of their prayers.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');

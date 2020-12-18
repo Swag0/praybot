@@ -91,7 +91,8 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    msg.content = msg.content.toLowerCase();
+    //if (msg.author.id == 686674122138189875) return; 
+    //if blacklisted, they don't speak.
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
       SetUsername(msg.author.id, msg, dbHandler);
     }
@@ -190,8 +191,7 @@ client.on('message', msg => {
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
     }
-    else if (msg.content === "test") {
-      console.log(msg.member)
+    else if (msg.content.startsWith("test")) {
       if (Test(msg.author.id, msg, dbHandler)) {
         Cleaning();
       }
@@ -232,6 +232,23 @@ client.on('message', msg => {
         msg.channel.send(reqMessage)
 
       }
+    } else if (msg.content.startsWith("†suggestion") || msg.content.startsWith("+suggestion")) {
+      //787568059904425984
+      const args = msg.content.trim().split(/ +/g);
+      const cmd = args[0].slice(1).toLowerCase(); // case INsensitive, without prefix
+
+      if (cmd === 'suggestion') {
+        if (!args[1]) {
+          return;
+        }
+      }
+
+      let res;
+      res = args.slice(1, args.length);
+      var reqMessage = res.toString().replace(/,/g, " ");
+      let sugChannel = client.channels.cache.get(`787568059904425984`); //Suggestion Channel
+      msg.channel.send("Suggestion Sent.")
+      sugChannel.send("<@" + msg.author.id + "> says: " + reqMessage);
     }
   }
 });

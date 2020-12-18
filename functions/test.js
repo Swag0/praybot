@@ -23,7 +23,7 @@ function Test(userId, msg, dbHandler) {
     msg.delete();
     console.log("Hello Cole.")
     return true;
-  }
+  }//1608195600
 
   
 

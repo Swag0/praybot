@@ -51,6 +51,10 @@ class DatabaseHandler {
                 } else {
                     msg.channel.send("*Logging* " + "<@" + id + "> *into Praybot databases.*")
                     usersname = msg.mentions.users.first().username;
+
+                    if (msg.mentions.users.first().bot) {
+                       usersname = msg.mentions.users.first().username + ": Bot";
+                    }
                 }
             }
 
