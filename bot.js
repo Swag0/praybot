@@ -187,12 +187,7 @@ client.on('message', msg => {
       msg.reply("Different levels are prayers, church, community, city, province, country - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming") {
-      msg.channel.send("Upcoming updates are: Fully online bot, ambrosia, achievements, upgrades, and extra levels.");
-    }
-    else if (msg.content === "†bugs" || msg.content === "+bugs") {
-      msg.reply("Now why would I tell you what the bugs are? ||You fool, you thought something was here.||");
-      //username is not applied when starting game
-      //other stuff.
+      msg.channel.send("Upcoming updates are: Ambrosia, achievements, upgrades, and extra levels.");
     }
     else if (msg.content === "†announcements" || msg.content === "+announcements") {
       Announcement(msg);
