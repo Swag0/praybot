@@ -44,7 +44,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Religious School", "2x income on communities.")
             .addField("Sistine Chapel", "2x income on cities.")
             .addField("Bible Belt", "2x income on provinces.")
-            .addField("Bible Belt", "2x income on countries.")
+            .addField("The Vatican", "2x income on countries.")
             .addField("Menorah", "You can steal up to 7 prayers.")
             .addField("Master Bolt", "A one time smite that steals 10% of the target's prayers.")
             .addField("Four Leaf Clover", "There will only be two options when gambling")
