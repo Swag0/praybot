@@ -10,6 +10,7 @@ const Config = {
     communityPrice: 100,
     cityPrice: 1000,
     provincePrice: 10000,
+    countryPrice: 100000,
 
     itemArr:
     [
@@ -24,6 +25,7 @@ const Config = {
       "Religious School",
       "Sistine Chapel",
       "Bible Belt",
+      "The Vatican",
       "Menorah",
       "Master Bolt",
       "Four Leaf Clover",

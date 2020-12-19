@@ -74,6 +74,7 @@ client.on('ready', () => {
   var communityjob = schedule.scheduleJob(rule, AddCommunityIncome);
   var cityjob = schedule.scheduleJob(rule, AddCityIncome);
   var provincejob = schedule.scheduleJob(rule, AddProvinceIncome);
+  var countryjob = schedule.scheduleJob(rule, AddCountryIncome);
   var incomeJob = schedule.scheduleJob(rule, IncomeNotification);
 
   var itemJob = schedule.scheduleJob(dailyrule, AssignItem);
@@ -138,6 +139,9 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†provincecount") || msg.content.startsWith("†Provincecount") || msg.content.startsWith("+provincecount") || msg.content.startsWith("+Provincecount")) {
       Count(msg.author.id, msg, dbHandler);
     }
+    else if (msg.content.startsWith("†countrycount") || msg.content.startsWith("†Countrycount") || msg.content.startsWith("+countrycount") || msg.content.startsWith("+Countrycount")) {
+      Count(msg.author.id, msg, dbHandler);
+    }
     else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
       Buy(msg.author.id, msg, dbHandler, "church");
     }
@@ -149,6 +153,9 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†province") || msg.content.startsWith("+province")) {
       Buy(msg.author.id, msg, dbHandler, "province");
+    }
+    else if (msg.content.startsWith("†country") || msg.content.startsWith("+country")) {
+      Buy(msg.author.id, msg, dbHandler, "country");
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
@@ -178,7 +185,7 @@ client.on('message', msg => {
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
     }
     else if (msg.content === "†levels") {
-      msg.reply("Different levels are prayers, church, community, city, province - Coming soon: other stuff");
+      msg.reply("Different levels are prayers, church, community, city, province, country - Coming soon: other stuff");
     }
     else if (msg.content === "†upcoming" || msg.content === "+upcoming") {
       msg.channel.send("Upcoming updates are: Fully online bot, ambrosia, achievements, upgrades, and extra levels.");
@@ -202,6 +209,7 @@ client.on('message', msg => {
         AddCommunityIncome();
         AddCityIncome();
         AddProvinceIncome();
+        AddCountryIncome();
         IncomeNotification();
       }
     }
@@ -370,6 +378,19 @@ function AddProvinceIncome() {
   });
 }
 
+function AddCountryIncome() {
+  dbHandler.getDB().get('users').value().forEach((user) => {
+
+    if (user.item == "The Vatican" || user.item == "Altar") {
+      user.prayers += user.countrynum * 22000;
+    } else {
+      user.prayers += user.countrynum * 11000;
+    }
+
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
+  });
+}
+
 function AssignItem() {
 
   let churchChannel = client.channels.cache.get(`780209511339655199`);
@@ -390,6 +411,7 @@ function AssignItem() {
   Religious School: 2x income on community
   Sistine Chapel: 2x income on city
   Bible Belt: 2x income on province
+  The Vatican: 2x income on country
   Menorah: You can steal up to 7 prayers.
   Master Bolt: Usable once only -- Steals 10% of target prayers.
   Four Leaf Clover: There will only be 2 choices for gambling for the day

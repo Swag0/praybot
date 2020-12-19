@@ -35,6 +35,7 @@ function Profile(userId, msg, dbHandler) {
         .addField("Communities: ", player.communitynum)
         .addField("Cities ", player.citynum)
         .addField("Provinces: ", player.provincenum)
+        .addField("Countries: ", player.countrynum)
         .addField("Item: ", player.item)
         .setTimestamp()
         .setFooter(player.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
@@ -49,6 +50,7 @@ function Profile(userId, msg, dbHandler) {
         .addField("Communities: ", user.communitynum)
         .addField("Cities: ", user.citynum)
         .addField("Provinces: ", user.provincenum)
+        .addField("Countries: ", user.countrynum)
         .addField("Item: ", user.item)
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');

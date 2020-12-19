@@ -33,6 +33,11 @@ function TimeUntilTick(msg, dbHandler) {
     } else {
         income += (user.provincenum*1100);
     }
+    if (user.item == "The Vatican" || user.item == "Altar") {
+        income += (user.countrynum*22000);
+    } else {
+        income += (user.countrynum*11000);
+    }
 
     var nextHour = (3600000 - new Date().getTime() % 3600000);
     

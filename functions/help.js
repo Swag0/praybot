@@ -47,6 +47,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Building Communities", 'Use *†community* *x* to build *x* communities. On prayday, you will gain 11 prayers per community.')
                 .addField("Building Cities", 'Use *†city* *x* to build *x* cities. On prayday, you will gain 110 prayers per city.')
                 .addField("Building Provinces", 'Use *†province* *x* to build *x* provinces. On prayday, you will gain 1100 prayers per province.')
+                .addField("Building Countries", 'Use *†country* *x* to build *x* countries. On prayday, you will gain 11000 prayers per countriy.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
         } else if (page == 3) {
@@ -58,6 +59,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Counting Communities", 'Use *†communitycount* to count your communities. You can also choose to mention someone else and count their communities.')
                 .addField("Counting Cities", 'Use *†citycount* to count your cities. You can also choose to mention someone else and count their cities.')
                 .addField("Counting Provinces", 'Use *†provincecount* to count your provinces. You can also choose to mention someone else and count their provinces.')
+                .addField("Counting Countries", 'Use *†countrycount* to count your countries. You can also choose to mention someone else and count their countries.')
                 .addField("Counting Everything", 'Use *†checkall* to count all of your possessions. You can also choose to mention someone else and count their possessions.')
                 .setFooter("Page " + page + " of 6", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);

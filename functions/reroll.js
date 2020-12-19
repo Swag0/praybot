@@ -27,6 +27,7 @@ function Reroll(userId, msg, dbHandler) {
     cost += (user.communitynum * 11);
     cost += user.citynum * 110;
     cost += (user.provincenum * 1100);
+    cost += (user.countrynum * 11000);
 
     if (user.prayers >= cost) {
         msg.reply("You can afford the reroll. It costs " + cost + " prayers. Are you sure you want to reroll?")

@@ -25,6 +25,7 @@ function Item(userId, msg, dbHandler) {
   Religious School: 2x income on community
   Sistine Chapel: 2x income on city
   Bible Belt: 2x income on province
+  The Vatican: 2x income on country
   Menorah: You can steal up to 7 prayers.
   Master Bolt: Usable once only -- Steals 10% of target prayers.
     */
@@ -43,6 +44,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Religious School", "2x income on communities.")
             .addField("Sistine Chapel", "2x income on cities.")
             .addField("Bible Belt", "2x income on provinces.")
+            .addField("Bible Belt", "2x income on countries.")
             .addField("Menorah", "You can steal up to 7 prayers.")
             .addField("Master Bolt", "A one time smite that steals 10% of the target's prayers.")
             .addField("Four Leaf Clover", "There will only be two options when gambling")
@@ -133,6 +135,14 @@ function Item(userId, msg, dbHandler) {
             .setTitle(user.username)
             .addField("Item: ", user.item)
             .addField("Use: ", "You receive 2x income on provinces.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (user.item == "The Vatican") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "You receive 2x income on countries.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else if (user.item == "Devil's Advocate") {
