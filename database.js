@@ -38,6 +38,7 @@ class DatabaseHandler {
     }
 
 
+    
     CheckifUserExists(id, msg = "") {
         let userstore = db.get('users');
 
