@@ -5,6 +5,7 @@ const util = require("util");
 const Discord = require("discord.js");
 const { IncrementPrays } = require("./functions/actions/create/pray");
 const { Buy } = require("./functions/actions/create/build");
+const { Sacrifice } = require("./functions/actions/create/sacrifice");
 const { TimeUntilTick } = require("./functions/user/income");
 const { Cooldown } = require("./functions/user/cooldown");
 const { Item } = require("./functions/item/item");
@@ -155,6 +156,9 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†country") || msg.content.startsWith("+country")) {
       Buy(msg.author.id, msg, dbHandler, "country");
+    }
+    else if (msg.content.startsWith("†sacrifice") || msg.content.startsWith("+sacrifice")) {
+      Sacrifice(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
