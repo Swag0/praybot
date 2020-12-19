@@ -1,5 +1,5 @@
-const { Config } = require("./config");
-const { CheckifUserExists } = require("../bot");
+const { Config } = require("../config");
+const { CheckifUserExists } = require("../../bot");
 
 function Reroll(userId, msg, dbHandler) {
 
