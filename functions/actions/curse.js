@@ -59,6 +59,9 @@ function Curse(userId, msg, dbHandler) {
                     message.awaitReactions((reaction, user) => user.id == msg.author.id && (reaction.emoji.name == '✅' || reaction.emoji.name == '❎'),
                         { max: 1, time: 10000 }).then(collected => {
                             if (collected.first().emoji.name == '✅') {
+                                
+                                console.log("Curse: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
+
                                 userstore.find({
                                     id: target
                                 }).assign({
@@ -88,10 +91,7 @@ function Curse(userId, msg, dbHandler) {
                 }).catch(function () {
                     console.log("something maybe did sad");
                 });
-        //Devil's Advocate: 1.5x Curse Damage (rounded up) for 0.5x Curse Price (rounded down)
     } else {
-
-        console.log("Curse: " + msg.author.username + " => " + msg.mentions.users.first().username + ".");
 
         let remainingTime = Config.curseCooldown - (Date.now() - user.lastcursedate)
 
