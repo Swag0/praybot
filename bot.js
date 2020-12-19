@@ -280,8 +280,7 @@ function Leaderboard(msg) {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.username) {
-
-      playerArr.push(user.prayers + ": " + user.username);
+      if (user.id != "391015029379432448") playerArr.push(user.prayers + ": " + user.username); //Leaderboard does not show praybot
     }
   });
 
