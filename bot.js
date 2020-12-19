@@ -245,6 +245,7 @@ client.on('message', msg => {
 
       if (cmd === 'suggestion') {
         if (!args[1]) {
+          msg.reply("No suggestion given.")
           return;
         }
       }
