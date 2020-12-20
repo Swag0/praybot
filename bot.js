@@ -145,16 +145,16 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
       Buy(msg.author.id, msg, dbHandler, "church");
     }
-    else if (msg.content.startsWith("†community") || msg.content.startsWith("+community")) {
+    else if (msg.content.startsWith("†communit") || msg.content.startsWith("+communit")) {
       Buy(msg.author.id, msg, dbHandler, "community");
     }
-    else if (msg.content.startsWith("†city") || msg.content.startsWith("+city")) {
+    else if (msg.content.startsWith("†cit") || msg.content.startsWith("+cit")) {
       Buy(msg.author.id, msg, dbHandler, "city");
     }
     else if (msg.content.startsWith("†province") || msg.content.startsWith("+province")) {
       Buy(msg.author.id, msg, dbHandler, "province");
     }
-    else if (msg.content.startsWith("†country") || msg.content.startsWith("+country")) {
+    else if (msg.content.startsWith("†countr") || msg.content.startsWith("+countr")) {
       Buy(msg.author.id, msg, dbHandler, "country");
     }
     else if (msg.content.startsWith("†sacrifice") || msg.content.startsWith("+sacrifice")) {
