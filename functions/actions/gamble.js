@@ -65,12 +65,10 @@ function Gamble(userId, msg, dbHandler) {
             }
             if (num > 3 && user.item != "Four Leaf Clover") {
                 msg.reply("You have to guess a number from 1-3.")
-                user.lastgambledate = 0;
                 return;
             }
             if (num > 2 && user.item == "Four Leaf Clover") {
                 msg.reply("With the Four Leaf Clover, you have to guess a number from 1-2.")
-                user.lastgambledate = 0;
                 return;
             }
             if (Math.round(num) != num) {
@@ -82,7 +80,10 @@ function Gamble(userId, msg, dbHandler) {
                 msg.reply("Please enter a positive integer.")
                 return;
             }
+
             msg.reply("You are incorrect. You guessed " + num + " and the answer was " + gamblenum + ".")
+            user.lastgambledate = Date.now();
+            return;
         }
 
         console.log(user.username + " should say " + gamblenum + ".");
