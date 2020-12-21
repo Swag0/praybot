@@ -19,6 +19,7 @@ const { StealPrayers } = require('./functions/actions/steal')
 const { Curse } = require('./functions/actions/curse')
 const { Smite } = require('./functions/actions/smite')
 const { IsAdmin } = require('./functions/admin/isAdmin')
+const { Set } = require('./functions/admin/set')
 const { SetUsername } = require('./functions/user/username')
 const { Reroll } = require('./functions/item/reroll')
 const conf = require('dotenv').config();
@@ -214,6 +215,13 @@ client.on('message', msg => {
     else if (msg.content === "additemm") {
       if (IsAdmin(msg)) {
         AssignItem();
+      }
+    }
+    else if (msg.content.startsWith("†set")) {
+      if (IsAdmin(msg)) {
+        Set(msg.author.id, msg, dbHandler);
+      } else {
+        msg.reply("You do not have the permissions to do this.")
       }
     }
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
