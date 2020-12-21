@@ -15,6 +15,20 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
         num = Number(msg.content.split(" ").pop());
     }
 
+    if (msg.content.includes("all")) {
+        if (building == "church") {
+            num = Math.floor(user.prayers / 10);
+        } else if (building == "community") {
+            num = Math.floor(user.prayers / 100);
+        } else if (building == "city") {
+            num = Math.floor(user.prayers / 1000);
+        } else if (building == "province") {
+            num = Math.floor(user.prayers / 10000);
+        } else if (building == "country") {
+            num = Math.floor(user.prayers / 100000);
+        }
+    }
+
     if (Math.round(num) != num) {
         msg.reply("Please enter an integer.")
         return;
