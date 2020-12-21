@@ -36,7 +36,7 @@ function Curse(userId, msg, dbHandler) {
     }).value().prayers;
 
 
-    let cursednum = Math.ceil(targetprayers / 100); //2% of prayers
+    let cursednum = Math.ceil(targetprayers / 100); //1% of prayers
     let cursernum = Math.ceil(curserprayers / 100);
 
     if (user.item == "Devil's Advocate") {

@@ -122,7 +122,7 @@ client.on('message', msg => {
     else if (msg.content === "†time" || msg.content === "+time" || msg.content === "+prayday" || msg.content === "†prayday" || msg.content === "+income" || msg.content === "†income") {
       TimeUntilTick(msg, dbHandler);
     }
-    else if (msg.content === "†gamble" || msg.content === "+gamble") {
+    else if (msg.content.startsWith("†gamble") || msg.content.startsWith("+gamble")) {
       Gamble(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†repose" || msg.content === "†help" || msg.content === "+help" || msg.content === "+repose") {
