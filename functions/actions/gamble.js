@@ -61,23 +61,28 @@ function Gamble(userId, msg, dbHandler) {
         if (num != "-") {
             if (num == gamblenum) {
                 msg.reply("You guessed " + num + " and were correct.")
+                user.lastgambledate = Date.now();
                 return;
             }
             if (num > 3 && user.item != "Four Leaf Clover") {
                 msg.reply("You have to guess a number from 1-3.")
+                user.lastgambledate = 0;
                 return;
             }
             if (num > 2 && user.item == "Four Leaf Clover") {
                 msg.reply("With the Four Leaf Clover, you have to guess a number from 1-2.")
+                user.lastgambledate = 0;
                 return;
             }
             if (Math.round(num) != num) {
                 msg.reply("Please enter an integer.")
+                user.lastgambledate = 0;
                 return;
             }
 
             if (num < 1) {
                 msg.reply("Please enter a positive integer.")
+                user.lastgambledate = 0;
                 return;
             }
 
