@@ -69,7 +69,7 @@ function Ascend(userId, msg, dbHandler) {
     givenAscension = ascensionChoice;
 
     if (user.prayers >= cost) {
-        msg.reply("You will ascend into " + givenAscension + " level " + (ascensionLevel + 1) + ". It costs " + cost + " prayers and you will lose all of your buildings. Are you sure you want to ascend?")
+        msg.reply("You will ascend into " + givenAscension + " level " + (ascensionLevel + 1) + ". It costs " + cost + " prayers and your buildings will automatically be sacrificed. Are you sure you want to ascend?")
             .then(function (message) {
 
                 message.react('✅').then(r => {
@@ -82,6 +82,12 @@ function Ascend(userId, msg, dbHandler) {
                         if (collected.first().emoji.name == '✅') {
                             ascensionLevel++;
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
+
+                            user.prayers += user.churchnum*(Config.churchPrice / 5);
+                            user.prayers += user.communitynum*(Config.communityPrice / 5);
+                            user.prayers += user.citynum*(Config.cityPrice / 5);
+                            user.prayers += user.provincenum*(Config.provincePrice / 5);
+                            user.prayers += user.countrynum*(Config.countryPrice / 5);
 
                             user.churchnum = 0;
                             user.communitynum = 0;
