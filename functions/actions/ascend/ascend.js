@@ -51,12 +51,12 @@ function Ascend(userId, msg, dbHandler) {
     let ascensionChoice = "-";
 
     Config.ascensionArr.forEach(item => {
-        if (msg.content.includes(item)) {
+        if (msg.content.toLowerCase().includes(item.toLowerCase())) {
             ascensionChoice = item;
         }
     });
 
-    if (!user.ascension.includes(ascensionChoice)) { //If changing ascension path
+    if (!user.ascension.toLowerCase().includes(ascensionChoice.toLowerCase())) { //If changing ascension path
         cost = 1000000;
         ascensionLevel = 0;
     }
