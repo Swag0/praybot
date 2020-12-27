@@ -36,7 +36,7 @@ const Config = {
     [
      "Free Will", //Choose when rerolling
      "Pray Upgrade", //% of prayers when praying
-     "Attack Upgrade", //Upgraded Actions
+     "Attack Upgrade", //Upgraded Attacks
      "Income Upgrade", //Income Multiplied
      "Item Upgrade" //Upgraded Items
     ]

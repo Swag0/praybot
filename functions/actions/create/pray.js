@@ -33,7 +33,7 @@ function IncrementPrays(userId, msg, dbHandler) {
 
     let prayAmount = 1;
 
-    if (user.ascension.includes("Percent Pray")) {
+    if (user.ascension.includes("Pray Upgrade")) {
       prayAmount = Math.ceil(user.prayers/100);
       prayAmount *= (Number(user.ascension.split(" ").pop()));
     }

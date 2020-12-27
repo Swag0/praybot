@@ -8,7 +8,7 @@ function AscendHelp(msg) {
 
     /*Ascension Types
     Choosy: (You get to choose your item when rerolling)
-    Percent Pray: (You pray 1% of your total prayers)
+    Pray Upgrade: (You pray 1% of your total prayers)
     Upgraded Abilities: (Your abilities are upgraded.
         - You can choose your gamble cost
         - Your curse does 5x

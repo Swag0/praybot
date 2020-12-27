@@ -39,7 +39,7 @@ function Set(userId, msg, dbHandler) {
     }).value();
 
     if (msg.content.includes("date")) {
-        if (num == "_") {
+        if (num == "-") {
             msg.reply("Please specify a date.")
             return;
         }
@@ -79,7 +79,7 @@ function Set(userId, msg, dbHandler) {
     }
 
     if (msg.content.includes("amount")) {
-        if (num == "_") {
+        if (num == "-") {
             msg.reply("Please specify an amount.")
             return;
         }
@@ -104,6 +104,20 @@ function Set(userId, msg, dbHandler) {
         } else {
             msg.reply("No specified changed amount.");
         }
+    }
+
+    if (msg.content.includes("ascension")) {
+        if (num == "-") {
+            msg.reply("Please specify an ascension level.")
+            return;
+        }
+        for (i = 0; i < Config.ascensionArr.length; i++) {
+            if (msg.content.includes(Config.ascensionArr[i])) {
+                target.ascension = Config.ascensionArr[i].concat(": ").concat(num);
+                msg.channel.send("Changed " + target.username + " ascension to " + Config.ascensionArr[i] + ": " + num + ".");
+            }
+        }
+
     }
 
     userstore.find({
