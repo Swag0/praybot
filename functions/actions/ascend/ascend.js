@@ -7,8 +7,7 @@ function Ascend(userId, msg, dbHandler) {
     /*Ascension Types
     Free Will: (You get to choose your item when rerolling)
     Pray Upgrade: (You pray 1% of your total prayers)
-    Action Upgrade: (Your actions are upgraded.
-        - You can choose your gamble cost
+    Attack Upgrade: (Your attacks are upgraded.)
         - Your curse does 5x
         - You steal 5x)
     Income Upgrade: (You get 2x income)

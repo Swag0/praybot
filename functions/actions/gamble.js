@@ -63,6 +63,21 @@ function Gamble(userId, msg, dbHandler) {
             if (num == gamblenum) {
                 msg.reply("You guessed " + num + " and were correct.")
                 user.lastgambledate = Date.now();
+                if (user.ascension.includes("Item Upgrade") && user.item == "Four Leaf Clover") { //If Mega Win
+                    userstore.find({
+                        id: player
+                    }).assign({
+                        prayers: playerprayers + 6,
+                    })
+                        .write();
+                } else { //If Normal Win
+                    userstore.find({
+                        id: player
+                    }).assign({
+                        prayers: playerprayers + 3,
+                    })
+                        .write();
+                }
                 return;
             }
             if (num > 3 && user.item != "Four Leaf Clover") {
@@ -113,13 +128,22 @@ function Gamble(userId, msg, dbHandler) {
                         if (collected.first().emoji.name == '1️⃣') {
                             guess = 1;
                             if (guess == gamblenum) {
-                                userstore.find({
-                                    id: player
-                                }).assign({
-                                    prayers: playerprayers + 3,
-                                })
-                                    .write();
                                 msg.reply('You guessed ' + guess + ' and were correct.');
+                                if (user.ascension.includes("Item Upgrade") && user.item == "Four Leaf Clover") { //If Mega Win
+                                    userstore.find({
+                                        id: player
+                                    }).assign({
+                                        prayers: playerprayers + 6,
+                                    })
+                                        .write();
+                                } else { //If Normal Win
+                                    userstore.find({
+                                        id: player
+                                    }).assign({
+                                        prayers: playerprayers + 3,
+                                    })
+                                        .write();
+                                }
                             } else {
                                 userstore.find({
                                     id: player
@@ -134,13 +158,22 @@ function Gamble(userId, msg, dbHandler) {
                         else if (collected.first().emoji.name == '2️⃣') {
                             guess = 2;
                             if (guess == gamblenum) {
-                                userstore.find({
-                                    id: player
-                                }).assign({
-                                    prayers: playerprayers + 3,
-                                })
-                                    .write();
                                 msg.reply('You guessed ' + guess + ' and were correct.');
+                                if (user.ascension.includes("Item Upgrade") && user.item == "Four Leaf Clover") { //If Mega Win
+                                    userstore.find({
+                                        id: player
+                                    }).assign({
+                                        prayers: playerprayers + 6,
+                                    })
+                                        .write();
+                                } else { //If Normal Win
+                                    userstore.find({
+                                        id: player
+                                    }).assign({
+                                        prayers: playerprayers + 3,
+                                    })
+                                        .write();
+                                }
                             } else {
                                 userstore.find({
                                     id: player

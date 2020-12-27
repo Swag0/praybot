@@ -107,6 +107,11 @@ function Set(userId, msg, dbHandler) {
     }
 
     if (msg.content.includes("ascension")) {
+        if (msg.content.toLowerCase().includes("no")) {
+            target.ascension = "0";
+            msg.channel.send("Changed " + target.username + " ascension to 0.");
+            return;
+        }
         if (num == "-") {
             msg.reply("Please specify an ascension level.")
             return;
@@ -116,8 +121,7 @@ function Set(userId, msg, dbHandler) {
                 target.ascension = Config.ascensionArr[i].concat(": ").concat(num);
                 msg.channel.send("Changed " + target.username + " ascension to " + Config.ascensionArr[i] + ": " + num + ".");
             }
-        }
-
+        } 
     }
 
     userstore.find({

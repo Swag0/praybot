@@ -201,7 +201,7 @@ function Item(userId, msg, dbHandler) {
             .setTitle(user.username)
             .addField("Item: ", "Four Leaf Clover")
             .addField("Use: ", "There will only be two options when gambling.")
-            .addField("Ascended Use: ", "No Ascension Change.")
+            .addField("Ascended Use: ", "You will gain 2x the winnings.")
             //.addField("Ascended Use: ", "There will only be two correct options when gambling.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
