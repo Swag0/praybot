@@ -95,7 +95,7 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    if (msg.author != 346758543489105941) return; //only for testing
+    //if (msg.author != 346758543489105941) return; //only for testing
     //if (msg.author.id == 686674122138189875) return; 
     //if blacklisted, they don't speak.
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
@@ -283,7 +283,7 @@ function Cleaning() {
     if (user.ascension == undefined || user.ascension == NaN) user.ascension = "0";
     console.log(user.ascension);
 
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.ascension }).write();
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.ascension }).write();
 
     if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.username + " is not active.");
