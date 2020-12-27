@@ -88,7 +88,7 @@ function HelpPage(userId, msg, dbHandler) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle("Ascension Commands")
-                .addField("Ascend", 'Use *†ascend* [possible ascension] to ascend, which will make you lose all buildings and give you an ascension.')
+                .addField("Ascend", 'Use *†ascend* [possible ascension] to ascend, which will make you lose all buildings and give you an ascension. Example: †ascend Free Will')
                 .addField("Ascend Help", 'Use *†ascend help* to show all possible ascensions.')
                 .setFooter("Page " + page + " of 7", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
