@@ -170,7 +170,7 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall")) {
       Count(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift")) {
+    else if (msg.content.startsWith("†gift") || msg.content.startsWith("+gift") || msg.content.startsWith("†give") || msg.content.startsWith("+give")) {
       if (msg.mentions.users.first()) {
         GiftPrayers(msg.author.id, msg, dbHandler);
       }
@@ -227,7 +227,7 @@ client.on('message', msg => {
         msg.reply("You do not have the permissions to do this.")
       }
     }
-    else if (msg.content === "†ascend help" || msg.content === "+ascend help") {
+    else if (msg.content === "†ascend help" || msg.content === "+ascend help" || msg.content === "†ascensions" || msg.content === "+ascensions") {
       AscendHelp(msg)
     }
     else if (msg.content.startsWith("†ascend") || msg.content.startsWith("+ascend")) {
