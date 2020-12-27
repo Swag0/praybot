@@ -37,7 +37,7 @@ function Sacrifice(userId, msg, dbHandler) { //building type in msg
         if (user.churchnum >= num) {
 
             user.churchnum -= num;
-            user.prayers += (Config.churchPrice / 5);
+            user.prayers += num*(Config.churchPrice / 5);
             
             if (num == 1) msg.reply("You sacrificed 1 church and now have " + user.churchnum + " churches.");
             else msg.reply("You sacrificed " + num + " churches and now have " + user.churchnum + " churches.");
@@ -53,7 +53,7 @@ function Sacrifice(userId, msg, dbHandler) { //building type in msg
         if (user.communitynum >= num) {
 
             user.communitynum -= num;
-            user.prayers += (Config.communityPrice / 5);
+            user.prayers += num*(Config.communityPrice / 5);
             
             if (num == 1) msg.reply("You sacrificed 1 community and now have " + user.communitynum + " communities.");
             else msg.reply("You sacrificed " + num + " communities and now have " + user.communitynum + " communities.");
@@ -69,7 +69,7 @@ function Sacrifice(userId, msg, dbHandler) { //building type in msg
         if (user.citynum >= num) {
 
             user.citynum -= num;
-            user.prayers += (Config.cityPrice / 5);
+            user.prayers += num*(Config.cityPrice / 5);
             
             if (num == 1) msg.reply("You sacrificed 1 city and now have " + user.citynum + " cities.");
             else msg.reply("You sacrificed " + num + " cities and now have " + user.citynum + " cities.");
@@ -85,7 +85,7 @@ function Sacrifice(userId, msg, dbHandler) { //building type in msg
         if (user.provincenum >= num) {
 
             user.provincenum -= num;
-            user.prayers += (Config.provincePrice / 5);
+            user.prayers += num*(Config.provincePrice / 5);
             
             if (num == 1) msg.reply("You sacrificed 1 province and now have " + user.provincenum + " provinces.");
             else msg.reply("You sacrificed " + num + " provinces and now have " + user.provincenum + " provinces.");
@@ -101,10 +101,10 @@ function Sacrifice(userId, msg, dbHandler) { //building type in msg
         if (user.countrynum >= num) {
 
             user.countrynum -= num;
-            user.prayers += (Config.countryPrice / 5);
+            user.prayers += num*(Config.countryPrice / 5);
             
             if (num == 1) msg.reply("You sacrificed 1 country and now have " + user.countrynum + " countries.");
-            else msg.reply("You sacrificed " + num + " countries and now have " + user.churchnum + " countries.");
+            else msg.reply("You sacrificed " + num + " countries and now have " + user.countrynum + " countries.");
               
             console.log(user.username + " sacrificed => " + num + " " + building + ".")
           } else {
