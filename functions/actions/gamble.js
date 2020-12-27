@@ -36,7 +36,8 @@ function Gamble(userId, msg, dbHandler) {
     let cooldown = Config.gambleCooldown;
 
     if (user.item == "Atheist") {
-        cooldown = Config.gambleCooldown / 4;
+        if (user.ascension.includes("Item Upgrade")) cooldown = Config.gambleCooldown / 6;
+        else cooldown = Config.gambleCooldown / 4;
     }
 
     if (Date.now() - user.lastgambledate > cooldown) {

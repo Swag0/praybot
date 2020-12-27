@@ -29,7 +29,27 @@ function Reroll(userId, msg, dbHandler) {
     cost += (user.provincenum * 1100);
     cost += (user.countrynum * 11000);
 
+    let itemChoice = "-";
+
     if (user.prayers >= cost) {
+
+        if (user.ascension.includes("Free Will")) {
+
+
+            Config.itemArr.forEach(item => {
+                if (msg.content.includes(item)) {
+                    itemChoice = item;
+                }
+            });
+
+            if (itemChoice == "-") {
+                msg.reply("You have the Free Will ascension. You can choose your item. Do this with †reroll [itemChoice].")
+                return;
+            }
+
+            givenItem = itemChoice;
+        }
+
         msg.reply("You can afford the reroll. It costs " + cost + " prayers. Are you sure you want to reroll?")
             .then(function (message) {
 

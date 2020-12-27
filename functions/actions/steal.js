@@ -50,7 +50,8 @@ function StealPrayers(userId, msg, dbHandler) {
     let stealnum = Math.floor(Math.random() * 3 + 1); //1-3
 
     if (user.item == "Menorah") {
-        stealnum = Math.floor(Math.random() * 7 + 1); //1-7
+        if (user.ascension.includes("Item Upgrade")) stealnum = Math.floor(Math.random() * 9 + 1); //1-9
+        else stealnum = Math.floor(Math.random() * 7 + 1); //1-7
     }
 
     let stealerprayers = userstore.find({
@@ -67,6 +68,11 @@ function StealPrayers(userId, msg, dbHandler) {
         return;
     }
 
+    if (targetId.item == "Blessed" && targetId.ascension.includes("Item Upgrade")) {
+        msg.channel.send(msg.mentions.users.first().username + " can not be stolen from as they have an Upgraded Blessing.")
+        return;
+    }
+
     if (stealerprayers < 3 && (user.item != "Menorah")) {
         msg.reply("You need 3 prayers in order to steal.");
         return;
@@ -75,34 +81,62 @@ function StealPrayers(userId, msg, dbHandler) {
         msg.reply("You have the menorah, so you need 7 prayers in order to steal.");
         return;
     }
+    if (stealerprayers < 9 && (user.item == "Menorah") && (user.ascension.includes("Item Upgrade"))) {
+        msg.reply("You have the upgraded menorah, so you need 9 prayers in order to steal.");
+        return;
+    }
 
     if (targetprayers < 3) {
         msg.reply("Your target needs 3 prayers to steal from.");
         return;
     }
 
-    if (targetprayers < 7 && user.item == "Menorah") {
+    if (targetprayers - stealnum < 0 && user.item == "Menorah") {
         stealnum = Math.floor(Math.random() * targetprayers + 1);
     }
 
+    if (user.ascension.includes("Attack Upgrade")) { //2% of prayers
+        if (stealerprayers > targetprayers) {
+            if (stealnum < targetprayers / 100 * (2 * Math.ceil((Number(user.ascension.split(" ").pop()))))) {
+                stealnum = Math.ceil(targetprayers / 100 * (2 * Math.ceil((Number(user.ascension.split(" ").pop())))));
+            }
+        } else {
+            if (stealnum < stealerprayers / 100 * (2 * Math.ceil((Number(user.ascension.split(" ").pop()))))) {
+                stealnum = Math.ceil(stealerprayers / 100 * (2 * Math.ceil((Number(user.ascension.split(" ").pop())))));
+            }
+        }
+    }
 
-    if (target == "391015029379432448") {
+    let actualStealNum = stealnum;
+
+    /*if (target == "391015029379432448") {
         msg.reply("Don't even try.");
         return;
-    }
+    }*/
 
     if (Date.now() - user.laststealdate > Config.stealCooldown) {
 
         user.laststealdate = Date.now();
 
-        if (Chosen) {
+        if (Chosen && user.ascension.includes("Item Upgrade")) {
+            stealnum *= Math.floor(Math.random() * 4) != 1 ? -1 : 1; //this makes 75/25 negative
+        } else if (Chosen) {
             stealnum *= Math.floor(Math.random() * 2) == 1 ? -1 : 1; //this makes 50/50 positive
         } else {
             stealnum *= Math.floor(Math.random() * 4) == 1 ? -1 : 1; // this makes 75/25 positive
         }
 
-
-        if (user.item == "Godspeed") {
+        if (user.item == "Godspeed" && user.ascension.includes("Item Upgrade")) {
+            actualStealNum = (stealnum * (2 + (Number(user.ascension.split(" ").pop()))));
+            userstore.find({
+                id: stealer
+            }).assign({
+                prayers: stealerprayers + (stealnum * (2 + (Number(user.ascension.split(" ").pop())))),
+            })
+                .write();
+        }
+        else if (user.item == "Godspeed") {
+            actualStealNum = stealnum*2;
             userstore.find({
                 id: stealer
             }).assign({
@@ -126,14 +160,10 @@ function StealPrayers(userId, msg, dbHandler) {
             .write();
 
         if (stealnum > 0) { //pos
-            msg.channel.send(msg.mentions.users.first().username + " had " + stealnum + " prayers stolen from him.");
-            if (user.item == "Godspeed") {
-                msg.channel.send(msg.author.username + " gained " + (2 * stealnum) + " prayers as they have Godspeed.");
-            } else {
-                msg.channel.send(msg.author.username + " gained " + stealnum + " prayers.");
-            }
+            msg.channel.send(msg.mentions.users.first().username + " had " + stealnum + " prayers stolen from them.");
+            msg.channel.send(msg.author.username + " gained " + actualStealNum + " prayers.");
         } else { //negative
-            msg.channel.send(msg.author.username + " " + failureMsg + " and lost " + (stealnum * -1) + " prayers.")
+            msg.channel.send(msg.author.username + " " + failureMsg + " and lost " + (actualStealNum) + " prayers.")
             msg.channel.send(msg.mentions.users.first().username + " found " + (stealnum * -1) + " prayers.");
         }
 

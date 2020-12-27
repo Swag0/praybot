@@ -30,6 +30,15 @@ const Config = {
       "Master Bolt",
       "Four Leaf Clover",
       "Altar"
+    ],
+
+    ascensionArr:
+    [
+     "Free Will", //Choose when rerolling
+     "Percent Pray", //% of prayers when praying
+     "Attack Upgrade", //Upgraded Actions
+     "Income Upgrade", //Income Multiplied
+     "Item Upgrade" //Upgraded Items
     ]
 }
 

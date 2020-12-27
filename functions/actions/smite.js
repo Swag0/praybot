@@ -33,7 +33,11 @@ function Smite(userId, msg, dbHandler) { //building type in msg
         id: target
     }).value().prayers;
 
-    smiteAmount = Math.floor(targetprayers / 10);
+    if (user.ascension.includes("Item Upgrade")) {
+        smiteAmount = Math.floor(targetprayers * ((0.1) + (0.05 * (Number(user.ascension.split(" ").pop())))));
+    } else {
+        smiteAmount = Math.floor(targetprayers / 10);
+    }
 
     msg.reply("You smited " + msg.mentions.users.first().username + " and you got " + smiteAmount + " prayers. They lost " + smiteAmount + ".");
     

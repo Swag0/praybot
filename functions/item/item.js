@@ -55,148 +55,166 @@ function Item(userId, msg, dbHandler) {
         return;
     }
 
-    if (user.item == "Holy Grail") {
+    let itemChoice = "-";
+
+    Config.itemArr.forEach(item => {
+        if (msg.content.includes(item)) {
+            itemChoice = item;
+        }
+    });
+
+    if (itemChoice == "-") {
+        itemChoice = user.item;
+    }
+
+    if (itemChoice == "Holy Grail") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Holy Grail")
             .addField("Use: ", "Gives 2x Prayers.")
+            .addField("*Ascended Use: ", "Gives 3x Prayers.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Blessed") {
+    } else if (itemChoice == "Blessed") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Blessed")
             .addField("Use: ", "You can not be cursed.")
+            .addField("Ascended Use: ", "You can not be cursed or stolen from.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
 
-    } else if (user.item == "Godspeed") {
+    } else if (itemChoice == "Godspeed") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Godspeed")
             .addField("Use: ", "2x Steal Value.")
+            .addField("*Ascended Use: ", "3x Steal Value.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
 
-    } else if (user.item == "Zeus' Chosen") {
+    } else if (itemChoice == "Zeus' Chosen") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
-            .addField("Use: ", "Increased Backfire Chance When Stolen From.")
+            .addField("Item: ", "Zeus' Chosen") //normally 25%
+            .addField("Use: ", "Increased Backfire Chance When Stolen From.") //now 50%
+            .addField("Ascended Use: ", "Hugely Increased Backfire Chance When Stolen From.") //now 75%
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Atheist") {
+    } else if (itemChoice == "Atheist") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Atheist")
             .addField("Use: ", "You can't pray, but you have a 15 minute gamble timer.")
+            .addField("Ascended Use: ", "You can't pray, but you have a 10 minute gamble timer.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Priest") {
+    } else if (itemChoice == "Priest") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Priest")
             .addField("Use: ", "You have a 7m 30s pray timer.")
+            .addField("Ascended Use: ", "You have a 5m pray timer.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Bible") {
+    } else if (itemChoice == "Bible") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Bible")
             .addField("Use: ", "You receive 2x income on churches.")
+            .addField("*Ascended Use: ", "You receive 3x income on churches.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Religious School") {
+    } else if (itemChoice == "Religious School") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Religious School")
             .addField("Use: ", "You receive 2x income on communities.")
+            .addField("*Ascended Use: ", "You receive 3x income on communities.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Sistine Chapel") {
+    } else if (itemChoice == "Sistine Chapel") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Sistine Chapel")
             .addField("Use: ", "You receive 2x income on cities.")
+            .addField("*Ascended Use: ", "You receive 3x income on cities.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Bible Belt") {
+    } else if (itemChoice == "Bible Belt") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Bible Belt")
             .addField("Use: ", "You receive 2x income on provinces.")
+            .addField("*Ascended Use: ", "You receive 3x income on provinces.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "The Vatican") {
+    } else if (itemChoice == "The Vatican") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "The Vatican")
             .addField("Use: ", "You receive 2x income on countries.")
+            .addField("*Ascended Use: ", "You receive 3x income on countries.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Devil's Advocate") {
+    } else if (itemChoice == "Devil's Advocate") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Devil's Advocate")
             .addField("Use: ", "2x Curse Damage for 0.5x Curse Price (rounded down).")
+            .addField("*Ascended Use: ", "3x Curse Damage for 0.3x Curse Price (rounded down).")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Menorah") {
+    } else if (itemChoice == "Menorah") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Menorah")
             .addField("Use: ", "You can steal up to 7 prayers.")
+            .addField("Ascended Use: ", "You can steal up to 9 prayers.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Master Bolt") {
+    } else if (itemChoice == "Master Bolt") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Master Bolt")
             .addField("Use: ", "A one time smite that steals 10% of the target's prayers.")
+            .addField("*Ascended Use: ", "A one time smite that steals 15% of the target's prayers.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Four Leaf Clover") {
+    } else if (itemChoice == "Four Leaf Clover") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Four Leaf Clover")
             .addField("Use: ", "There will only be two options when gambling.")
+            .addField("Ascended Use: ", "No Ascension Change.")
+            //.addField("Ascended Use: ", "There will only be two correct options when gambling.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
-    } else if (user.item == "Altar") {
+    } else if (itemChoice == "Altar") {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle(user.username)
-            .addField("Item: ", user.item)
+            .addField("Item: ", "Altar")
             .addField("Use: ", "Your income doubles for ONE prayday.")
-            .setTimestamp()
-        msg.channel.send(itemEmbed);
-    } else {
-        const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle(user.username)
-            .addField("Item: ", user.item)
-            .addField("Use: ", "Nothing.")
+            .addField("*Ascended Use: ", "Your income triples for ONE prayday.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     }
-
-
-
 
 }
 module.exports = { Item };

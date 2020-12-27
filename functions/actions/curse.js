@@ -40,8 +40,18 @@ function Curse(userId, msg, dbHandler) {
     let cursernum = Math.ceil(curserprayers / 100);
 
     if (user.item == "Devil's Advocate") {
-        cursednum = Math.ceil(cursednum * 2)
-        cursernum = Math.floor(cursernum / 2)
+        if (user.ascension.includes("Item Upgrade")) {
+            cursednum = Math.ceil(cursednum * (2 + Math.ceil((Number(user.ascension.split(" ").pop())))))
+            cursernum = Math.ceil(cursernum / (2 + Math.ceil((Number(user.ascension.split(" ").pop())))))
+        } else {
+            cursednum = Math.ceil(cursednum * 2)
+            cursernum = Math.floor(cursernum / 2)
+        }
+    }
+    
+    if (user.ascension.includes("Attack Upgrade")) {
+        cursednum = Math.ceil(cursednum * (5*Math.ceil((Number(user.ascension.split(" ").pop())))))
+        cursernum = Math.floor(cursernum * (5*Math.ceil((Number(user.ascension.split(" ").pop())))))
     }
     
     if (Date.now() - user.lastcursedate > Config.curseCooldown) {

@@ -22,19 +22,28 @@ function IncrementPrays(userId, msg, dbHandler) {
   let cooldown = Config.prayCooldown;
 
   if (user.item == "Priest") {
-    cooldown = Config.prayCooldown / 2;
+
+    if (user.ascension.includes("Item Upgrade")) cooldown = Config.prayCooldown / 3;
+    else cooldown = Config.prayCooldown / 2;
+    
   }
 
 
   if (Date.now() - user.lastpraydate > cooldown) {
 
+    let prayAmount = 1;
+
+    if (user.ascension.includes("Percent Pray")) {
+      prayAmount = Math.ceil(user.prayers/100);
+      prayAmount *= (Number(user.ascension.split(" ").pop()));
+    }
 
     if (user.item == "Holy Grail") {
-      user.prayers += 2;
-      msg.reply("You also have the Holy Grail, so you got 2 prayers. ");
-    } else {
-      user.prayers++;
+      if (user.ascension.includes("Item Upgrade")) prayAmount *= 3;
+      else prayAmount *= 2;
     }
+
+    user.prayers += prayAmount;
 
     user.lastpraydate = Date.now();
 
@@ -45,7 +54,10 @@ function IncrementPrays(userId, msg, dbHandler) {
     user.prayers = Math.floor(user.prayers);
 
     console.log(user.username + " has " + user.prayers + " prayers.");
-    msg.reply("You now have " + user.prayers + " prayers");
+
+    if (prayAmount == 1) msg.reply("You gained " + prayAmount + " prayer, and now have " + user.prayers + " prayers");
+    else msg.reply("You gained " + prayAmount + " prayers, and now have " + user.prayers + " prayers");
+    
 
   } else {
     let remainingTime = cooldown - (Date.now() - user.lastpraydate)

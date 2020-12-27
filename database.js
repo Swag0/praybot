@@ -24,7 +24,7 @@ class DatabaseHandler {
                 provincenum: 0,
                 countrynum: 0,
                 item: "No Item",
-                //countrynum: 0,
+                ascension: "0"
                 //continentnum: 0,
                 //planetnum: 0,
                 //solarsystemnum: 0,
@@ -74,7 +74,8 @@ class DatabaseHandler {
                 lastcursedate: Date.now(),
                 laststealdate: Date.now(),
                 lastgambledate: Date.now(),
-                item: "No Item"
+                item: "No Item",
+                ascension: "0"
             }).write();
             return;
         } else {

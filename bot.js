@@ -22,6 +22,8 @@ const { IsAdmin } = require('./functions/admin/isAdmin')
 const { Set } = require('./functions/admin/set')
 const { SetUsername } = require('./functions/user/username')
 const { Reroll } = require('./functions/item/reroll')
+const { Ascend } = require("./functions/actions/ascend/ascend");
+const { AscendHelp } = require("./functions/actions/ascend/ascendAbilities");
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -93,6 +95,7 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
+    if (msg.author != 346758543489105941) return; //only for testing
     //if (msg.author.id == 686674122138189875) return; 
     //if blacklisted, they don't speak.
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
@@ -224,6 +227,12 @@ client.on('message', msg => {
         msg.reply("You do not have the permissions to do this.")
       }
     }
+    else if (msg.content === "†ascend help" || msg.content === "+ascend help") {
+      AscendHelp(msg)
+    }
+    else if (msg.content.startsWith("†ascend") || msg.content.startsWith("+ascend")) {
+      Ascend(msg.author.id, msg, dbHandler)
+    }
     else if (msg.content.startsWith("†profile") || msg.content.startsWith("+profile") || msg.content.startsWith("+p") || msg.content.startsWith("†p")) {
       Profile(msg.author.id, msg, dbHandler)
     } //profile has to be last because it is p, and starts with p
@@ -271,8 +280,13 @@ client.on('message', msg => {
 function Cleaning() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
+    if (user.ascension == undefined || user.ascension == NaN) user.ascension = "0";
+    console.log(user.ascension);
+
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.ascension }).write();
+
     if (Date.now() - user.lastpraydate > 604800000) {
-      console.log(user.id + " is not active.");
+      console.log(user.username + " is not active.");
     }
   });
 }
@@ -325,7 +339,7 @@ function IncomeNotification() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "Altar") {
-      user.item = "No Item";
+      user.item = "Broken Altar";
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ item: user.item }).write();
@@ -336,9 +350,14 @@ function AddChurchIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "Bible" || user.item == "Altar") {
-      user.prayers += user.churchnum * 2;
+      if (user.ascension.includes("Item Upgrade")) user.prayers += user.churchnum * (2 + (Number(user.ascension.split(" ").pop()))); 
+      else user.prayers += user.churchnum * 2; 
     } else {
-      user.prayers += user.churchnum * 1;
+      user.prayers += user.churchnum * 1; //Adds income
+    }
+
+    if (user.ascension.includes("Income Upgrade")) {
+      user.prayers += (user.churchnum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -349,9 +368,14 @@ function AddCommunityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "Religious School" || user.item == "Altar") {
-      user.prayers += (user.communitynum * 22)
+      if (user.ascension.includes("Item Upgrade")) user.prayers += user.communitynum * (22 + ((Number(user.ascension.split(" ").pop())) * 11)); 
+      else user.prayers += user.communitynum * 22; 
     } else {
       user.prayers += (user.communitynum * 11);
+    }
+
+    if (user.ascension.includes("Income Upgrade")) {
+      user.prayers += (user.communitynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -362,9 +386,16 @@ function AddCityIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "Sistine Chapel" || user.item == "Altar") {
-      user.prayers += user.citynum * 220;
+
+      if (user.ascension.includes("Item Upgrade")) user.prayers += user.citynum * (220 + ((Number(user.ascension.split(" ").pop())) * 110)); 
+      else user.prayers += user.citynum * 220; 
+
     } else {
       user.prayers += user.citynum * 110;
+    }
+
+    if (user.ascension.includes("Income Upgrade")) {
+      user.prayers += (user.citynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -375,9 +406,16 @@ function AddProvinceIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "Bible Belt" || user.item == "Altar") {
-      user.prayers += user.provincenum * 2200;
+
+      if (user.ascension.includes("Item Upgrade")) user.prayers += user.provincenum * (2200 + ((Number(user.ascension.split(" ").pop())) * 1100)); 
+      else user.prayers += user.provincenum * 2200; 
+
     } else {
       user.prayers += user.provincenum * 1100;
+    }
+
+    if (user.ascension.includes("Income Upgrade")) {
+      user.prayers += (user.provincenum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -388,9 +426,16 @@ function AddCountryIncome() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.item == "The Vatican" || user.item == "Altar") {
-      user.prayers += user.countrynum * 22000;
+
+      if (user.ascension.includes("Item Upgrade")) user.prayers += user.countrynum * (22000 + ((Number(user.ascension.split(" ").pop())) * 11000)); 
+      else user.prayers += user.countrynum * 22000; 
+
     } else {
       user.prayers += user.countrynum * 11000;
+    }
+
+    if (user.ascension.includes("Income Upgrade")) {
+      user.prayers += (user.countrynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -437,8 +482,6 @@ function AssignItem() {
   dbHandler.getDB().get('users').value().forEach((user) => {
     let randomArr = Math.floor(Math.random() * Config.itemArr.length);
     let givenItem = Config.itemArr[randomArr];
-
-    if (givenItem == "Master Bolt") console.log(user.username + " received " + givenItem);
 
     if (user.prayers > 0) {
       user.item = givenItem;

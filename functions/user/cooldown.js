@@ -26,8 +26,10 @@ function Cooldown(userId, msg, dbHandler) {
 
 
     let cooldown = Config.prayCooldown;
+
     if (user.item == "Priest") {
-        cooldown /= 2;
+        if (user.ascension.includes("Item Upgrade")) cooldown /= 3;
+        else cooldown /= 2;
     }
 
     let remainingTimePray = cooldown - (Date.now() - user.lastpraydate);
@@ -82,7 +84,8 @@ function Cooldown(userId, msg, dbHandler) {
 
     cooldown = Config.gambleCooldown;
     if (user.item == "Atheist") {
-        cooldown /= 4;
+        if (user.ascension.includes("Item Upgrade")) cooldown /= 6;
+        else cooldown /= 4;
     }
 
     remainingTimeGamble = cooldown - (Date.now() - user.lastgambledate);
