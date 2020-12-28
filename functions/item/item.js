@@ -58,7 +58,7 @@ function Item(userId, msg, dbHandler) {
     let itemChoice = "-";
 
     Config.itemArr.forEach(item => {
-        if (msg.content.includes(item)) {
+        if (msg.content.toLowerCase().includes(item.toLowerCase())) {
             itemChoice = item;
         }
     });
