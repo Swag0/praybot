@@ -39,7 +39,7 @@ function IncrementPrays(userId, msg, dbHandler) {
     }
 
     if (user.item == "Holy Grail") {
-      if (user.ascension.includes("Item Upgrade")) prayAmount *= 3;
+      if (user.ascension.includes("Item Upgrade")) prayAmount *= (2 + (Number(user.ascension.split(" ").pop())));
       else prayAmount *= 2;
     }
 
