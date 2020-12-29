@@ -375,7 +375,7 @@ function AddCommunityIncome() {
     }
 
     if (user.ascension.includes("Income Upgrade")) {
-      user.prayers += (user.communitynum * (Number(user.ascension.split(" ").pop()))); 
+      user.prayers += (11 * user.communitynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -395,7 +395,7 @@ function AddCityIncome() {
     }
 
     if (user.ascension.includes("Income Upgrade")) {
-      user.prayers += (user.citynum * (Number(user.ascension.split(" ").pop()))); 
+      user.prayers += (110 * user.citynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -415,7 +415,7 @@ function AddProvinceIncome() {
     }
 
     if (user.ascension.includes("Income Upgrade")) {
-      user.prayers += (user.provincenum * (Number(user.ascension.split(" ").pop()))); 
+      user.prayers += (1100 * user.provincenum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();
@@ -435,7 +435,7 @@ function AddCountryIncome() {
     }
 
     if (user.ascension.includes("Income Upgrade")) {
-      user.prayers += (user.countrynum * (Number(user.ascension.split(" ").pop()))); 
+      user.prayers += (11000 * user.countrynum * (Number(user.ascension.split(" ").pop()))); 
     }
 
     dbHandler.getDB().get('users').find({ id: user.id }).assign({ prayers: user.prayers }).write();

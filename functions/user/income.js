@@ -44,6 +44,8 @@ function TimeUntilTick(msg, dbHandler) {
         income += (user.countrynum*11000);
     }
 
+    if (user.ascension.includes("Income Upgrade")) income *= (Number(user.ascension.split(" ").pop()));
+
     var nextHour = (3600000 - new Date().getTime() % 3600000);
     
     if (!msg.content.includes("income")) {
