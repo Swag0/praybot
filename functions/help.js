@@ -49,6 +49,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Building Cities", 'Use *†city* *x* to build *x* cities. On prayday, you will gain 110 prayers per city.')
                 .addField("Building Provinces", 'Use *†province* *x* to build *x* provinces. On prayday, you will gain 1100 prayers per province.')
                 .addField("Building Countries", 'Use *†country* *x* to build *x* countries. On prayday, you will gain 11000 prayers per country.')
+                .addField("Building Everything", 'Use *†build all* to build all possible buildings in order of cost.')
                 .addField("Sacrificing", 'Use *†sacrifice* *x* building to destroy *x* buildings. You will gain 20% of the buildings cost.')
                 .setFooter("Page " + page + " of 7", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);

@@ -101,7 +101,7 @@ client.on('message', msg => {
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
       SetUsername(msg.author.id, msg, dbHandler);
     }
-    else if (msg.content.startsWith("†praycount") || msg.content.startsWith("†Praycount") || msg.content.startsWith("+praycount") || msg.content.startsWith("+Praycount")) {
+    else if (msg.content.startsWith("†praycount") || msg.content.startsWith("+praycount")) {
       Count(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†pray" || msg.content === "+pray") {
@@ -160,6 +160,9 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†countr") || msg.content.startsWith("+countr")) {
       Buy(msg.author.id, msg, dbHandler, "country");
+    }
+    else if (msg.content.startsWith("†build all") || msg.content.startsWith("+build all")) {
+      Buy(msg.author.id, msg, dbHandler, "all");
     }
     else if (msg.content.startsWith("†sacrifice") || msg.content.startsWith("+sacrifice")) {
       Sacrifice(msg.author.id, msg, dbHandler);
