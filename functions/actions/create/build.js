@@ -16,6 +16,11 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
     }
     
     if (building == "all") {
+        if (user.prayers < 10) {
+            msg.reply("You can't build anything.");
+            return;
+        }
+
         msg.reply("You bought " + Math.floor(user.prayers / 100000 % 10) + " countries, " + Math.floor(user.prayers / 10000 % 10) + " provinces, " + Math.floor(user.prayers / 1000 % 10) + " cities, " + Math.floor(user.prayers / 100 % 10) + " communities, and " + Math.floor(user.prayers / 10 % 10) + " churches. You now have " + user.prayers % 10 + " prayers.");
         user.countrynum += Math.floor(user.prayers / 100000 % 10);
         user.provincenum += Math.floor(user.prayers / 10000 % 10);
@@ -27,7 +32,7 @@ function Buy(userId, msg, dbHandler, building) { //building type in msg
         userstore.find({
             id:userId
         }).assign(user).write();
-        
+
         return;
     }
 
