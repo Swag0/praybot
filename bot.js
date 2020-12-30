@@ -24,6 +24,7 @@ const { SetUsername } = require('./functions/user/username')
 const { Reroll } = require('./functions/item/reroll')
 const { Ascend } = require("./functions/actions/ascend/ascend");
 const { AscendHelp } = require("./functions/actions/ascend/ascendAbilities");
+const { Convert } = require("./functions/actions/ascend/ascendReroll");
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -166,6 +167,9 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†sacrifice") || msg.content.startsWith("+sacrifice")) {
       Sacrifice(msg.author.id, msg, dbHandler);
+    }
+    else if (msg.content.startsWith("†convert") || msg.content.startsWith("+convert")) {
+      Convert(msg.author.id, msg, dbHandler);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
