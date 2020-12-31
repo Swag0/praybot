@@ -214,6 +214,14 @@ function Item(userId, msg, dbHandler) {
             .addField("*Ascended Use: ", "Your income triples for ONE prayday.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
+    } else {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", user.item)
+            .addField("Use: ", "Nothing.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
     }
 
 }
