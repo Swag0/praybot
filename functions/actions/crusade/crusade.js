@@ -210,7 +210,7 @@ async function Crusade(userId, msg, dbHandler) {
                             if (user === main) {
                                 user.lastcrusadedate = Date.now();
                             } else {
-                                user.lastcrusadedate = user.lastcrusadedate + 1800000;
+                                user.lastcrusadedate = user.lastcrusadedate + 1200000; //20 mins longer time
                             }
 
                             userstore.find({
@@ -237,7 +237,7 @@ async function Crusade(userId, msg, dbHandler) {
                             if (user === main) {
                                 user.lastcrusadedate = Date.now();
                             } else {
-                                user.lastcrusadedate = user.lastcrusadedate + 1800000;
+                                user.lastcrusadedate = user.lastcrusadedate + 1200000; //20 mins longer time
                             }
 
                             user.item = "Upside-Down Horseshoe"
@@ -262,7 +262,7 @@ async function Crusade(userId, msg, dbHandler) {
                                 }
                             } else {
                                 user.prayers += reward;
-                                user.lastcrusadedate = user.lastcrusadedate - 3600000
+                                user.lastcrusadedate = user.lastcrusadedate - 3600000 //1 hour shorter time
                             }
 
                             userstore.find({

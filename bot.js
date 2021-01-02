@@ -297,7 +297,7 @@ function Cleaning() {
 
     if (user.lastcrusadedate == undefined || user.lastcrusadedate == NaN) user.lastcrusadedate = 0;
 
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.lastcrusadedate }).write();
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ lastcrusadedate: user.lastcrusadedate }).write();
 
     if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.username + " is not active.");
