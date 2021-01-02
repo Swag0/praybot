@@ -18,6 +18,7 @@ class DatabaseHandler {
                 lastcursedate: 0,
                 laststealdate: 0,
                 lastgambledate: 0,
+                lastcrusadedate: 0,
                 churchnum: 0,
                 communitynum: 0,
                 citynum: 0,
@@ -46,7 +47,7 @@ class DatabaseHandler {
             var usersname;
 
             if (msg) {
-                if (!msg.mentions.members.size) {
+                if (msg.mentions.users.size === 0) {
                     msg.channel.send("*Logging* " + "<@" + id + "> *into Praybot databases.*")
                     usersname = msg.author.username;
                 } else {
@@ -74,6 +75,7 @@ class DatabaseHandler {
                 lastcursedate: Date.now(),
                 laststealdate: Date.now(),
                 lastgambledate: Date.now(),
+                lastcrusadedate: Date.now(),
                 item: "No Item",
                 ascension: "0"
             }).write();

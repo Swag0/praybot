@@ -49,6 +49,7 @@ function Item(userId, msg, dbHandler) {
             .addField("Master Bolt", "A one time smite that steals 10% of the target's prayers.")
             .addField("Four Leaf Clover", "There will only be two options when gambling")
             .addField("Altar", "Your income doubles for ONE prayday")
+            .addField("Excalibur", "Your survability when crusading is doubled.")
             .setTimestamp()
             .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(itemListEmbed);
@@ -212,6 +213,23 @@ function Item(userId, msg, dbHandler) {
             .addField("Item: ", "Altar")
             .addField("Use: ", "Your income doubles for ONE prayday.")
             .addField("*Ascended Use: ", "Your income triples for ONE prayday.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (itemChoice == "Excalibur") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", "Excalibur")
+            .addField("Use: ", "Your survability when crusading is doubled.")
+            .addField("*Ascended Use: ", "Your survability when crusading is tripled.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
+    } else if (itemChoice == "Upside-Down Horseshoe") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle(user.username)
+            .addField("Item: ", "Upside-Down Horseshoe")
+            .addField("Use: ", "Gives you bad luck.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
     } else {

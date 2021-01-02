@@ -12,6 +12,8 @@ const { Item } = require("./functions/item/item");
 const { Profile } = require("./functions/user/profile");
 const { HelpPage } = require("./functions/help");
 const { Config } = require('./functions/config');
+const { Crusade } = require('./functions/actions/crusade/crusade');
+const { Targets } = require('./functions/actions/crusade/targets');
 const { Count } = require('./functions/count/count')
 const { Gamble } = require('./functions/actions/gamble')
 const { GiftPrayers } = require('./functions/actions/gift')
@@ -171,6 +173,12 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†convert") || msg.content.startsWith("+convert")) {
       Convert(msg.author.id, msg, dbHandler);
     }
+    else if (msg.content === "†crusade" || msg.content === "+crusade") {
+      Crusade(msg.author.id, msg, dbHandler);
+    }
+    else if (msg.content === "†targets" || msg.content === "+targets") {
+      Targets(msg);
+    }
     else if (msg.content === "†invite" || msg.content === "+invite") {
       msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
     }
@@ -287,10 +295,9 @@ client.on('message', msg => {
 function Cleaning() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.ascension == undefined || user.ascension == NaN) user.ascension = "0";
-    console.log(user.ascension);
+    if (user.lastcrusadedate == undefined || user.lastcrusadedate == NaN) user.lastcrusadedate = 0;
 
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.ascension }).write();
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.lastcrusadedate }).write();
 
     if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.username + " is not active.");
@@ -309,7 +316,7 @@ function Leaderboard(msg) {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
     if (user.username) {
-      if (user.id != "391015029379432448") playerArr.push(user.prayers + ": " + user.username); //Leaderboard does not show praybot
+      if (user.id != Config.PrayBotID) playerArr.push(user.prayers + ": " + user.username); //Leaderboard does not show praybot
     }
   });
 
@@ -474,13 +481,6 @@ function AssignItem() {
   Master Bolt: Usable once only -- Steals 10% of target prayers.
   Four Leaf Clover: There will only be 2 choices for gambling for the day
   Altar: Your pray day prayers doubles for ONE prayday
-  */
-
-  /*
-
-  Coming:
-  Sacred Bundle: You get to pick your item for the day
-
   */
 
   //Reroll cost will be next income + 5 prayers

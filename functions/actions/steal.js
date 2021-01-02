@@ -109,7 +109,7 @@ function StealPrayers(userId, msg, dbHandler) {
 
     let actualStealNum = stealnum;
 
-    /*if (target == "391015029379432448") {
+    /*if (target == Config.PrayBotID) {
         msg.reply("Don't even try.");
         return;
     }*/
@@ -163,7 +163,7 @@ function StealPrayers(userId, msg, dbHandler) {
             msg.channel.send(msg.mentions.users.first().username + " had " + stealnum + " prayers stolen from them.");
             msg.channel.send(msg.author.username + " gained " + actualStealNum + " prayers.");
         } else { //negative
-            msg.channel.send(msg.author.username + " " + failureMsg + " and lost " + (actualStealNum * -1) + " prayers.")
+            msg.channel.send(msg.author.username + " " + failureMsg + " and lost " + (actualStealNum) + " prayers.")
             msg.channel.send(msg.mentions.users.first().username + " found " + (stealnum * -1) + " prayers.");
         }
 

@@ -24,7 +24,7 @@ function HelpPage(userId, msg, dbHandler) {
                 .addField("Page 3: ", 'Counting Commands')
                 .addField("Page 4: ", 'Prayday Commands')
                 .addField("Page 5: ", 'Item Commands')
-                .addField("Page 6: ", 'Ascension Commands')
+                .addField("Page 6: ", 'Ascension & Crusading Commands')
                 .addField("Page 7: ", 'Miscellaneous Commands')
                 .setFooter("Page " + page + " of 7", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
@@ -88,10 +88,12 @@ function HelpPage(userId, msg, dbHandler) {
         } else if (page == 6) {
             const helpEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
-                .setTitle("Ascension Commands")
+                .setTitle("Ascension & Crusading Commands")
                 .addField("Ascend", 'Use *†ascend* [possible ascension] to ascend, which will make you lose all buildings and give you an ascension.')
                 .addField("Converting", 'Use *†convert* [new ascension] to change your ascension, while keeping your ascension level.')
                 .addField("Ascensions", 'Use *†ascend help* to show all possible ascensions.')
+                .addField("Crusading", 'Use *†crusade* to go on a crusade. You can join others\' crusades by reacting, and can gain bounty by winning. If you lose, you will have bad luck.')
+                .addField("Targets", 'Use *†targets* to show all crusading targets, their required amount of crusaders, success rate, and reward.')
                 .setFooter("Page " + page + " of 7", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
             message.edit(helpEmbed);
         } else if (page == 7) {
@@ -123,7 +125,7 @@ function HelpPage(userId, msg, dbHandler) {
         .addField("Page 3: ", 'Counting Commands')
         .addField("Page 4: ", 'Prayday Commands')
         .addField("Page 5: ", 'Item Commands')
-        .addField("Page 6: ", 'Ascension Commands')
+        .addField("Page 6: ", 'Ascension & Crusading Commands')
         .addField("Page 7: ", 'Miscellaneous Commands')
         .setFooter("Page 0 of 7", 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
     msg.channel.send(helpEmbed)

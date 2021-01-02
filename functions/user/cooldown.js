@@ -23,6 +23,9 @@ function Cooldown(userId, msg, dbHandler) {
     if (user.lastgambledate == undefined || user.lastgambledate == NaN) {
         user.lastgambledate = 0;
     }
+    if (user.lastcrusadedate == undefined || user.lastcrusadedate == NaN) {
+        user.lastcrusadedate = 0;
+    }
 
 
     let cooldown = Config.prayCooldown;
@@ -36,12 +39,14 @@ function Cooldown(userId, msg, dbHandler) {
     let remainingTimeSteal = Config.stealCooldown - (Date.now() - user.laststealdate);
     let remainingTimeCurse = Config.curseCooldown - (Date.now() - user.lastcursedate);
     let remainingTimeGamble = Config.gambleCooldown - (Date.now() - user.lastgambledate);
+    let remainingTimeCrusade = Config.crusadeCooldown - (Date.now() - user.lastcrusadedate);
 
 
     let answerPray = "";
     let answerSteal = "";
     let answerCurse = "";
     let answerGamble = "";
+    let answerCrusade = "";
 
 
     //Next Pray
@@ -100,6 +105,20 @@ function Cooldown(userId, msg, dbHandler) {
         }
     }
 
+    if (Date.now() - user.lastcrusadedate > Config.crusadeCooldown) {
+        answerCrusade = "Ready";
+    } else {
+        if (remainingTimeCrusade < 0) { //negative numbers confuse bot
+            answerCrusade = "Ready";
+        } else {
+            if (Math.floor(remainingTimeCrusade / 1000 % 60) < 10) {
+                answerCrusade = (Math.floor(remainingTimeCrusade / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCrusade / 1000 / 60) - (Math.floor(remainingTimeCrusade / 1000 / 60 / 60) * 60)) + ":0" + Math.floor(remainingTimeCrusade / 1000 % 60);
+            } else {
+                answerCrusade = (Math.floor(remainingTimeCrusade / 1000 / 60 / 60)) + ":" + (Math.floor(remainingTimeCrusade / 1000 / 60) - (Math.floor(remainingTimeCrusade / 1000 / 60 / 60) * 60)) + ":" + Math.floor(remainingTimeCrusade / 1000 % 60);
+            }
+        }
+    }
+
 
     if (user.item == "Atheist") {
         answerPray = "Can't Pray Today."
@@ -113,6 +132,7 @@ function Cooldown(userId, msg, dbHandler) {
         .addField("Steal CD: ", answerSteal)
         .addField("Curse CD: ", answerCurse)
         .addField("Gamble CD: ", answerGamble)
+        .addField("Crusade CD: ", answerCrusade)
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
     msg.channel.send(cdembed);

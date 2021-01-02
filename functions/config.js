@@ -3,6 +3,7 @@ const Config = {
     gambleCooldown: 3600000, //1 hour
     curseCooldown: 14400000, //4 hours
     stealCooldown: 1800000, //30 minutes
+    crusadeCooldown: 7200000, //2 hours
     tickRate: 3600000, //hour
     incomeRate: 21600000, //6 hours
 
@@ -11,6 +12,8 @@ const Config = {
     cityPrice: 1000,
     provincePrice: 10000,
     countryPrice: 100000,
+
+    PrayBotID: "391015029379432448",
 
     itemArr:
     [
@@ -29,7 +32,8 @@ const Config = {
       "Menorah",
       "Master Bolt",
       "Four Leaf Clover",
-      "Altar"
+      "Altar",
+      "Excalibur"
     ],
 
     ascensionArr:
