@@ -38,7 +38,7 @@ const Config = {
 
     ascensionArr:
     [
-     "Free Will", //Choose when rerolling
+     "Reroll Upgrade", //Choose when rerolling
      "Pray Upgrade", //% of prayers when praying
      "Attack Upgrade", //Upgraded Attacks
      "Income Upgrade", //Income Multiplied

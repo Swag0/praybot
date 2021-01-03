@@ -104,6 +104,10 @@ function Gamble(userId, msg, dbHandler) {
 
             msg.reply("You are incorrect. You guessed " + num + " and the answer was " + gamblenum + ".")
             user.lastgambledate = Date.now();
+            user.prayers--;
+            userstore.find({
+                id: user
+            }).write();
             return;
         }
 

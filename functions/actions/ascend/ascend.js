@@ -5,7 +5,7 @@ const { CheckifUserExists } = require("../../../bot");
 function Ascend(userId, msg, dbHandler) {
 
     /*Ascension Types
-    Free Will: (You get to choose your item when rerolling)
+    Reroll Upgrade: (You get to choose your item when rerolling)
     Pray Upgrade: (You pray 1% of your total prayers)
     Attack Upgrade: (Your attacks are upgraded.)
         - Your curse does 5x

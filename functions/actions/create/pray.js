@@ -43,6 +43,10 @@ function IncrementPrays(userId, msg, dbHandler) {
       else prayAmount *= 2;
     }
 
+    if (prayAmount < 1) {
+      prayAmount = 1;
+    }
+
     user.prayers += prayAmount;
 
     user.lastpraydate = Date.now();

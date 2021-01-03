@@ -36,7 +36,7 @@ function AscendHelp(msg) {
     const ascensionsEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle("Possible Ascensions")
-        .addField("Free Will", 'When rerolling, you get to choose which item to receive.') 
+        .addField("Reroll Upgrade", 'When rerolling, you get to choose which item to receive. You also receive discounted rerolls.') 
         .addField("Pray Upgrade", 'When praying, you gain a percent of your total prayers (rounded up).') 
         .addField("Attack Upgrade", 'Your cursing and stealing actions are upgraded. ') //5x curse and %steal.
         .addField("Income Upgrade", 'You gain more income.') 

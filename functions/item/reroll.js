@@ -31,9 +31,16 @@ function Reroll(userId, msg, dbHandler) {
 
     let itemChoice = "-";
 
+    if (user.ascension.includes("Reroll Upgrade")) {
+        cost /= (1 + Number(user.ascension.split(" ").pop()))
+        cost = Math.round(cost);
+    }
+
+    //((Number(user.ascension.split(" ").pop()))
+
     if (user.prayers >= cost) {
 
-        if (user.ascension.includes("Free Will")) {
+        if (user.ascension.includes("Reroll Upgrade")) {
 
 
             Config.itemArr.forEach(item => {
@@ -43,7 +50,7 @@ function Reroll(userId, msg, dbHandler) {
             });
 
             if (itemChoice == "-") {
-                msg.reply("You have the Free Will ascension. You can choose your item. Do this with †reroll [itemChoice].")
+                msg.reply("You have the Reroll Upgrade ascension. You can choose your item. Do this with †reroll [itemChoice].")
                 return;
             }
 
