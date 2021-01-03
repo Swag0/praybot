@@ -21,7 +21,7 @@ function Targets(msg) {
         .addFields(
             { name: 'Crusade of the Faint-Hearted', value: ':person_walking:: 1  |  :white_check_mark:: 50%  |  :moneybag:: 10 '},
 
-            { name: 'Battle of Fariksfur', value: ':person_walking:: 2-5  |  :white_check_mark:: 30%  |  :moneybag:: 100 ' },
+            { name: 'Battle of Fariksfur', value: ':person_walking:: 2-3  |  :white_check_mark:: 30%  |  :moneybag:: 100 ' },
 
             { name: 'Sack of Constantinople', value: ':person_walking:: 4-5  |  :white_check_mark:: 20%  |  :moneybag:: 3000 ' },
 
