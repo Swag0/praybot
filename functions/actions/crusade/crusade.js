@@ -151,6 +151,10 @@ async function Crusade(userId, msg, dbHandler) {
                         luckMod *= 0.9;
                     }
 
+                    if (1 / luckMod <= difficulty) { //If guaranteed win, 5% chance of loss
+                        if (luck >= 0.95) luck = 100;
+                    }
+
                     if (luck / luckMod > difficulty) {
                         msg.channel.send("<@" + arr[k] + "> has died.")
                         died.push(k);
