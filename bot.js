@@ -295,14 +295,10 @@ client.on('message', msg => {
 function Cleaning() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    if (user.ascension == 0) user.ascension = "0";
-
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.ascension }).write();
-    
-
     if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.username + " is not active.");
     }
+    
   });
 }
 
