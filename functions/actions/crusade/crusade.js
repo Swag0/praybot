@@ -40,11 +40,7 @@ async function Crusade(userId, msg, dbHandler) {
         message.reactions.cache.get('🙏').users.remove(Config.PrayBotID)
         setTimeout(() => {
 
-            console.log(message.reactions.cache.get('🙏').users.cache);
-
             let reactors = message.reactions.cache.get('🙏').users.cache.keys();
-
-            console.log(reactors);
 
             for (let word of reactors) {
                 dbHandler.getDB().get('users').value().forEach((user) => {
@@ -152,7 +148,7 @@ async function Crusade(userId, msg, dbHandler) {
                     }
 
                     if (user.item === "Upside-Down Horseshoe") {
-                        luckMod *= 0.8;
+                        luckMod *= 0.9;
                     }
 
                     if (luck / luckMod > difficulty) {
