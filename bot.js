@@ -98,7 +98,7 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    if (msg.author != 346758543489105941) return; //only for testing
+    //if (msg.author != 346758543489105941) return; //only for testing
     //if (msg.author.id == 686674122138189875) return; 
     //if blacklisted, they don't speak.
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
