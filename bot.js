@@ -180,7 +180,10 @@ client.on('message', msg => {
       Targets(msg);
     }
     else if (msg.content === "†invite" || msg.content === "+invite") {
-      msg.reply("To add me to your server, please click this. https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816")
+      const inviteEmbed = new Discord.MessageEmbed()
+        .setColor('#1fa8e4')
+        .setDescription("To add me to your server, please click [this](https://discordapp.com/oauth2/authorize?client_id=391015029379432448&scope=bot&permissions=74816).")
+      msg.channel.send(inviteEmbed);
     }
     else if (msg.content.startsWith("†checkall") || msg.content.startsWith("+checkall") || msg.content.startsWith("+countall") || msg.content.startsWith("countall")) {
       Count(msg.author.id, msg, dbHandler);
