@@ -55,9 +55,9 @@ function Ascend(userId, msg, dbHandler) {
         }
     });
 
-    if (!user.ascension.toLowerCase().includes(ascensionChoice.toLowerCase())) { //If changing ascension path
-        cost = 1000000;
-        ascensionLevel = 0;
+    if (!user.ascension.toLowerCase().includes(ascensionChoice.toLowerCase()) && user.ascension != "0") { //If changing ascension path
+        msg.reply("You are changing ascension paths. Use †convert [new ascension] instead.");
+        return;
     }
 
     if (ascensionChoice == "-") {
@@ -67,8 +67,13 @@ function Ascend(userId, msg, dbHandler) {
 
     givenAscension = ascensionChoice;
 
+    if (ascensionLevel === 10) {
+        msg.reply("You are at the highest ascension level.")
+        return;
+    }
+
     if (user.prayers >= cost) {
-        msg.reply("You will ascend into " + givenAscension + " level " + (ascensionLevel + 1) + ". It costs " + cost + " prayers and your buildings will automatically be sacrificed. Are you sure you want to ascend?")
+        msg.reply("You will ascend into " + givenAscension + " level " + (ascensionLevel + 1) + ". You will lose 90% of your prayers and all of your buildings. Are you sure you want to ascend?")
             .then(function (message) {
 
                 message.react('✅').then(r => {
@@ -80,13 +85,21 @@ function Ascend(userId, msg, dbHandler) {
                     { max: 1, time: 10000 }).then(collected => {
                         if (collected.first().emoji.name == '✅') {
                             ascensionLevel++;
+
+
+                            if (ascensionLevel === 10) {
+                                msg.reply("You are now at the highest ascension level. You have been a worthy worshipper, " + user.username + ".");
+                                console.log("Congratulations " + user.username + "! They have reached ascension level 10.");
+                            }
+
+
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
 
-                            user.prayers += user.churchnum*(Config.churchPrice / 5);
-                            user.prayers += user.communitynum*(Config.communityPrice / 5);
-                            user.prayers += user.citynum*(Config.cityPrice / 5);
-                            user.prayers += user.provincenum*(Config.provincePrice / 5);
-                            user.prayers += user.countrynum*(Config.countryPrice / 5);
+                            user.prayers += user.churchnum * (Config.churchPrice / 5);
+                            user.prayers += user.communitynum * (Config.communityPrice / 5);
+                            user.prayers += user.citynum * (Config.cityPrice / 5);
+                            user.prayers += user.provincenum * (Config.provincePrice / 5);
+                            user.prayers += user.countrynum * (Config.countryPrice / 5);
 
                             user.churchnum = 0;
                             user.communitynum = 0;
@@ -94,10 +107,12 @@ function Ascend(userId, msg, dbHandler) {
                             user.provincenum = 0;
                             user.countrynum = 0;
 
+                            let remainingPrayers = Math.round(user.prayers - cost) / 10;
+
                             userstore.find({
                                 id: msg.author.id
                             }).assign({
-                                prayers: user.prayers -= cost,
+                                prayers: remainingPrayers,
                             })
                                 .write();
 
@@ -120,7 +135,7 @@ function Ascend(userId, msg, dbHandler) {
                 return;
             });
     } else {
-        msg.reply("You don't have enough to reroll. You need " + cost + " prayers.")
+        msg.reply("You don't have enough to ascend. You need " + cost + " prayers.")
         return;
     }
 
