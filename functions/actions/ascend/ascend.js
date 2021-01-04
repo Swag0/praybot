@@ -107,7 +107,7 @@ function Ascend(userId, msg, dbHandler) {
                             user.provincenum = 0;
                             user.countrynum = 0;
 
-                            let remainingPrayers = Math.round(user.prayers - cost) / 10;
+                            let remainingPrayers = Math.round((user.prayers - cost) / 10);
 
                             userstore.find({
                                 id: msg.author.id
