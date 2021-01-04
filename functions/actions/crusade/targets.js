@@ -17,6 +17,7 @@ function Targets(msg) {
 
     const targets_embed = new Discord.MessageEmbed()
         .setTitle(`Crusade Targets`)
+        .setColor('#964B00')
         .setDescription(`:person_walking: (Number of People), :white_check_mark: (Success per Person), :moneybag: (Reward in Prayers).`)
         .addFields(
             { name: 'Crusade of the Faint-Hearted', value: ':person_walking:: 1  |  :white_check_mark:: 50%  |  :moneybag:: 10 '},

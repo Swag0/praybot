@@ -34,7 +34,7 @@ function AscendHelp(msg) {
     */
 
     const ascensionsEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor('#B0FFFA')
         .setTitle("Possible Ascensions")
         .addField("Reroll Upgrade", 'When rerolling, you get to choose which item to receive. You also receive discounted rerolls.') 
         .addField("Pray Upgrade", 'When praying, you gain a percent of your total prayers (rounded up).') 

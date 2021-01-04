@@ -4,33 +4,6 @@ const { CheckifUserExists } = require("../../../bot");
 
 function Ascend(userId, msg, dbHandler) {
 
-    /*Ascension Types
-    Reroll Upgrade: (You get to choose your item when rerolling)
-    Pray Upgrade: (You pray 1% of your total prayers)
-    Attack Upgrade: (Your attacks are upgraded.)
-        - Your curse does 5x
-        - You steal 5x)
-    Income Upgrade: (You get 2x income)
-    Item Upgrade:
-      "Holy Grail", (3 prayers)
-      "Blessed", (also no stealing)
-      "Godspeed", (3x stealing)
-      "Zeus' Chosen", (75% backfire)
-      "Atheist", (Can Pray || 10 minute gamble)
-      "Priest", (5 minute pray timer)
-      "Devil's Advocate", (3x curse + 1/3x curse)
-      "Bible", (3x income)
-      "Religious School", (3x income)
-      "Sistine Chapel", (3x income)
-      "Bible Belt", (3x income)
-      "The Vatican", (3x income)
-      "Menorah", (Can steal 8, 9, etc)
-      "Master Bolt", (Smite 20%)
-      "Four Leaf Clover", (2 correct choices)
-      "Altar" (3x income)
-    */
-
-
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
     dbHandler.CheckifUserExists(userId, msg);

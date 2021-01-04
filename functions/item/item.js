@@ -32,7 +32,7 @@ function Item(userId, msg, dbHandler) {
 
     if (msg.content === "†itemlist" || msg.content === "+itemlist" || msg.content === "†items" || msg.content === "+items") {
         const itemListEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle("Item List")
             .addField("Blessed", 'You can not be cursed.')
             .addField("Godspeed", '2x Steal Value.')
@@ -70,7 +70,7 @@ function Item(userId, msg, dbHandler) {
 
     if (itemChoice == "Holy Grail") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Holy Grail")
             .addField("Use: ", "Gives 2x Prayers.")
@@ -79,7 +79,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Blessed") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Blessed")
             .addField("Use: ", "You can not be cursed.")
@@ -89,7 +89,7 @@ function Item(userId, msg, dbHandler) {
 
     } else if (itemChoice == "Godspeed") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Godspeed")
             .addField("Use: ", "2x Steal Value.")
@@ -99,7 +99,7 @@ function Item(userId, msg, dbHandler) {
 
     } else if (itemChoice == "Zeus' Chosen") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Zeus' Chosen") //normally 25%
             .addField("Use: ", "Increased Backfire Chance When Stolen From.") //now 50%
@@ -108,7 +108,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Atheist") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Atheist")
             .addField("Use: ", "You can't pray, but you have a 15 minute gamble timer.")
@@ -117,7 +117,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Priest") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Priest")
             .addField("Use: ", "You have a 7m 30s pray timer.")
@@ -126,7 +126,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Bible") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Bible")
             .addField("Use: ", "You receive 2x income on churches.")
@@ -135,7 +135,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Religious School") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Religious School")
             .addField("Use: ", "You receive 2x income on communities.")
@@ -144,7 +144,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Sistine Chapel") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Sistine Chapel")
             .addField("Use: ", "You receive 2x income on cities.")
@@ -153,7 +153,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Bible Belt") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Bible Belt")
             .addField("Use: ", "You receive 2x income on provinces.")
@@ -162,7 +162,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "The Vatican") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "The Vatican")
             .addField("Use: ", "You receive 2x income on countries.")
@@ -171,7 +171,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Devil's Advocate") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Devil's Advocate")
             .addField("Use: ", "2x Curse Damage for 0.5x Curse Price (rounded down).")
@@ -180,7 +180,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Menorah") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Menorah")
             .addField("Use: ", "You can steal up to 7 prayers.")
@@ -189,7 +189,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Master Bolt") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Master Bolt")
             .addField("Use: ", "A one time smite that steals 10% of the target's prayers.")
@@ -198,7 +198,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Four Leaf Clover") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Four Leaf Clover")
             .addField("Use: ", "There will only be two options when gambling.")
@@ -208,7 +208,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Altar") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Altar")
             .addField("Use: ", "Your income doubles for ONE prayday.")
@@ -217,7 +217,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Excalibur") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Excalibur")
             .addField("Use: ", "Your survability when crusading is doubled.")
@@ -226,7 +226,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else if (itemChoice == "Upside-Down Horseshoe") {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", "Upside-Down Horseshoe")
             .addField("Use: ", "Gives you bad luck.")
@@ -234,7 +234,7 @@ function Item(userId, msg, dbHandler) {
         msg.channel.send(itemEmbed);
     } else {
         const itemEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
+            .setColor('#DC0A19')
             .setTitle(user.username)
             .addField("Item: ", user.item)
             .addField("Use: ", "Nothing.")

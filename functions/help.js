@@ -16,7 +16,7 @@ function HelpPage(userId, msg, dbHandler) {
     function swapPage(page, message) {
         if (page == 0) { //Main Help
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Help Commands")
                 .addField("Page 0: ", 'Table of Contents')
                 .addField("Page 1: ", 'Action Commands')
@@ -30,7 +30,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 1) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Action Commands")
                 .addField("Praying", 'Use *†pray* to gain a prayer.')
                 .addField("Gambling", 'Use *†gamble* to gamble your prayers. If correct, you will gain 3 prayers. If incorrect, you will lose 1.')
@@ -42,7 +42,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 2) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Building Commands")
                 .addField("Building Churches", 'Use *†church* *x* to build *x* churches. On prayday, you will gain 1 prayer per church.')
                 .addField("Building Communities", 'Use *†community* *x* to build *x* communities. On prayday, you will gain 11 prayers per community.')
@@ -55,7 +55,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 3) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Counting Commands")
                 .addField("Counting Prayers", 'Use *†praycount* to count your prayers. You can also choose to mention someone else and count their prayers.')
                 .addField("Counting Churches", 'Use *†churchcount* to count your churches. You can also choose to mention someone else and count their churches.')
@@ -68,7 +68,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 4) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Prayday Commands")
                 .addField("Time Until Prayday", 'Use *†time* to return how long until the next prayday.')
                 .addField("Income at Prayday", 'Use *†income* to return how much income you will receive on your next prayday.')
@@ -77,7 +77,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 5) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Item Commands")
                 .addField("Item List", 'Use *†itemlist* to show all items and their functions.')
                 .addField("Check Your Item", 'Use *†item* to return your item and its functions.')
@@ -87,7 +87,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 6) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Ascension & Crusading Commands")
                 .addField("Ascend", 'Use *†ascend* [possible ascension] to ascend, which will make you lose all buildings and give you an ascension.')
                 .addField("Converting", 'Use *†convert* [new ascension] to change your ascension, while keeping your ascension level.')
@@ -98,7 +98,7 @@ function HelpPage(userId, msg, dbHandler) {
             message.edit(helpEmbed);
         } else if (page == 7) {
             const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('#f0c420')
                 .setTitle("Miscellaneous Commands")
                 .addField("Profile", 'Use *†p* to return your possessions and your item.')
                 .addField("Leaderboard", 'Use *†leaderboard* to return the 5 users with the most prayers.')
@@ -117,7 +117,7 @@ function HelpPage(userId, msg, dbHandler) {
 
 
     const helpEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor('#f0c420')
         .setTitle("Help Commands")
         .addField("Page 0: ", 'Table of Contents')
         .addField("Page 1: ", 'Action Commands')

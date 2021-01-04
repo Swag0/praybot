@@ -32,7 +32,7 @@ async function Crusade(userId, msg, dbHandler) {
     ]
     const embed = new Discord.MessageEmbed()
         .setTitle(`${msg.author.username}'s Crusade`)
-        .setColor('36393F')
+        .setColor('#964B00')
         .setDescription(`React with :pray: to enter!`)
     let message = await msg.channel.send(':pray: **CRUSADE** :pray:', embed)
     await message.react('🙏')
@@ -105,13 +105,13 @@ async function Crusade(userId, msg, dbHandler) {
             if (arr.length === 0) {
                 const crusade_embed = new Discord.MessageEmbed()
                     .setTitle(`${msg.author.username}'s Crusade`)
-                    .setColor('36393F')
+                    .setColor('#964B00')
                     .setDescription(`No one joined the crusade.`)
                 message.edit(':pray: **CRUSADE ENDED** :pray:', crusade_embed);
             } else {
                 const crusade_embed = new Discord.MessageEmbed()
                     .setTitle(`${crusade}`)
-                    .setColor('36393F')
+                    .setColor('#FFFF00')
                     .setDescription(`${text} joined the crusade.`)
                     .setFooter(`${msg.author.username}'s Crusade`)
                 message.edit(':pray: **CRUSADE STARTED** :pray:', crusade_embed);
@@ -141,7 +141,7 @@ async function Crusade(userId, msg, dbHandler) {
                         id: arr[k]
                     }).value();
 
-                   
+
                     if (user.item === "Excalibur") {
                         if (user.ascension.includes("Item Upgrade")) luckMod = (2 + (Number(user.ascension.split(" ").pop())));
                         else luckMod = 2;
@@ -173,7 +173,7 @@ async function Crusade(userId, msg, dbHandler) {
                 if (++x >= arr.length) {
                     const crusade_embed = new Discord.MessageEmbed()
                         .setTitle(`${crusade}`)
-                        .setColor('36393F')
+                        .setColor('#FFFF00')
                         .setDescription(`${text} joined the crusade.`)
                         .setFooter(`${msg.author.username}'s Crusade`)
                     message.edit(':pray: **CRUSADE ENDED** :pray:', crusade_embed);
@@ -207,6 +207,13 @@ async function Crusade(userId, msg, dbHandler) {
 
                             user.item = "Upside-Down Horseshoe"
 
+                            const crusade_embed = new Discord.MessageEmbed()
+                                .setTitle(`${crusade}`)
+                                .setColor('#FF0000')
+                                .setDescription(`${text} joined the crusade.`)
+                                .setFooter(`${msg.author.username}'s Crusade`)
+                            message.edit(':pray: **CRUSADE STARTED** :pray:', crusade_embed);
+
                             if (user === main) {
                                 user.lastcrusadedate = Date.now();
                             } else {
@@ -223,7 +230,7 @@ async function Crusade(userId, msg, dbHandler) {
                         let user;
                         const crusade_embed = new Discord.MessageEmbed()
                             .setTitle(`${crusade}`)
-                            .setColor('36393F')
+                            .setColor('#5cb85c')
                             .setDescription(`${text} won the crusade.`)
                             .setFooter(`${msg.author.username}'s Crusade`)
                         message.edit(':pray: **CRUSADE ENDED** :pray:', crusade_embed);

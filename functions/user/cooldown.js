@@ -126,7 +126,7 @@ function Cooldown(userId, msg, dbHandler) {
 
 
     const cdembed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor('#FFFAF1')
         .setTitle('Cooldowns')
         .addField("Pray CD: ", answerPray)
         .addField("Steal CD: ", answerSteal)

@@ -329,7 +329,7 @@ function Leaderboard(msg) {
   playerArr = playerArr.reverse();
 
   const leaderEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#FFD700')
     .setTitle('Leaderboard')
     .addField("1. ", playerArr[0])
     .addField("2. ", playerArr[1])
@@ -505,7 +505,7 @@ function AssignItem() {
 function Announcement(msg) {
   const announceEmbed = new Discord.MessageEmbed()
 
-    .setColor('#0099ff')
+    .setColor('#DEC19B')
     .setTitle('Announcements:')
     .setAuthor('Swag#7947', 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png')
     .addFields(
