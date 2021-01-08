@@ -42,6 +42,13 @@ function Gamble(userId, msg, dbHandler) {
 
     if (Date.now() - user.lastgambledate > cooldown) {
 
+        console.log(user.karma)
+
+        if (user.item == "Four Leaf Clover") user.karma++;
+        else user.karma--;
+
+        console.log(user.karma)
+
         let guess = 0;
 
         let gamblenum = 0;
@@ -213,6 +220,8 @@ function Gamble(userId, msg, dbHandler) {
                     }).catch(() => {
                         msg.reply('No reaction after 10 seconds, operation cancelled');
                         user.lastgambledate = 0;
+                        if (user.item == "Four Leaf Clover") user.karma--;
+                        else user.karma++;
 
                     });
 

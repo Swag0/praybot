@@ -13,6 +13,8 @@ function IncrementPrays(userId, msg, dbHandler) {
     id: userId
   }).value();
 
+  console.log(user.karma)
+
 
   if (user.item == "Atheist") {
     msg.reply("You are an atheist, so you can't pray. Go gamble your life savings away.");
@@ -48,6 +50,7 @@ function IncrementPrays(userId, msg, dbHandler) {
     }
 
     user.prayers += prayAmount;
+    user.karma++;
 
     user.lastpraydate = Date.now();
 

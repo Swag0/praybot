@@ -45,8 +45,17 @@ function Ascend(userId, msg, dbHandler) {
         return;
     }
 
+    let prayersLeft = 0;
+
+    if (user.karma > 7500) user.karma = 7500;
+
+    prayersLeft = user.karma / 50000;
+
+    if (user.karma < 0) prayersLeft = 0;
+
+
     if (user.prayers >= cost) {
-        msg.reply("You will ascend into " + givenAscension + " level " + (ascensionLevel + 1) + ". You will lose 90% of your prayers and all of your buildings. Are you sure you want to ascend?")
+        msg.reply(`You will ascend into ${givenAscension} level ${(ascensionLevel + 1)}. You will lose ${Math.round((100 - (prayersLeft * 100)) * 100) / 100}% of your remaining prayers and all of your buildings. Are you sure you want to ascend?`)
             .then(function (message) {
 
                 message.react('✅').then(r => {
@@ -65,6 +74,7 @@ function Ascend(userId, msg, dbHandler) {
                                 console.log("Congratulations " + user.username + "! They have reached ascension level 10.");
                             }
 
+                            user.karma /= 2;
 
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
 
@@ -80,7 +90,7 @@ function Ascend(userId, msg, dbHandler) {
                             user.provincenum = 0;
                             user.countrynum = 0;
 
-                            let remainingPrayers = Math.round((user.prayers - cost) / 10);
+                            let remainingPrayers = Math.round((user.prayers - cost) * prayersLeft);
 
                             userstore.find({
                                 id: msg.author.id

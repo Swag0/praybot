@@ -117,6 +117,7 @@ function StealPrayers(userId, msg, dbHandler) {
     if (Date.now() - user.laststealdate > Config.stealCooldown) {
 
         user.laststealdate = Date.now();
+        user.karma -= 5;
 
         if (Chosen && user.ascension.includes("Item Upgrade")) {
             stealnum *= Math.floor(Math.random() * 4) != 1 ? -1 : 1; //this makes 75/25 negative

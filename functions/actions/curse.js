@@ -87,6 +87,7 @@ function Curse(userId, msg, dbHandler) {
                                 msg.channel.send(msg.mentions.users.first().username + " lost " + cursednum + " prayers.");
                                 msg.channel.send(msg.author.username + " lost " + cursernum + " prayers.");
                                 user.lastcursedate = Date.now();
+                                user.karma -= 10;
                             }
                             else if (collected.first().emoji.name == '❎') {
                                 message.edit("You did not curse " + msg.mentions.users.first().username + ".")

@@ -298,9 +298,9 @@ client.on('message', msg => {
 function Cleaning() {
   dbHandler.getDB().get('users').value().forEach((user) => {
 
-    /*if (user.lastcrusadedate == undefined || user.lastcrusadedate == NaN) user.lastcrusadedate = 0;
+    if (user.karma == undefined || user.karma == NaN || user.karma == null) user.karma = 100;
 
-    dbHandler.getDB().get('users').find({ id: user.id }).assign({ ascension: user.ascension }).write();*/
+    dbHandler.getDB().get('users').find({ id: user.id }).assign({ karma: user.karma }).write();
 
     if (Date.now() - user.lastpraydate > 604800000) {
       console.log(user.username + " is not active.");

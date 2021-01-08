@@ -2,9 +2,27 @@ const FileSync = require("lowdb/adapters/FileSync");
 const low = require("lowdb");
 const adapter = new FileSync("db.json");
 const util = require("util");
-const db = low(adapter);
+const db = low(adapter);   
+
+/*
+Pray +1 (+96 in day) -
+Steal -5 (-240 in day) - 
+Curse -10 (-120 in day) - 
+Gift shouldn’t do anything cuz easily exploited
+Gamble -1 but +1 with clover item (+32 in day) -
+Crusade loss -3
+Crusade helped +3
+Crusade win +6 
+(+200 in day) -
 
 
+Full Day: 328 if on every hour. Average: 50
+
+Max Karma: 5000 (15%)
+
+750/karma = percent
+
+*/
 
 class DatabaseHandler {
 
@@ -25,7 +43,8 @@ class DatabaseHandler {
                 provincenum: 0,
                 countrynum: 0,
                 item: "No Item",
-                ascension: "0"
+                ascension: "0",
+                karma: 0
                 //continentnum: 0,
                 //planetnum: 0,
                 //solarsystemnum: 0,
@@ -40,6 +59,7 @@ class DatabaseHandler {
 
 
     CheckifUserExists(id, msg = "") {
+        
         let userstore = db.get('users');
 
         if (util.isNullOrUndefined(userstore.find({ id: id }).value())) {
@@ -77,7 +97,8 @@ class DatabaseHandler {
                 lastgambledate: Date.now(),
                 lastcrusadedate: Date.now(),
                 item: "No Item",
-                ascension: "0"
+                ascension: "0",
+                karma: 100
             }).write();
             return;
         } else {

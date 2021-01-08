@@ -205,6 +205,8 @@ async function Crusade(userId, msg, dbHandler) {
                                 id: deadArr[i]
                             }).value();
 
+                            user.karma -= 3;
+
                             user.item = "Upside-Down Horseshoe"
 
                             const crusade_embed = new Discord.MessageEmbed()
@@ -241,6 +243,8 @@ async function Crusade(userId, msg, dbHandler) {
                                 id: deadArr[i]
                             }).value();
 
+                            user.karma += 3;
+
                             if (user === main) {
                                 user.lastcrusadedate = Date.now();
                             } else {
@@ -258,6 +262,8 @@ async function Crusade(userId, msg, dbHandler) {
                             user = userstore.find({
                                 id: livingArr[i]
                             }).value();
+
+                            user.karma += 6;
 
                             if (user === main) {
                                 user.prayers += Math.round(reward * 1.5);
