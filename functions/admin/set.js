@@ -3,19 +3,6 @@ const { CheckifUserExists } = require("../../bot");
 
 function Set(userId, msg, dbHandler) {
 
-
-    //All Admin Functions:
-    /*
-    Date: 
-    Pray, Curse, Steal, Gamble
-
-    Item:
-    From Item List (Also free reroll)
-
-    Amount:
-    Prayers, Churches, Communities, Cities, Provinces, Countries
-    */
-
     let userstore = dbHandler.getDB().get('users');
     //check first if user is a new user
 
@@ -104,6 +91,9 @@ function Set(userId, msg, dbHandler) {
         } else if (msg.content.includes("country")) {
             target.countrynum = num;
             msg.channel.send("Changed " + target.username + " countries to " + target.countrynum + ".");
+        } else if (msg.content.includes("karma")) {
+            target.karma = num;
+            msg.channel.send("Changed " + target.username + " karma to " + target.karma + ".");
         } else {
             msg.reply("No specified changed amount.");
         }

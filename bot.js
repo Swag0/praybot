@@ -238,9 +238,12 @@ client.on('message', msg => {
         AssignItem();
       }
     }
-    else if (msg.content === "+dbbackup"){
+    else if (msg.content === "+dbbackup" || msg.content === "†dbbackup"){
       if (IsAdmin(msg)) {
-        msg.author.send("DB file", new Discord.MessageAttachment("./db.json"));
+        msg.channel.send("Sending DB.JSON file in DMs.")
+        msg.author.send("DB.JSON", new Discord.MessageAttachment("./db.json"));
+      } else {
+        msg.reply("You do not have the permissions to do this.")
       }
     }
     else if (msg.content.startsWith("†set")) {
