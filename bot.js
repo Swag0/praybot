@@ -238,6 +238,11 @@ client.on('message', msg => {
         AssignItem();
       }
     }
+    else if (msg.content === "+dbbackup"){
+      if (IsAdmin(msg)) {
+        msg.author.send("DB file", new Discord.MessageAttachment("./db.json"));
+      }
+    }
     else if (msg.content.startsWith("†set")) {
       if (IsAdmin(msg)) {
         Set(msg.author.id, msg, dbHandler);
