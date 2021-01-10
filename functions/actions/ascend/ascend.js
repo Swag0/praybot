@@ -75,6 +75,7 @@ function Ascend(userId, msg, dbHandler) {
                             }
 
                             user.karma /= 2;
+                            user.karma = Math.round(user.karma);
 
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
 
