@@ -27,6 +27,7 @@ const { Reroll } = require('./functions/item/reroll')
 const { Ascend } = require("./functions/actions/ascend/ascend");
 const { AscendHelp } = require("./functions/actions/ascend/ascendAbilities");
 const { Convert } = require("./functions/actions/ascend/ascendReroll");
+const { ShowLeaderboard } = require("./functions/leaderboard");
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -202,8 +203,8 @@ client.on('message', msg => {
     else if (msg.content.startsWith("†reroll") || msg.content.startsWith("+reroll")) {
       Reroll(msg.author.id, msg, dbHandler)
     }
-    else if (msg.content === "†leaderboard" || msg.content === "+leaderboard") {
-      Leaderboard(msg);
+    else if (msg.content.startsWith("†leaderboard") || msg.content.startsWith("+leaderboard")) {
+      ShowLeaderboard(msg, dbHandler);
     }
     else if (msg.content === "†BUBBLEWRAP") {
       msg.reply("Ok but why.");
@@ -316,41 +317,6 @@ function Cleaning() {
 
   });
 }
-
-function Leaderboard(msg) {
-
-  let playerArr =
-    [
-
-    ]
-
-
-  dbHandler.getDB().get('users').value().forEach((user) => {
-
-    if (user.username) {
-      if (user.id != Config.PrayBotID) playerArr.push(user.prayers + ": " + user.username); //Leaderboard does not show praybot
-    }
-  });
-
-  const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
-  playerArr = playerArr.sort(sortAlphaNum);
-  playerArr = playerArr.reverse();
-
-  const leaderEmbed = new Discord.MessageEmbed()
-    .setColor('#FFD700')
-    .setTitle('Leaderboard')
-    .addField("1. ", playerArr[0])
-    .addField("2. ", playerArr[1])
-    .addField("3. ", playerArr[2])
-    .addField("4. ", playerArr[3])
-    .addField("5. ", playerArr[4])
-    .setTimestamp()
-  msg.channel.send(leaderEmbed);
-
-  //console.log(playerArr);
-}
-
-//780209511339655199 is church area.
 
 function IncomeNotification() {
   console.log("Income Added at " + Date.now());

@@ -18,7 +18,7 @@ Crusade win +6
 
 Full Day: 328 if on every hour. Average: 50
 
-Max Karma: 5000 (15%)
+Max Karma: 7500 (15%)
 
 750/karma = percent
 
