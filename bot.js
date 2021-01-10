@@ -28,6 +28,7 @@ const { Ascend } = require("./functions/actions/ascend/ascend");
 const { AscendHelp } = require("./functions/actions/ascend/ascendAbilities");
 const { Convert } = require("./functions/actions/ascend/ascendReroll");
 const { ShowLeaderboard } = require("./functions/leaderboard");
+const { Karma } = require("./functions/user/karma");
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -147,6 +148,9 @@ client.on('message', msg => {
     }
     else if (msg.content.startsWith("†countrycount") || msg.content.startsWith("†Countrycount") || msg.content.startsWith("+countrycount") || msg.content.startsWith("+Countrycount")) {
       Count(msg.author.id, msg, dbHandler);
+    }
+    else if (msg.content.startsWith("†karma") || msg.content.startsWith("+karma")) {
+      Karma(msg.author.id, msg, dbHandler);
     }
     else if (msg.content.startsWith("†church") || msg.content.startsWith("+church")) {
       Buy(msg.author.id, msg, dbHandler, "church");
