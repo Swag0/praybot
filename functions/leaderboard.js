@@ -63,7 +63,7 @@ function ShowLeaderboard(msg, dbHandler) {
             
             if (user.ascension.includes("Income Upgrade")) income *= (1 + ((Number(user.ascension.split(" ").pop())) / 2));
 
-            item = income;
+            item = Math.floor(income);
         } else {
             turnOff = true;
         }
