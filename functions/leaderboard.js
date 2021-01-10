@@ -54,7 +54,7 @@ function ShowLeaderboard(msg, dbHandler) {
             item = user.karma;
         } else if (msg.content.toLowerCase().includes("income")) {
             type = "Income"
-            let income;
+            let income = 0;
             income += (user.churchnum);
             income += (user.communitynum * 11);
             income += (user.citynum * 110);
