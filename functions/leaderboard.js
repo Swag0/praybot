@@ -27,6 +27,7 @@ function ShowLeaderboard(msg, dbHandler) {
 
     let item;
     let type;
+    let turnOff = false;
 
     dbHandler.getDB().get('users').value().forEach((user) => {
 
@@ -64,14 +65,18 @@ function ShowLeaderboard(msg, dbHandler) {
 
             item = income;
         } else {
-            msg.channel.send("Please specify a category.")
-            return;
+            turnOff = true;
         }
 
-        if (user.username) {
+        if (user.username && !turnOff) {
             if (user.id != Config.PrayBotID) playerArr.push(`${item}: ${user.username}`); //Leaderboard does not show praybot
         }
     });
+
+    if (turnOff) {
+        msg.reply("Please specify a category. Use †leaderboards for all categories.")
+        return;
+    }
 
     const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
     playerArr = playerArr.sort(sortAlphaNum);
