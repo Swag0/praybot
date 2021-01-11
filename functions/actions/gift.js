@@ -20,8 +20,8 @@ function GiftPrayers(userId, msg, dbHandler) {
 
   let num = "-";
 
-  if ((Number(targetuser.ascension.split(" ").pop())) != (Number(user.ascension.split(" ").pop()))) {
-    msg.reply("You can not gift to someone with a different ascension level.");
+  if (Math.abs((Number(targetuser.ascension.split(" ").pop())) - (Number(user.ascension.split(" ").pop()))) > 1) {
+    msg.reply("You can not gift to someone with an ascension level more than 1 apart.");
     msg.channel.send(`**${user.username}:** ${(Number(user.ascension.split(" ").pop()))} vs **${targetuser.username}:** ${(Number(targetuser.ascension.split(" ").pop()))}`)
     return;
   }
