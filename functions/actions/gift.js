@@ -7,24 +7,30 @@ function GiftPrayers(userId, msg, dbHandler) {
   dbHandler.CheckifUserExists(userId, msg);
 
   let target = msg.mentions.users.first().id;
-  let gifter = msg.author.id;
 
+  let user = userstore.find({
+    id: userId
+  }).value();
+  
   dbHandler.CheckifUserExists(target, msg);
-  dbHandler.CheckifUserExists(gifter, msg);
+
+  let targetuser = userstore.find({
+    id: target
+  }).value();
 
   let num = "-";
+
+  if ((Number(targetuser.ascension.split(" ").pop())) != (Number(user.ascension.split(" ").pop()))) {
+    msg.reply("You can not gift to someone with a different ascension level.");
+    return;
+  }
 
   if (!isNaN(Number(msg.content.split(" ").pop()))) {
     num = Number(msg.content.split(" ").pop());
   }
 
-
-  let giftercurrentprayers = userstore.find({
-    id: gifter
-  }).value().prayers;
-
   if (msg.content.includes("all")) {
-    num = giftercurrentprayers;
+    num = user.prayers;
   }
 
   if (num == "-") {
@@ -32,16 +38,16 @@ function GiftPrayers(userId, msg, dbHandler) {
     return;
   }
 
-  if (num > giftercurrentprayers) {
+  if (num > user.prayers) {
     msg.reply("Sorry you don't have that many prayers.");
     return;
   }
-  if (num < (giftercurrentprayers * -1)) {
+  if (num < (user.prayers * -1)) {
     msg.reply("No.");
     return;
   }
 
-  if (target === gifter) {
+  if (target === userId) {
     msg.reply("You can't gift yourself.");
     return;
   }
@@ -54,31 +60,23 @@ function GiftPrayers(userId, msg, dbHandler) {
   }
 
 
-  
-
-  let targetcurrentprayers = userstore.find({
-    id: target
-  }).value().prayers;
-
-
-
   userstore.find({
     id: target
   }).assign({
-    prayers: targetcurrentprayers + giftnum,
+    prayers: targetuser.prayers + giftnum,
   })
     .write();
 
-  if (target == 391015029379432448) {
+  if (target === Config.PrayBotID) {
     msg.channel.send("I recieved " + giftnum + " prayers.");
   } else {
-    msg.channel.send(msg.mentions.users.first().username + " recieved " + giftnum + " prayers.");
+    msg.channel.send(targetuser.username + " recieved " + giftnum + " prayers.");
   }
 
   userstore.find({
-    id: gifter
+    id: userId
   }).assign({
-    prayers: giftercurrentprayers - giftnum,
+    prayers: user.prayers - giftnum,
   })
     .write();
 
