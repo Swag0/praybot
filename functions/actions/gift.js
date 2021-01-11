@@ -22,6 +22,7 @@ function GiftPrayers(userId, msg, dbHandler) {
 
   if ((Number(targetuser.ascension.split(" ").pop())) != (Number(user.ascension.split(" ").pop()))) {
     msg.reply("You can not gift to someone with a different ascension level.");
+    msg.channel.send(`**${user.username}:** ${(Number(user.ascension.split(" ").pop()))} vs **${targetuser.username}:** ${(Number(targetuser.ascension.split(" ").pop()))}`)
     return;
   }
 
