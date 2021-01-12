@@ -74,7 +74,7 @@ function Ascend(userId, msg, dbHandler) {
                                 console.log("Congratulations " + user.username + "! They have reached ascension level 10.");
                             }
 
-                            user.karma /= 2;
+                            user.karma *= 0.9;
                             user.karma = Math.round(user.karma);
 
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
