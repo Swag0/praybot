@@ -74,23 +74,28 @@ function Ascend(userId, msg, dbHandler) {
                                 console.log("Congratulations " + user.username + "! They have reached ascension level 10.");
                             }
 
+                            //Karma goes down.
                             user.karma *= 0.9;
                             user.karma = Math.round(user.karma);
 
+                            //Sets ascension
                             user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
 
+                            //Gains sacrifice cost
                             user.prayers += user.churchnum * (Config.churchPrice / 5);
                             user.prayers += user.communitynum * (Config.communityPrice / 5);
                             user.prayers += user.citynum * (Config.cityPrice / 5);
                             user.prayers += user.provincenum * (Config.provincePrice / 5);
                             user.prayers += user.countrynum * (Config.countryPrice / 5);
 
+                            //Loses buildings
                             user.churchnum = 0;
                             user.communitynum = 0;
                             user.citynum = 0;
                             user.provincenum = 0;
                             user.countrynum = 0;
 
+                            //Loses prayers
                             let remainingPrayers = Math.round((user.prayers - cost) * prayersLeft);
 
                             userstore.find({

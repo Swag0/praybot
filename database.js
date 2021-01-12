@@ -45,14 +45,6 @@ class DatabaseHandler {
                 item: "No Item",
                 ascension: "0",
                 karma: 0
-                //continentnum: 0,
-                //planetnum: 0,
-                //solarsystemnum: 0,
-                //galaxynum: 0,
-                //universenum: 0,
-                //dimensionnum: 0,
-                //multiversenum: 0,
-                //cryingbabynum: 0
             }]
         }).write();
     }
