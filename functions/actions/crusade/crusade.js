@@ -81,7 +81,7 @@ async function Crusade(userId, msg, dbHandler) {
                 difficulty = 0.5; //50 * (1)
                 reward = 10;
             } else if (arr.length < 4) {
-                crusade = "Battle of Fariksfur";
+                crusade = "Battle of Fariskur";
                 difficulty = 0.3; //30 * (2/3)
                 reward = 100;
             } else if (arr.length < 6) {

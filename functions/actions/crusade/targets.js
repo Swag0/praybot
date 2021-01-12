@@ -8,7 +8,7 @@ function Targets(msg) {
             /*
             Crusades:
             1. Crusade of the Faint-Hearted  (70% Success)
-            2. Battle of Fariksfur (30% Per Person)
+            2. Battle of Fariskur (30% Per Person)
             3. Sack of Constantinople (20% Per Person)
             4. Siege of Acre (11% Per Person)
             5. Prince's Crusade (10% Per Person)
@@ -22,7 +22,7 @@ function Targets(msg) {
         .addFields(
             { name: 'Crusade of the Faint-Hearted', value: ':person_walking:: 1  |  :white_check_mark:: 50%  |  :moneybag:: 10 '},
 
-            { name: 'Battle of Fariksfur', value: ':person_walking:: 2-3  |  :white_check_mark:: 30%  |  :moneybag:: 100 ' },
+            { name: 'Battle of Fariskur', value: ':person_walking:: 2-3  |  :white_check_mark:: 30%  |  :moneybag:: 100 ' },
 
             { name: 'Sack of Constantinople', value: ':person_walking:: 4-5  |  :white_check_mark:: 20%  |  :moneybag:: 3000 ' },
 

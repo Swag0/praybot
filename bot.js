@@ -37,28 +37,6 @@ const dbHandler = new DatabaseHandler();
 
 //FYI: Super important link https://discordjs.guide/popular-topics/embeds.html
 
-function AssignRole(member) {
-
-  console.log("Giving faithful supporters roles in their otherwise useless lives")
-  let userstore = db.get('users')
-  let usersprayers = userstore.find({ id: member.id }).value().prayers;
-  /*if (usersprayers > 9) {
-    member.addRole(GetRoleID("Prayer", member));
-  }
-  if (usersprayers > 49) {
-    member.addRole(GetRoleID("Extremist", member));
-  }
-  if (usersprayers > 99) {
-    member.addRole(GetRoleID("Priest", member));
-  }
-  if (usersprayers > 249) {
-    member.addRole(GetRoleID("Prophet", member));
-  }
-  if (usersprayers > 499) {
-    member.addRole(GetRoleID("God", member));
-  }*/
-}
-
 client.on('ready', () => {
 
   var dailyrule = new schedule.RecurrenceRule();
@@ -69,9 +47,6 @@ client.on('ready', () => {
   var rule = new schedule.RecurrenceRule();
   rule.hour = [0, 6, 12, 18];
   rule.minute = 0;
-
-
-
 
 
   console.log(`Watching ${client.guilds.cache.size} Servers.`);
