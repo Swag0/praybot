@@ -27,6 +27,8 @@ async function Crusade(userId, msg, dbHandler) {
         return;
     }
 
+    main.lastcrusadedate = Date.now();
+
     let arr = [
 
     ]

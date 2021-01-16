@@ -44,7 +44,7 @@ function Set(userId, msg, dbHandler) {
             msg.channel.send("Changed " + target.username + " last steal date to " + target.laststealdate + ".");
         } else if (msg.content.includes("crusade")) {
             target.lastcrusadedate = num;
-            msg.channel.send("Changed " + target.username + " last steal date to " + target.lastcrusadedate + ".");
+            msg.channel.send("Changed " + target.username + " last crusade date to " + target.lastcrusadedate + ".");
         } else {
             msg.reply("No specified changed time.");
         }
