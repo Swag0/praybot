@@ -29,6 +29,7 @@ const { AscendHelp } = require("./functions/actions/ascend/ascendAbilities");
 const { Convert } = require("./functions/actions/ascend/ascendReroll");
 const { ShowLeaderboard } = require("./functions/leaderboard");
 const { Karma } = require("./functions/user/karma");
+const { RandomEvent } = require("./functions/events");
 const conf = require('dotenv').config();
 const client = new Discord.Client();
 const DatabaseHandler = require("./database");
@@ -75,7 +76,11 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    //if (msg.author != 346758543489105941) return; //only for testing
+    if (msg.author != 346758543489105941) return; //only for testing
+    if (msg.content.startsWith("+") || msg.content.startsWith("†")) {
+      RandomEvent(msg.author.id, msg, dbHandler);
+    }
+    
     if (msg.content.startsWith("†username") || msg.content.startsWith("+username")) {
       SetUsername(msg.author.id, msg, dbHandler);
     }
@@ -184,7 +189,6 @@ client.on('message', msg => {
       ShowLeaderboard(msg, dbHandler);
     }
     else if (msg.content === "†BUBBLEWRAP") {
-      msg.reply("Ok but why.");
       msg.channel.send("||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||||pop||");
     }
     else if (msg.content === "†levels") {

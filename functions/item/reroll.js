@@ -57,7 +57,7 @@ function Reroll(userId, msg, dbHandler) {
             givenItem = itemChoice;
         }
 
-        msg.reply("You can afford the reroll. It costs " + cost + " prayers. Are you sure you want to reroll?")
+        msg.reply("You can afford the reroll. It costs " + cost + " prayers or a Reroll Item. Are you sure you want to reroll?")
             .then(function (message) {
 
                 message.react('✅').then(r => {
@@ -69,8 +69,14 @@ function Reroll(userId, msg, dbHandler) {
                     { max: 1, time: 10000 }).then(collected => {
                         if (collected.first().emoji.name == '✅') {
                             msg.channel.send("Ok. You rerolled and now have " + givenItem + ".");
-                            user.item = givenItem;
+                            
 
+                            if (user.item === "Reroll") {
+                                cost = 0;
+                            }
+
+                            user.item = givenItem;
+                            
                             userstore.find({
                                 id: msg.author.id
                             }).assign({
