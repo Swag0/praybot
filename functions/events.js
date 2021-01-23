@@ -18,7 +18,8 @@ function RandomEvent(userId, msg, dbHandler) {
         "Rapid Conversion", //free reroll
         "Gambling License Revoked", //gamble time up
         "Flash Flood", //Lose buildings
-        "Cthulhu Awakens" //c'thulhu is friend and slaps 1-8 other people.
+        "Cthulhu Awakens", //cthulhu is friend and slaps 1-8 other people
+        "Tithe" //takes 1% prayers and gives to praybot
     ]
 
     let userstore = dbHandler.getDB().get('users');
@@ -89,7 +90,7 @@ function RandomEvent(userId, msg, dbHandler) {
         case "Cthulhu Awakens":
             num = Math.floor(Math.random() * 7) + 1; //1-8
 
-            var arr = dbHandler.getDB().get('users').value();
+            var arr = [...dbHandler.getDB().get('users').value()];
             let array = arr;
 
             let shuffledArray = shuffle(array);
@@ -114,10 +115,10 @@ function RandomEvent(userId, msg, dbHandler) {
                     continue;
                 }
 
-                
-                
-
-                shuffledArray[i].prayers -= 5;
+                if (shuffledArray[i].prayers < 5) { //Skips if less than 5 prayers
+                    people++;
+                    continue;
+                }
 
                 slapped.push(shuffledArray[i]);
 
@@ -152,6 +153,28 @@ function RandomEvent(userId, msg, dbHandler) {
             msg.channel.send(eventEmbed);
             msg.channel.send(`Slapped People: ${text}.`)
 
+            break;
+        case "Tithe":
+            eventEmbed = new Discord.MessageEmbed()
+                .setTitle(occurence)
+                .setDescription(`<@${user.id}>, you have to pay a tithe of 1% of your prayers to Praybot.`)
+            msg.channel.send(eventEmbed);
+            
+            let tithe = user.prayers;
+            user.prayers = user.prayers * 0.99;
+            tithe = Math.round(tithe - user.prayers);
+            
+            let praybot = userstore.find({
+                id: Config.PrayBotID
+            }).value();
+
+            userstore.find({
+                id: Config.PrayBotID,
+            }).assign({
+                prayers: praybot.prayers + tithe,
+            })
+                .write();
+            
             break;
         default:
             eventEmbed = new Discord.MessageEmbed()
