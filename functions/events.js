@@ -43,7 +43,7 @@ function RandomEvent(userId, msg, dbHandler) {
     console.log("Random Event: " + user.username + ", " + occurence + ".");
 
     var eventEmbed;
-    msg.channel.send(occurence);
+    //msg.channel.send(occurence);
 
     switch (occurence) {
         case "Extra Funding":
