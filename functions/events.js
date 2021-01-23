@@ -6,7 +6,7 @@ const { IsAdmin } = require("./admin/isAdmin");
 function RandomEvent(userId, msg, dbHandler) {
 
     if ((Math.random() <= 0.9925)) { //149/150 chance of NO (99.25%)
-        if (msg.content === "†event" && isAdmin(msg)) {
+        if (msg.content === "†event" && IsAdmin(msg)) {
             console.log("Admin started an event.")
         } else {
             return;
