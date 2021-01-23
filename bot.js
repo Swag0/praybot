@@ -76,7 +76,7 @@ client.on('error', err => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
-    if (msg.author != 346758543489105941) return; //only for testing
+    //if (msg.author != 346758543489105941) return; //only for testing
     if (msg.content.startsWith("+") || msg.content.startsWith("†")) {
       RandomEvent(msg.author.id, msg, dbHandler);
     }
