@@ -1,12 +1,13 @@
 const { Config } = require("./config");
 const { CheckifUserExists } = require("../bot");
 const Discord = require("discord.js");
+const { IsAdmin } = require("./admin/isAdmin");
 
 function RandomEvent(userId, msg, dbHandler) {
 
     if ((Math.random() <= 0.9925)) { //149/150 chance of NO (99.25%)
-        if (msg.content === "†e") {
-            console.log("cheat")
+        if (msg.content === "†event" && isAdmin(msg)) {
+            console.log("Admin started an event.")
         } else {
             return;
         }
@@ -34,13 +35,12 @@ function RandomEvent(userId, msg, dbHandler) {
         return;
     }
 
-    console.log("Random Event: " + user.username + ".");
-
     let num;
 
     var occurence = possibleEvents[Math.floor(Math.random() * possibleEvents.length)];
 
-    // TODO: Make these embeds
+    // TODO: Make these embed
+    console.log("Random Event: " + user.username + ", " + occurence + ".");
 
     var eventEmbed;
     msg.channel.send(occurence);
