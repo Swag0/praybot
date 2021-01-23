@@ -232,6 +232,14 @@ function Item(userId, msg, dbHandler) {
             .addField("Use: ", "Gives you bad luck.")
             .setTimestamp()
         msg.channel.send(itemEmbed);
+    } else if (itemChoice == "Reroll") {
+        const itemEmbed = new Discord.MessageEmbed()
+            .setColor('#DC0A19')
+            .setTitle(user.username)
+            .addField("Item: ", "Reroll")
+            .addField("Use: ", "Gives you a free reroll.")
+            .setTimestamp()
+        msg.channel.send(itemEmbed);
     } else {
         const itemEmbed = new Discord.MessageEmbed()
             .setColor('#DC0A19')
