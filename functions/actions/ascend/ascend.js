@@ -68,10 +68,12 @@ function Ascend(userId, msg, dbHandler) {
                         if (collected.first().emoji.name == '✅') {
                             ascensionLevel++;
 
-
                             if (ascensionLevel === 10) {
                                 msg.reply("You are now at the highest ascension level. You have been a worthy worshipper, " + user.username + ".");
                                 console.log("Congratulations " + user.username + "! They have reached ascension level 10.");
+                                user.ascension = "Reroll Upgrade, Pray Upgrade, Attack Upgrade, Income Upgrade, Item Upgrade".concat(": ").concat(ascensionLevel);
+                            } else {
+                                user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
                             }
 
                             //Karma goes down.
@@ -79,7 +81,7 @@ function Ascend(userId, msg, dbHandler) {
                             user.karma = Math.round(user.karma);
 
                             //Sets ascension
-                            user.ascension = givenAscension.concat(": ").concat(ascensionLevel);
+                            
 
                             //Gains sacrifice cost
                             user.prayers += user.churchnum * (Config.churchPrice / 5);
@@ -105,7 +107,11 @@ function Ascend(userId, msg, dbHandler) {
                             })
                                 .write();
 
-                            msg.channel.send("Ok. You ascended and now have " + user.ascension + ".");
+                            if (user.ascension.includes("Reroll Upgrade, Pray Upgrade, Attack Upgrade, Income Upgrade, Item Upgrade: 10")) {
+                                msg.channel.send("Ok. You ascended and now have all ascensions, fully maxed out.");
+                            } else {
+                                msg.channel.send("Ok. You ascended and now have " + user.ascension + ".");
+                            }
                             console.log(user.username + " ascended into " + user.ascension);
                             return;
                         }

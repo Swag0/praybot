@@ -27,6 +27,11 @@ function Profile(userId, msg, dbHandler) {
             id: target
         }).value();
 
+        let ascendsion = player.ascension
+        if (player.ascension.includes("10")) {
+            ascendsion = "Fully Ascended: 10";
+        }
+
         const profileEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(player.username)
@@ -37,12 +42,18 @@ function Profile(userId, msg, dbHandler) {
         .addField("Provinces: ", player.provincenum)
         .addField("Countries: ", player.countrynum)
         .addField("Item: ", player.item)
-        .addField("Ascension/Level: ", player.ascension)
+        .addField("Ascension/Level: ", ascendsion)
         .setTimestamp()
         .setFooter(player.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
         msg.channel.send(profileEmbed);
 
     } else {
+
+        let ascendsion = user.ascension
+        if (user.ascension.includes("10")) {
+            ascendsion = "Fully Ascended: 10";
+        }
+
         const profileEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(user.username)
@@ -53,7 +64,7 @@ function Profile(userId, msg, dbHandler) {
         .addField("Provinces: ", user.provincenum)
         .addField("Countries: ", user.countrynum)
         .addField("Item: ", user.item)
-        .addField("Ascension/Level: ", user.ascension)
+        .addField("Ascension/Level: ", ascendsion)
         .setTimestamp()
         .setFooter(user.username, 'https://i.pinimg.com/originals/19/0f/d7/190fd7f6d541af4262516cb3d9a7bc3f.png');
     msg.channel.send(profileEmbed);
