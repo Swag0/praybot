@@ -34,6 +34,7 @@ function Item(userId, msg, dbHandler) {
         const itemListEmbed = new Discord.MessageEmbed()
             .setColor('#DC0A19')
             .setTitle("Item List")
+            .addField("Holy Grail", 'You receive 2x prayers when praying.')
             .addField("Blessed", 'You can not be cursed.')
             .addField("Godspeed", '2x Steal Value.')
             .addField("Zeus' Chosen", "Increased backfire chance when stolen from.")
